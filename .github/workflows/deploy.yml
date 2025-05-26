@@ -27,14 +27,14 @@ jobs:
           node-version: '18'
 
       # 5. 의존성 설치 & 빌드
-      #- name: Install dependencies
-      #  run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
       - name: Build
         run: npm ci && npm run build
 
-      - name: Pre-render
-        run: npm run prerender
+      #- name: Pre-render
+      #  run: npm run prerender
 
       # 6. gh-pages 브랜치에 dist/ 업로드
       - name: Deploy to GitHub Pages
