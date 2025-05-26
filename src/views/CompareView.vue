@@ -29,24 +29,26 @@
       </div>
 
       <!-- 당첨번호 영역 -->
-      <div class="d-flex align-center justify-center numbers-group">
+      <div class="d-flex align-center justify-center numbers-group" :style="{ gap: `${gap}px` }">
         <!-- 메인 6개 번호 -->
-        <div class="d-flex flex-nowrap" style="gap: 16px;">
+        <div class="d-flex flex-nowrap">
           <NumberCircle
             v-for="n in mainNumbers"
             :key="n"
             :number="n"
-            size="56"
+            :size="circleSize"
           />
         </div>
 
         <!-- 플러스 기호 -->
-        <div class="plus-sign mx-4 font-weight-bold display-1">
-          +
-        </div>
+        <div
+          class="plus-sign font-weight-bold"
+          :class="`mx-${mobile ? 2 : 4}`"
+          :style="{ fontSize: `${mobile ? 24 : 32}px` }"
+          >+</div>
 
         <!-- 보너스 번호 -->
-        <NumberCircle :number="result.bonus" size="56" />
+        <NumberCircle :number="result.bonus" :size="circleSize" />
       </div>
     </v-sheet>
   </v-container>
@@ -54,6 +56,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
+import { useDisplay } from 'vuetify'
 import NumberCircle from '../components/NumberCircle.vue'
 import lottoResults from '../assets/lotto_numbers_en.json'
 
@@ -61,6 +64,14 @@ export default defineComponent({
   name: 'CompareView',
   components: { NumberCircle },
   setup() {
+    // 반응형용 Vuetify Display 유틸
+    const { mobile } = useDisplay()
+    
+    // 모바일이면 40px, 아니면 56px
+    const circleSize = computed(() => mobile.value ? 40 : 56)
+    // 간격도 모바일엔 8px, 데스크탑엔 16px
+    const gap = computed(() => mobile.value ? 8 : 16)
+
     // 모든 회차 리스트 (숫자 배열)
     const rounds = lottoResults.map(r => r.round)
 
@@ -94,19 +105,16 @@ export default defineComponent({
       result,
       mainNumbers,
       formattedDate,
+      mobile,
+      circleSize,
+      gap,
     }
   },
 })
 </script>
 
 <style scoped>
-.compare-container {
-  /* background-color: #f5f5f5; */
-  /* min-height: calc(100vh - 64px); */
-}
-.compare-sheet {
-  /* background-color: white; */
-}
+
 .plus-sign {
   line-height: 1;
 }

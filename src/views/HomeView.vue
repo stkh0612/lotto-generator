@@ -2,16 +2,18 @@
 <template>
   <v-container class="home-view" fluid>
     <!-- 번호 생성 & 저장 영역 -->
-    <v-row justify="center" class="mt-8 mb-8" no-gutters>
-      <v-col
-        cols="auto"
-        v-for="num in numbers"
+    <div
+     class="d-flex justify-center"
+     :style="{ gap }"
+    >
+      <NumberCircle
+         v-for="num in numbers"
         :key="num"
-        class="px-2"
-      >
-        <NumberCircle :number="num" size="56" />
-      </v-col>
-    </v-row>
+        :number="num"
+        :size="circleSize"
+      />
+    </div>
+    
     <!-- ② 액션 버튼 영역: v-col + px-2 -->
     <v-row justify="center" class="mt-4 mb-8" no-gutters>
       <v-col cols="auto" class="px-2">
@@ -36,28 +38,30 @@
     <!-- ↓ 저장된 번호 리스트 (최대 5게임) 표시 ↓ -->
     <div v-if="savedNumbers.length" class="saved-section mt-8">
       <div class="text-h6 mb-4">저장된 번호 (최대 5게임)</div>
-      <v-row
+
+      <div
         v-for="(entry, idx) in savedNumbers"
         :key="idx"
-        class="mb-6"
-        align="center"
-        justify="center"
+        class="d-flex justify-center flex-nowrap mb-6"
+        :style="{ gap }"
       >
-        <!-- 저장된 6개 번호 -->
-        <v-col cols="auto" v-for="n in entry.numbers" :key="n">
-          <NumberCircle :number="n" size="45" />
-        </v-col>
-        <!-- 저장 일시 (간단 포맷) -->
+        <NumberCircle
+          v-for="n in entry.numbers"
+          :key="n"
+          :number="n"
+          :size="circleSize"
+        />
         <span class="ml-4 grey--text text-caption">
           {{ formatDate(entry.date) }}
         </span>
-      </v-row>
+      </div>
     </div>
   </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
+import { defineComponent, ref, computed, onMounted } from 'vue'
+import { useDisplay } from 'vuetify'
 import { onBeforeRouteLeave } from 'vue-router'
 import { useLottoStore, LottoEntry } from '../store'
 
@@ -71,6 +75,12 @@ export default defineComponent({
   name: 'HomeView',
   components: { NumberCircle, AdBanner },
   setup() {
+    const { mobile } = useDisplay()
+    // 모바일이면 40px, 아니면 56px
+    const circleSize = computed(() => mobile.value ? 40 : 56)
+    // 번호 사이 간격: 모바일 8px, 데스크탑 16px
+    const gap = computed(() => mobile.value ? '8px' : '16px')
+
     const lottoStore = useLottoStore()
     const numbers = ref<number[]>([])
 
@@ -138,7 +148,9 @@ export default defineComponent({
       generate,
       save,
       formatDate,
-      savedNumbers: lottoStore.savedNumbers
+      savedNumbers: lottoStore.savedNumbers,
+      circleSize,
+      gap,
       
     }
   }

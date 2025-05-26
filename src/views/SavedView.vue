@@ -3,44 +3,44 @@
   <v-container fluid class="saved-container py-6">
     <div ref="exportContainer" class="export-area">
         <v-sheet
-        ref="exportContainer"
-        class="mx-auto pa-6"
-        max-width="600"
-        elevation="1"
-        rounded
-        color="surface"
+          class="mx-auto pa-6"
+          max-width="600"
+          elevation="1"
+          rounded
+          color="surface"
         >
         <div class="text-h5 font-weight-bold mb-4">저장된 번호</div>
 
         <!-- 저장된 번호가 있을 때 -->
-        <v-row v-if="savedNumbers.length > 0" dense>
-            <v-col
-            cols="12"
-            v-for="(entry, idx) in savedNumbers"
-            :key="idx"
-            class="mb-4"
-            >
-            <v-sheet
-                class="pa-4 d-flex align-center"
-                elevation="0"
-                rounded
-                color="background"
-            >
-                <div class="d-flex flex-nowrap" style="gap: 8px;">
-                <NumberCircle
-                    v-for="n in entry.numbers"
-                    :key="n"
-                    :number="n"
-                    size="40"
-                />
-                </div>
-                <v-spacer />
-                <div class="grey--text text-caption">
-                {{ formatDate(entry.date) }}
-                </div>
-            </v-sheet>
-            </v-col>
-        </v-row>
+        
+        <div v-if="savedNumbers.length > 0">
+         <div
+           v-for="(entry, idx) in savedNumbers"
+           :key="idx"
+           class="mb-6"
+         >
+           <v-sheet
+             class="pa-4"
+             elevation="0"
+             rounded
+             color="background"
+           >
+             <!-- ① 번호만 한 줄 flex -->
+             <div class="d-flex flex-nowrap justify-center" style="gap: 8px;">
+               <NumberCircle
+                 v-for="n in entry.numbers"
+                 :key="n"
+                 :number="n"
+                 size="40"
+               />
+             </div>
+             <!-- ② 날짜는 새로운 줄로 -->
+             <div class="grey--text text-caption mt-2 text-center">
+               {{ formatDate(entry.date) }}
+             </div>
+           </v-sheet>
+         </div>
+       </div>
 
         <!-- 저장된 번호가 없을 때 -->
         <div v-else class="text-center grey--text">
@@ -59,13 +59,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import html2canvas from 'html2canvas'
 import NumberCircle from '../components/NumberCircle.vue'
 import { useLottoStore, LottoEntry } from '../store'
 
 const lottoStore = useLottoStore()
+// 페이지 진입할 때 로컬스토리지에서 불러오기
+onMounted(() => {
+  lottoStore.load()
+})
+
 const savedNumbers = computed(() => lottoStore.savedNumbers as LottoEntry[])
+console.log("savedNumbers>>>>", savedNumbers.value.length, savedNumbers.value);
 
 function formatDate(iso: string): string {
   const d = new Date(iso)
