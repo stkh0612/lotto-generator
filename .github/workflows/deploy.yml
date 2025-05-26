@@ -1,32 +1,41 @@
-# .github/workflows/deploy.yml
-name: Deploy to GitHub Pages
-
+# 1. main 브랜치에 push 될 때마다 실행
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+
+# 2. GitHub Token 권한 확대 (Pages에 쓰기 허용)
+permissions:
+  contents: write     # repo 컨텐츠 읽기/쓰기
+  pages: write        # GitHub Pages 권한
+  id-token: write     # OIDC 토큰 (optional)
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout source
+      # 3. 코드 체크아웃 (토큰은 action-gh-pages에서 직접 사용하므로 false)
+      - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
+      # 4. Node.js 설치
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
+      # 5. 의존성 설치 & 빌드
       - name: Install dependencies
         run: npm ci
 
-      - name: Build project
+      - name: Build
         run: npm run build
 
-      - name: Deploy to gh-pages
+      # 6. gh-pages 브랜치에 dist/ 업로드
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
           publish_dir: ./dist
