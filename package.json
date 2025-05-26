@@ -8,7 +8,7 @@
     "build": "vite build",
     "predeploy": "npm run build",
     "preview": "vite preview --port 5000",
-    "prerender": "node prerender.js",
+    "prerender": "node prerender.cjs",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

@@ -1,16 +1,16 @@
 // prerender.js (ESM)
 // ① node 18+ ESM에서 dirname 얻기
-import { fileURLToPath } from 'url'
-import path from 'path'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname  = path.dirname(__filename)
+// import { fileURLToPath } from 'url'
+// import path from 'path'
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname  = path.dirname(__filename)
 
-import fs       from 'fs'
-//import path     from 'path'
-import http     from 'http'
-import serve    from 'serve-static'
-import finalh   from 'finalhandler'
-import puppeteer from 'puppeteer'
+const fs       = require('fs')
+const path     = require('path')
+const http     = require('http')
+const serve    = require('serve-static')
+const finalh   = require('finalhandler')
+const puppeteer = require('puppeteer')
 
 const DIST = path.resolve(__dirname, 'dist')
 // 1) serve dist/ on http://localhost:5000
