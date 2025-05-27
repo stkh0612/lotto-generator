@@ -71,7 +71,7 @@ import AdBanner from '../components/AdBanner.vue'
 
 import axios from 'axios'
 
-const webhook = import.meta.env.VITE_SHEET_WEBHOOK
+const webhook = "https://script.google.com/macros/s/AKfycbz8polqd-f5bRPmqBqlGIzMRoLJ7Eyqx3CBqIf1UPyURC4HgA4gDsEiKfUv67LGORguzA/exec"
 
 // 기존 당첨 결과 불러오기
 import lottoResults from '../assets/lotto_numbers_en.json'
