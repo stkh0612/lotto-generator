@@ -71,7 +71,7 @@ import AdBanner from '../components/AdBanner.vue'
 
 import axios from 'axios'
 
-const webhook = "https://superlative-hamster-2861c7.netlify.app/.netlify/functions/proxy"
+const webhook = "https://lottomate.life/.netlify/functions/proxy"
 
 // 기존 당첨 결과 불러오기
 import lottoResults from '../assets/lotto_numbers_en.json'
