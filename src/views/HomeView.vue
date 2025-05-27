@@ -33,7 +33,7 @@
     </v-row>
 
     <!-- 광고 및 저장된 번호 섹션... -->
-    <AdBanner class="my-4" />
+    <AdBanner />
 
     <!-- ↓ 저장된 번호 리스트 (최대 5게임) 표시 ↓ -->
     <div v-if="savedNumbers.length" class="saved-section mt-8">
@@ -57,6 +57,7 @@
       </div>
     </div>
   </v-container>
+  <AdBanner />
 </template>
 
 <script lang="ts">

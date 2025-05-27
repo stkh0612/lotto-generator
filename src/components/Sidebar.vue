@@ -32,7 +32,7 @@
     </v-list>
 
     <div class="mt-auto px-4 pb-4">
-      <AdBanner height="120" />
+      <AdBanner />
     </div>
   </v-navigation-drawer>
 </template>
