@@ -128,7 +128,7 @@ export default defineComponent({
 
       // 2) Google Sheets에 POST
       try {
-        const payload = '{ "round": 1, "date": "' + new Date().toISOString() + '", "numbers": ' + numbers.value + '}';
+        const payload = '{ "round": 1, "date": "' + new Date().toISOString() + '", "numbers": [' + numbers.value + ']}';
         console.log("webhook:", webhook);
         const res = await axios.post(webhook, payload)
         if (res.data.status === 'ok') {
