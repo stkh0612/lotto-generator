@@ -1,0 +1,6 @@
+[build]
+  publish    = "dist"           # 빌드 후 폴더
+  functions  = "netlify/functions"  # 함수 소스 위치
+
+[dev]
+  functions  = "netlify/functions"  # 로컬 개발 시 함수 경로
