@@ -9,7 +9,7 @@
           rounded
           color="surface"
         >
-        <div class="text-h5 font-weight-bold mb-4">저장된 번호</div>
+        <div class="text-h5 font-weight-bold mb-3">저장된 번호</div>
 
         <!-- 저장된 번호가 있을 때 -->
         
@@ -17,7 +17,7 @@
          <div
            v-for="(entry, idx) in savedNumbers"
            :key="idx"
-           class="mb-6"
+           class="mb-1"
          >
            <v-sheet
              class="pa-4"

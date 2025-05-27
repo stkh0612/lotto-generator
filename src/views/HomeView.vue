@@ -69,6 +69,10 @@ import { useLottoStore, LottoEntry } from '../store'
 import NumberCircle from '../components/NumberCircle.vue'
 import AdBanner from '../components/AdBanner.vue'
 
+import axios from 'axios'
+
+const webhook = import.meta.env.VITE_SHEET_WEBHOOK
+
 // 기존 당첨 결과 불러오기
 import lottoResults from '../assets/lotto_numbers_en.json'
 
@@ -119,8 +123,29 @@ export default defineComponent({
       } while (isDuplicate)
     }
 
-    function save() {
+    async function save() {
       lottoStore.save(numbers.value)
+
+      // 2) Google Sheets에 POST
+      try {
+        const payload = {
+          round: 1,
+          date:  new Date().toISOString(),
+          numbers: numbers.value,   // [n1, n2, n3, n4, n5, n6]
+        }
+        console.log("webhook:", webhook);
+        const res = await axios.post(webhook, payload)
+        if (res.data.status === 'ok') {
+          // 스낵바: “Google Sheets 저장 완료”
+          console.log('Google Sheets 저장 완료:', res.data.message);
+        } else {
+          // 스낵바: “저장 실패: ” + res.data.message
+          console.error('저장 실패:', res.data.message);
+        }
+      } catch (err) {
+        console.error(err)
+        // 스낵바: “Google Sheets 저장 중 오류 발생”
+      }
     }
 
     // 저장된 번호를 리액티브로 가져옴
