@@ -23,7 +23,7 @@ exports.handler = async function(event, context) {
 
   // Netlify가 event.body를 문자열로 넘겨줍니다
   const payload = event.body
-  const webhook = VITE_SHEET_WEBHOOK//"https://script.google.com/macros/s/AKfycbz8polqd-f5bRPmqBqlGIzMRoLJ7Eyqx3CBqIf1UPyURC4HgA4gDsEiKfUv67LGORguzA/exec"
+  const webhook = process.env.VITE_SHEET_WEBHOOK//"https://script.google.com/macros/s/AKfycbz8polqd-f5bRPmqBqlGIzMRoLJ7Eyqx3CBqIf1UPyURC4HgA4gDsEiKfUv67LGORguzA/exec"
   try {
     // 3) 실제 Google Apps Script Web App 호출
     const res = await fetch(webhook,
