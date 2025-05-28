@@ -1,8 +1,6 @@
 <!-- src/views/CompareView.vue -->
 <template>
   <v-container fluid class="compare-container py-6">
-    
-
     <v-sheet
       class="compare-sheet mx-auto px-8 py-6"
       max-width="600"

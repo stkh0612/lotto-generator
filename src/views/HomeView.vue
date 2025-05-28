@@ -1,9 +1,6 @@
 <!-- src/views/HomeView.vue -->
 <template>
   <v-container class="home-view" fluid>
-
-    
-
     <!-- 1) 번호 생성 & 저장 영역 -->
     <div
       class="d-flex justify-center"
@@ -58,7 +55,7 @@
     </div>
 
     <!-- 하단 광고 -->
-    <AdBanner />
+    <!-- <AdBanner /> -->
 
     <!-- 0) 사용 가이드 섹션 -->
     <v-alert
@@ -86,7 +83,7 @@ import { onBeforeRouteLeave } from 'vue-router'
 import { useLottoStore, LottoEntry } from '../store'
 
 import NumberCircle from '../components/NumberCircle.vue'
-import AdBanner from '../components/AdBanner.vue'
+// import AdBanner from '../components/AdBanner.vue'
 
 import axios from 'axios'
 const webhook = "https://lottomate.life/.netlify/functions/proxy"
@@ -96,7 +93,8 @@ import lottoResults from '../assets/lotto_numbers_en.json'
 
 export default defineComponent({
   name: 'HomeView',
-  components: { NumberCircle, AdBanner },
+  // components: { NumberCircle, AdBanner },
+  components: { NumberCircle },
   setup() {
     const { mobile } = useDisplay()
     const circleSize = computed(() => mobile.value ? 40 : 56)
