@@ -1,6 +1,8 @@
 <!-- src/views/CompareView.vue -->
 <template>
   <v-container fluid class="compare-container py-6">
+    
+
     <v-sheet
       class="compare-sheet mx-auto px-8 py-6"
       max-width="600"
@@ -51,6 +53,23 @@
         <NumberCircle :number="result.bonus" :size="circleSize" />
       </div>
     </v-sheet>
+
+    <!-- 0) 로또 규칙 안내 -->
+    <v-alert
+      type="info"
+      colored-border
+      elevation="1"
+      class="mt-8"
+    >
+      <div class="text-h6 font-weight-medium mb-2">로또 규칙 안내</div>
+      <ul class="pl-4" style="line-height:1.6; text-align:left;">
+        <li>1부터 45까지의 숫자 중 서로 중복되지 않는 6개를 고릅니다.</li>
+        <li>6개의 기본 당첨 번호를 오름차순으로 정렬해 표시합니다.</li>
+        <li>추가로 보너스 번호 1개가 무작위로 선택됩니다.</li>
+        <li>당첨 등수는 맞춘 기본 번호 개수와 보너스 번호 일치 여부에 따라 결정됩니다.</li>
+        <li>예) 6개 일치 → 1등, 5개+보너스 → 2등, 5개 → 3등, 4개 → 4등, 3개 → 5등</li>
+      </ul>
+    </v-alert>
   </v-container>
 </template>
 

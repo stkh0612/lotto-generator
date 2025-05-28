@@ -1,20 +1,23 @@
 <!-- src/views/HomeView.vue -->
 <template>
   <v-container class="home-view" fluid>
-    <!-- 번호 생성 & 저장 영역 -->
+
+    
+
+    <!-- 1) 번호 생성 & 저장 영역 -->
     <div
-     class="d-flex justify-center"
-     :style="{ gap }"
+      class="d-flex justify-center"
+      :style="{ gap }"
     >
       <NumberCircle
-         v-for="num in numbers"
+        v-for="num in numbers"
         :key="num"
         :number="num"
         :size="circleSize"
       />
     </div>
     
-    <!-- ② 액션 버튼 영역: v-col + px-2 -->
+    <!-- 2) 액션 버튼 영역 -->
     <v-row justify="center" class="mt-4 mb-8" no-gutters>
       <v-col cols="auto" class="px-2">
         <v-btn color="primary" @click="generate">
@@ -30,12 +33,9 @@
           번호 저장
         </v-btn>
       </v-col>
-    </v-row>
+    </v-row>   
 
-    <!-- 광고 및 저장된 번호 섹션... -->
-    <AdBanner />
-
-    <!-- ↓ 저장된 번호 리스트 (최대 5게임) 표시 ↓ -->
+    <!-- 4) 저장된 번호 리스트 (최대 5게임) -->
     <div v-if="savedNumbers.length" class="saved-section mt-8">
       <div class="text-h6 mb-4">저장된 번호 (최대 5게임)</div>
 
@@ -56,8 +56,27 @@
         </span>
       </div>
     </div>
+
+    <!-- 하단 광고 -->
+    <AdBanner />
+
+    <!-- 0) 사용 가이드 섹션 -->
+    <v-alert
+      type="info"
+      colored-border
+      elevation="1"
+      class="mb-5"
+    >
+      <div class="text-h6 font-weight-medium mb-2">사용 가이드</div>
+      <ul class="pl-4" style="line-height:1.6; text-align: left;">
+        <li>“번호 생성” 버튼을 눌러 6개의 로또 번호를 랜덤하게 생성합니다.</li>
+        <li>생성된 번호가 지난 실제 당첨번호와 완전히 일치하면 자동으로 다시 생성됩니다.</li>
+        <li>“번호 저장” 버튼을 눌러 최대 5게임까지 로컬스토리지에 저장합니다.</li>
+        <li>저장된 번호는 화면 하단 “저장된 번호” 섹션에서 조회할 수 있습니다.</li>
+        <li>“PNG로 저장” 버튼을 눌러 저장된 번호 목록을 이미지로 다운로드할 수 있습니다.</li>
+      </ul>
+    </v-alert>
   </v-container>
-  <AdBanner />
 </template>
 
 <script lang="ts">
@@ -70,10 +89,9 @@ import NumberCircle from '../components/NumberCircle.vue'
 import AdBanner from '../components/AdBanner.vue'
 
 import axios from 'axios'
-
 const webhook = "https://lottomate.life/.netlify/functions/proxy"
 
-// 기존 당첨 결과 불러오기
+// 과거 당첨결과 데이터
 import lottoResults from '../assets/lotto_numbers_en.json'
 
 export default defineComponent({
@@ -81,9 +99,7 @@ export default defineComponent({
   components: { NumberCircle, AdBanner },
   setup() {
     const { mobile } = useDisplay()
-    // 모바일이면 40px, 아니면 56px
     const circleSize = computed(() => mobile.value ? 40 : 56)
-    // 번호 사이 간격: 모바일 8px, 데스크탑 16px
     const gap = computed(() => mobile.value ? '8px' : '16px')
 
     const lottoStore = useLottoStore()
@@ -91,33 +107,21 @@ export default defineComponent({
 
     function generate() {
       let isDuplicate: boolean
-
       do {
-        // 1~45 풀 생성
         const pool = Array.from({ length: 45 }, (_, i) => i + 1)
         const pick: number[] = []
-
-        // 6개 뽑기
         while (pick.length < 6) {
           const idx = Math.floor(Math.random() * pool.length)
           pick.push(pool.splice(idx, 1)[0])
         }
-
-        // 오름차순 정렬
         pick.sort((a, b) => a - b)
         numbers.value = pick
 
-        // 기존 당첨 번호 중 완전히 일치하는 조합이 있는지
-        isDuplicate = lottoResults.some((entry: { num1: any; num2: any; num3: any; num4: any; num5: any; num6: any }) => {
+        isDuplicate = lottoResults.some((e: any) => {
           const past = [
-            entry.num1,
-            entry.num2,
-            entry.num3,
-            entry.num4,
-            entry.num5,
-            entry.num6,
+            e.num1, e.num2, e.num3,
+            e.num4, e.num5, e.num6
           ].sort((a, b) => a - b)
-          // 모든 인덱스의 값이 동일해야 true
           return past.every((n, i) => n === pick[i])
         })
       } while (isDuplicate)
@@ -125,29 +129,26 @@ export default defineComponent({
 
     async function save() {
       lottoStore.save(numbers.value)
-
-      // 2) Google Sheets에 POST
       try {
-        const payload = '{ "round": 1, "date": "' + new Date().toISOString() + '", "numbers": [' + numbers.value + ']}';
-        console.log("webhook:", webhook);
+        const payload = JSON.stringify({
+          round: 1,
+          date: new Date().toISOString(),
+          numbers: numbers.value
+        })
         const res = await axios.post(webhook, payload)
-        if (res.data.status === 'ok') {
-          // 스낵바: “Google Sheets 저장 완료”
-          console.log('Google Sheets 저장 완료:', res.data.message);
+        const data = res.data as { status: string; message?: string }
+        if (data.status === 'ok') {
+          console.log('Google Sheets 저장 완료')
         } else {
-          // 스낵바: “저장 실패: ” + res.data.message
-          console.error('저장 실패:', res.data.message);
+          console.error('저장 실패:', data.message)
         }
       } catch (err) {
-        console.error(err)
-        // 스낵바: “Google Sheets 저장 중 오류 발생”
+        console.error('Google Sheets 저장 중 오류 발생', err)
       }
     }
 
-    // 저장된 번호를 리액티브로 가져옴
     const savedNumbers = lottoStore.savedNumbers as LottoEntry[]
 
-    // 날짜를 "YYYY.MM.DD HH:MM" 형태로 포맷
     function formatDate(iso: string) {
       const d = new Date(iso)
       const y = d.getFullYear()
@@ -159,21 +160,16 @@ export default defineComponent({
     }
 
     onMounted(generate)
-
-    // 뷰를 벗어날 때 state만 클리어 (로컬스토리지는 유지)
-    onBeforeRouteLeave(() => {
-      lottoStore.clear()
-    })
+    onBeforeRouteLeave(() => lottoStore.clear())
 
     return {
       numbers,
       generate,
       save,
       formatDate,
-      savedNumbers: lottoStore.savedNumbers,
+      savedNumbers,
       circleSize,
-      gap,
-      
+      gap
     }
   }
 })
@@ -184,7 +180,6 @@ export default defineComponent({
   text-align: center;
 }
 
-/* 저장된 번호 섹션 스타일 */
 .saved-section {
   max-width: 600px;
   margin: 0 auto;

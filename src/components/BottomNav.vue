@@ -17,16 +17,16 @@
       </span>
     </v-btn>
 
-    <!-- <v-btn
+    <v-btn
       value="Saved"
       :to="{ name: 'Saved' }"
       replace
     >
       <span class="d-flex flex-column align-center">
         <v-icon>mdi-content-save</v-icon>
-        <span class="caption">저장</span>
+        <span class="caption">저장된 번호</span>
       </span>
-    </v-btn> -->
+    </v-btn>
 
     <v-btn
       value="Compare"
