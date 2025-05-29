@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="36"
+  height="36"
+  viewBox="0 0 64 64"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-label="행운의 네 잎 클로버 아이콘"
+>
+  <!-- 잎사귀들 -->
+  <g>
+    <!-- 위쪽 잎: 노란색 -->
+    <path
+      fill="#FFEB3B"
+      d="M32 2
+         C22 2, 2 22, 32 42
+         C62 22, 42 2, 32 2
+         Z"
+    />
+    <!-- 오른쪽 잎: 파란색 -->
+    <path
+      fill="#2196F3"
+      d="M62 32
+         C62 22, 42 2, 22 32
+         C42 62, 62 42, 62 32
+         Z"
+    />
+    <!-- 아래쪽 잎: 빨간색 -->
+    <path
+      fill="#F44336"
+      d="M32 62
+         C22 62, 2 42, 32 22
+         C62 42, 42 62, 32 62
+         Z"
+    />
+    <!-- 왼쪽 잎: 녹색 -->
+    <path
+      fill="#4CAF50"
+      d="M2 32
+         C2 22, 22 2, 42 32
+         C22 62, 2 42, 2 32
+         Z"
+    />
+  </g>
+
+  <!-- 줄기 -->
+  <path
+    d="M32 42
+       L32 64"
+    stroke="#2E7D32"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+</svg>
