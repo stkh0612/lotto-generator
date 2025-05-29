@@ -54,9 +54,6 @@
       </div>
     </div>
 
-    <!-- 하단 광고 -->
-    <!-- <AdBanner /> -->
-
     <!-- 0) 사용 가이드 섹션 -->
     <v-alert
       type="info"
@@ -73,6 +70,7 @@
         <li>“PNG로 저장” 버튼을 눌러 저장된 번호 목록을 이미지로 다운로드할 수 있습니다.</li>
       </ul>
     </v-alert>
+
   </v-container>
 </template>
 
@@ -83,7 +81,7 @@ import { onBeforeRouteLeave } from 'vue-router'
 import { useLottoStore, LottoEntry } from '../store'
 
 import NumberCircle from '../components/NumberCircle.vue'
-// import AdBanner from '../components/AdBanner.vue'
+
 
 import axios from 'axios'
 const webhook = "https://lottomate.life/.netlify/functions/proxy"
@@ -93,7 +91,6 @@ import lottoResults from '../assets/lotto_numbers_en.json'
 
 export default defineComponent({
   name: 'HomeView',
-  // components: { NumberCircle, AdBanner },
   components: { NumberCircle },
   setup() {
     const { mobile } = useDisplay()

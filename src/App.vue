@@ -5,7 +5,6 @@
     <v-main>
       <AppBar @toggle-drawer="drawer = !drawer" @show-info="onShowInfo" />
       <router-view />
-      <AdBanner class="my-4" />
     </v-main>
     <BottomNav />
   </v-app>
@@ -15,7 +14,7 @@
 import { ref } from 'vue'
 import Sidebar from './components/Sidebar.vue'
 import AppBar from './components/AppBar.vue'
-import AdBanner from './components/AdBanner.vue'
+
 import BottomNav from './components/BottomNav.vue'
 
 // 사이드바 열림/닫힘 상태
