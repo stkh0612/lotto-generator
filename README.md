@@ -1,2 +1,2 @@
 # lotto-generator
-로또번호 생성식
+로또 번호 생성기
