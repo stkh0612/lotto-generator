@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/lotto_generator'
+
+set_count = (ARGV[0] || 1).to_i
+count = ENV['COUNT'] ? ENV['COUNT'].to_i : LottoGenerator::DEFAULT_COUNT
+range_max = ENV['RANGE_MAX'] ? ENV['RANGE_MAX'].to_i : LottoGenerator::DEFAULT_RANGE.max
+seed = ENV['SEED'] ? ENV['SEED'].to_i : nil
+
+range = 1..range_max
+
+generator = LottoGenerator.new(count: count, range: range, seed: seed)
+set_count.times do
+  puts generator.generate.join(', ')
+end
