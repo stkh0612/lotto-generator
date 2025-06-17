@@ -48,7 +48,7 @@ export default defineComponent({
   setup() {
     const infoDialog = ref(false)
     // 실제 사용하실 이메일 주소로 교체하세요
-    const email = 'superman612@kakao.com'
+    const email = 'superman612@outlook.com'
     const theme = useTheme()
     // 현재 테마 이름(light/dark)
     const currentTheme = computed(() => theme.global.name.value)
