@@ -6,10 +6,11 @@ set_count = (ARGV[0] || 1).to_i
 count = ENV['COUNT'] ? ENV['COUNT'].to_i : LottoGenerator::DEFAULT_COUNT
 range_max = ENV['RANGE_MAX'] ? ENV['RANGE_MAX'].to_i : LottoGenerator::DEFAULT_RANGE.max
 seed = ENV['SEED'] ? ENV['SEED'].to_i : nil
+language = ENV['LANGUAGE'] || 'en'
 
 range = 1..range_max
 
-generator = LottoGenerator.new(count: count, range: range, seed: seed)
+generator = LottoGenerator.new(count: count, range: range, seed: seed, language: language)
 set_count.times do
   puts generator.generate.join(', ')
 end
