@@ -40,6 +40,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useDisplay } from 'vuetify'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{ modelValue: boolean }>()
 const emit = defineEmits<{
@@ -54,10 +55,11 @@ const drawer = computed({
 const { mobile } = useDisplay()
 const isMobile = computed(() => mobile.value)
 
+const { t } = useI18n()
 const items = ref([
-  { title: '홈',         icon: 'mdi-home',         to: '/' },
-  { title: '저장된 번호', icon: 'mdi-content-save', to: '/saved' },
-  { title: '당첨 번호 확인',   icon: 'mdi-magnify',      to: '/compare' },
+  { title: t('navHome'),         icon: 'mdi-home',         to: '/' },
+  { title: t('navSaved'), icon: 'mdi-content-save', to: '/saved' },
+  { title: t('navCompareLong'),   icon: 'mdi-magnify',      to: '/compare' },
 ])
 
 function onItemClick() {

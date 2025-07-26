@@ -18,7 +18,7 @@
     <v-row justify="center" class="mt-4 mb-8" no-gutters>
       <v-col cols="auto" class="px-2">
         <v-btn color="primary" @click="generate">
-          번호 생성
+          {{ t('generateBtn') }}
         </v-btn>
       </v-col>
       <v-col cols="auto" class="px-2">
@@ -27,14 +27,14 @@
           :disabled="numbers.length < 6"
           @click="save"
         >
-          번호 저장
+          {{ t('saveBtn') }}
         </v-btn>
       </v-col>
     </v-row>   
 
     <!-- 4) 저장된 번호 리스트 (최대 5게임) -->
     <div v-if="savedNumbers.length" class="saved-section mt-8">
-      <div class="text-h6 mb-4">저장된 번호 (최대 5게임)</div>
+      <div class="text-h6 mb-4">{{ t('savedTitle') }}</div>
 
       <div
         v-for="(entry, idx) in savedNumbers"
@@ -61,13 +61,9 @@
       elevation="1"
       class="mb-5"
     >
-      <div class="text-h6 font-weight-medium mb-2">사용 가이드</div>
+      <div class="text-h6 font-weight-medium mb-2">{{ t('guideTitle') }}</div>
       <ul class="pl-4" style="line-height:1.6; text-align: left;">
-        <li>“번호 생성” 버튼을 눌러 6개의 로또 번호를 랜덤하게 생성합니다.</li>
-        <li>생성된 번호가 지난 실제 당첨번호와 완전히 일치하면 자동으로 다시 생성됩니다.</li>
-        <li>“번호 저장” 버튼을 눌러 최대 5게임까지 로컬스토리지에 저장합니다.</li>
-        <li>저장된 번호는 화면 하단 “저장된 번호” 섹션에서 조회할 수 있습니다.</li>
-        <li>“PNG로 저장” 버튼을 눌러 저장된 번호 목록을 이미지로 다운로드할 수 있습니다.</li>
+        <li v-for="(item, i) in tm('guideList')" :key="i">{{ item }}</li>
       </ul>
     </v-alert>
 
@@ -76,6 +72,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useDisplay } from 'vuetify'
 import { onBeforeRouteLeave } from 'vue-router'
 import { useLottoStore, LottoEntry } from '../store'
@@ -93,6 +90,7 @@ export default defineComponent({
   name: 'HomeView',
   components: { NumberCircle },
   setup() {
+    const { t, tm } = useI18n()
     const { mobile } = useDisplay()
     const circleSize = computed(() => mobile.value ? 40 : 56)
     const gap = computed(() => mobile.value ? '8px' : '16px')
@@ -157,6 +155,7 @@ export default defineComponent({
     onMounted(generate)
     onBeforeRouteLeave(() => lottoStore.clear())
 
+
     return {
       numbers,
       generate,
@@ -164,7 +163,9 @@ export default defineComponent({
       formatDate,
       savedNumbers,
       circleSize,
-      gap
+      gap,
+      t,
+      tm,
     }
   }
 })

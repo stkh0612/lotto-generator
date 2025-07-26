@@ -13,7 +13,7 @@
     >
       <span class="d-flex flex-column align-center">
         <v-icon>mdi-home</v-icon>
-        <span class="caption">홈</span>
+        <span class="caption">{{ t('navHome') }}</span>
       </span>
     </v-btn>
 
@@ -24,7 +24,7 @@
     >
       <span class="d-flex flex-column align-center">
         <v-icon>mdi-content-save</v-icon>
-        <span class="caption">저장된 번호</span>
+        <span class="caption">{{ t('navSaved') }}</span>
       </span>
     </v-btn>
 
@@ -35,7 +35,7 @@
     >
       <span class="d-flex flex-column align-center">
         <v-icon>mdi-magnify</v-icon>
-        <span class="caption">당첨확인</span>
+        <span class="caption">{{ t('navCompare') }}</span>
       </span>
     </v-btn>
   </v-bottom-navigation>
@@ -43,6 +43,9 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+// ...existing code...
+const { t } = useI18n()
 import { useRoute, useRouter } from 'vue-router'
 
 // 현재 라우트 & 라우터 인스턴스 가져오기

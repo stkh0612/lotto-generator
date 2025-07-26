@@ -1,0 +1,20 @@
+{
+  "appTitle": "LottoMate – Simple Lotto Number Generator",
+  "info": "Show app info!",
+  "guideTitle": "User Guide",
+  "guideList": [
+    "Press the 'Generate Numbers' button to randomly generate 6 lotto numbers.",
+    "If the generated numbers exactly match any past winning numbers, new numbers will be generated automatically.",
+    "Press the 'Save Numbers' button to save up to 5 games in local storage.",
+    "Saved numbers can be viewed in the 'Saved Numbers' section at the bottom of the screen.",
+    "Press the 'Save as PNG' button to download the saved numbers list as an image."
+  ],
+  "generateBtn": "Generate Numbers",
+  "saveBtn": "Save Numbers",
+  "savedTitle": "Saved Numbers (Up to 5 Games)"
+  ,
+  "navHome": "Home",
+  "navSaved": "Saved Numbers",
+  "navCompare": "Check Results",
+  "navCompareLong": "Check Winning Numbers"
+}
