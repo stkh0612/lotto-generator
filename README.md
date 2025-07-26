@@ -16,9 +16,11 @@ You can customize the generation with environment variables:
 - `COUNT` - how many numbers in each set (default: 6)
 - `RANGE_MAX` - maximum number in the range starting from 1 (default: 45)
 - `SEED` - seed value for reproducible results
+- `LANGUAGE` - message language (`en` or `ja`, default: `en`)
 
 Example:
 
 ```bash
 $ COUNT=7 RANGE_MAX=55 SEED=123 bin/lotto 2
+$ LANGUAGE=ja bin/lotto
 ```
