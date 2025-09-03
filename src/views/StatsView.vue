@@ -1,12 +1,12 @@
 <template>
   <v-container fluid class="py-6">
     <v-sheet class="mx-auto px-6 py-6" max-width="820" elevation="1" rounded>
-      <div class="text-h6 mb-4">기초 통계</div>
-      <div class="mb-2 grey--text text--darken-1">보유한 과거 추첨 데이터 기준 빈도</div>
+      <div class="text-h6 mb-4">{{ t('stats.title') }}</div>
+      <div class="mb-2 grey--text text--darken-1">{{ t('stats.subtitle') }}</div>
 
       <v-row>
         <v-col cols="12" md="6">
-          <div class="text-subtitle-2 mb-2">상위 10 (자주 출현)</div>
+          <div class="text-subtitle-2 mb-2">{{ t('stats.top10') }}</div>
           <div class="d-flex flex-wrap" style="gap:8px;">
             <div v-for="item in top10" :key="item.num" class="chip">
               <span class="num">{{ item.num }}</span>
@@ -15,7 +15,7 @@
           </div>
         </v-col>
         <v-col cols="12" md="6">
-          <div class="text-subtitle-2 mb-2">하위 10 (드묾)</div>
+          <div class="text-subtitle-2 mb-2">{{ t('stats.bottom10') }}</div>
           <div class="d-flex flex-wrap" style="gap:8px;">
             <div v-for="item in bottom10" :key="item.num" class="chip">
               <span class="num">{{ item.num }}</span>
@@ -27,7 +27,7 @@
 
       <v-divider class="my-6" />
 
-      <div class="text-subtitle-1 mb-2">끝수 분포 (1의 자리)</div>
+      <div class="text-subtitle-1 mb-2">{{ t('stats.tailDist') }}</div>
       <div class="d-flex flex-wrap" style="gap:8px;">
         <div v-for="(v, k) in tailDist" :key="k" class="chip">
           <span class="num">{{ k }}</span>
@@ -41,10 +41,12 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import data from '../assets/lotto_numbers_en.json'
 
 type Row = { round: number; num1: number; num2: number; num3: number; num4: number; num5: number; num6: number; bonus: number; draw_date: string }
 const rows = data as unknown as Row[]
+const { t } = useI18n()
 
 const freq = computed(() => {
   const f = Array.from({ length: 46 }, () => 0)
@@ -81,4 +83,3 @@ const tailDist = computed(() => {
 .num { font-weight:600; }
 .cnt { color:#666; }
 </style>
-

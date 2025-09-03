@@ -46,7 +46,7 @@
     >
       <span class="d-flex flex-column align-center">
         <v-icon>mdi-trophy</v-icon>
-        <span class="caption">결과조회</span>
+        <span class="caption">{{ t('navResults') }}</span>
       </span>
     </v-btn>
 
@@ -57,7 +57,7 @@
     >
       <span class="d-flex flex-column align-center">
         <v-icon>mdi-chart-bar</v-icon>
-        <span class="caption">통계</span>
+        <span class="caption">{{ t('navStats') }}</span>
       </span>
     </v-btn>
   </v-bottom-navigation>

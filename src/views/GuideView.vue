@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="py-6">
     <v-sheet class="mx-auto px-6 py-6" max-width="820" elevation="1" rounded>
-      <div class="text-h5 font-weight-bold mb-4">이용 가이드</div>
+      <div class="text-h5 font-weight-bold mb-4">{{ $t('guideTitle') }}</div>
 
       <div class="mb-3">이 서비스는 로또 6/45 번호 생성과 결과 조회를 도와줍니다. 당첨을 보장하지 않으며, 책임 있는 이용을 권장합니다.</div>
 
@@ -33,4 +33,3 @@
 
 <style scoped>
 </style>
-
