@@ -16,5 +16,8 @@
   "navHome": "Home",
   "navSaved": "Saved Numbers",
   "navCompare": "Check Results",
-  "navCompareLong": "Check Winning Numbers"
+  "navCompareLong": "Check Winning Numbers",
+  "navResults": "Results",
+  "navStats": "Stats",
+  "navGuide": "Guide"
 }

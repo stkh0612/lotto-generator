@@ -57,9 +57,12 @@ const isMobile = computed(() => mobile.value)
 
 const { t } = useI18n()
 const items = ref([
-  { title: t('navHome'),         icon: 'mdi-home',         to: '/' },
-  { title: t('navSaved'), icon: 'mdi-content-save', to: '/saved' },
-  { title: t('navCompareLong'),   icon: 'mdi-magnify',      to: '/compare' },
+  { title: t('navHome'),         icon: 'mdi-home',           to: '/' },
+  { title: t('navSaved'),        icon: 'mdi-content-save',   to: '/saved' },
+  { title: t('navCompareLong'),  icon: 'mdi-magnify',        to: '/compare' },
+  { title: '결과조회',            icon: 'mdi-trophy',         to: '/results' },
+  { title: '통계',               icon: 'mdi-chart-bar',      to: '/stats' },
+  { title: '가이드',             icon: 'mdi-book-open-page-variant', to: '/guide' },
 ])
 
 function onItemClick() {

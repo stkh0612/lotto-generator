@@ -34,6 +34,14 @@ const vitePrerender = require('vite-plugin-prerender')
 
 module.exports = defineConfig({
   base: '/',
+  server: {
+    proxy: {
+      '/.netlify/functions': {
+        target: 'http://localhost:8888',
+        changeOrigin: true,
+      }
+    }
+  },
   plugins: [
     vue(),
     vuetify({ autoImport: true }),

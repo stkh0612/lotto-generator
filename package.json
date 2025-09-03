@@ -9,7 +9,8 @@
     "predeploy": "npm run build",
     "preview": "vite preview --port 5000",
     "prerender": "node prerender.cjs",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "update:lotto": "node scripts/update-lotto.mjs"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
