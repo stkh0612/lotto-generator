@@ -8,12 +8,12 @@ import StatsView from '../views/StatsView.vue'
 import GuideView from '../views/GuideView.vue'
 
 const routes: RouteRecordRaw[] = [
-  { path: '/',        name: 'Home',     component: HomeView },
-  { path: '/saved',   name: 'Saved',    component: SavedView },
-  { path: '/compare', name: 'Compare',  component: CompareView },
-  { path: '/results', name: 'Results',  component: ResultsView },
-  { path: '/stats',   name: 'Stats',    component: StatsView },
-  { path: '/guide',   name: 'Guide',    component: GuideView }
+  { path: '/',        name: 'Home',     component: HomeView,    meta: { seoKey: 'home' } },
+  { path: '/saved',   name: 'Saved',    component: SavedView,   meta: { seoKey: 'saved' } },
+  { path: '/compare', name: 'Compare',  component: CompareView, meta: { seoKey: 'compare' } },
+  { path: '/results', name: 'Results',  component: ResultsView, meta: { seoKey: 'results' } },
+  { path: '/stats',   name: 'Stats',    component: StatsView,   meta: { seoKey: 'stats' } },
+  { path: '/guide',   name: 'Guide',    component: GuideView,   meta: { seoKey: 'guide' } }
 ]
 
 const router = createRouter({
