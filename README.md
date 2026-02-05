@@ -6,7 +6,7 @@ Learn more about the recommended Project Setup and IDE Support in the [Vue Docs 
 
 ## 로또 번호 업데이트
 
-공식 API에서 최신 회차를 가져와 로컬 JSON을 갱신합니다.
+공식 API 및 공개 데이터 소스에서 최신 회차를 가져와 로컬 JSON을 갱신합니다.
 
 - 데이터 파일: `src/assets/lotto_numbers_en.json`
 - 스크립트: `scripts/update-lotto.mjs`
@@ -23,9 +23,10 @@ npm run update:lotto -- --dry-run
 
 참고
 
-- 소스: https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=<회차>
+- 소스: 공식 동행복권 API 및 공개 데이터 API들을 순서대로 시도합니다.
 - 동작: JSON에서 최대 회차를 찾은 뒤 이후 회차를 조회해 최신순(내림차순)으로 앞쪽에 추가합니다. 2칸 들여쓰기와 마지막 줄 개행을 유지합니다.
 - 요구 사항: Node 18+ (ESM + 전역 `fetch` 지원).
+- API 문제: 공식 API가 JSON 응답을 제공하지 않을 경우 자동으로 대체 API를 시도합니다.
 
 자동화(선택)
 
