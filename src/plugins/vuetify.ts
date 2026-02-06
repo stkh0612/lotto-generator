@@ -20,16 +20,20 @@ export default createVuetify({
     themes: {
       light: {
         colors: {
-          primary: '#1976D2',
-          secondary: '#424242',
+          primary: '#6200EA',   // Deep Purple
+          secondary: '#FFD700', // Gold
+          accent: '#F50057',    // Pink
           background: '#FFFFFF',
+          surface: '#F3E5F5',   // Light Purple tint
         },
       },
       dark: {
         colors: {
-          primary: '#2196F3',
-          secondary: '#EEEEEE',
-          background: '#121212',
+          primary: '#B388FF',   // Lighter Purple for dark mode
+          secondary: '#FFD700', // Gold
+          accent: '#FF4081',    // Pink
+          background: '#12002B', // Deep Space Purple
+          surface: '#2A0045',    // Dark Purple
         },
       },
     },

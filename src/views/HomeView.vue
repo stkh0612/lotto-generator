@@ -85,6 +85,7 @@ const webhook = "https://lottomate.life/.netlify/functions/proxy"
 
 // 과거 당첨결과 데이터
 import lottoResults from '../assets/lotto_numbers_en.json'
+import { playConfetti } from '../utils/AnimHelper'
 
 export default defineComponent({
   name: 'HomeView',
@@ -99,6 +100,7 @@ export default defineComponent({
     const numbers = ref<number[]>([])
 
     function generate() {
+      playConfetti() // Trigger animation!
       let isDuplicate: boolean
       do {
         const pool = Array.from({ length: 45 }, (_, i) => i + 1)

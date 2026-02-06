@@ -5,11 +5,11 @@
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname  = path.dirname(__filename)
 
-const fs       = require('fs')
-const path     = require('path')
-const http     = require('http')
-const serve    = require('serve-static')
-const finalh   = require('finalhandler')
+const fs = require('fs')
+const path = require('path')
+const http = require('http')
+const serve = require('serve-static')
+const finalh = require('finalhandler')
 const puppeteer = require('puppeteer')
 
 const DIST = path.resolve(__dirname, 'dist')
@@ -25,7 +25,7 @@ async function prerender() {
   const page = await browser.newPage()
 
   // 2) 나열한 SPA 경로 방문 → HTML 추출 → 파일 쓰기
-  const routes = ['/', '/saved', '/compare']
+  const routes = ['/', '/saved', '/compare', '/results', '/stats', '/analysis', '/fortune', '/guide']
   for (const route of routes) {
     const url = `http://localhost:5173${route}`
     await page.goto(url, { waitUntil: 'networkidle0' })

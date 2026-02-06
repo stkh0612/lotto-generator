@@ -18,6 +18,8 @@
   "navCompareLong": "당첨 번호 확인",
   "navResults": "결과조회",
   "navStats": "통계",
+  "navAnalysis": "심층분석",
+  "navFortune": "운세/재미",
   "navGuide": "가이드",
   "results": {
     "title": "회차 결과 조회",
@@ -35,6 +37,19 @@
     "top10": "상위 10 (자주 출현)",
     "bottom10": "하위 10",
     "tailDist": "끝수 분포 (1의 자리)"
+  },
+  "analysis": {
+    "title": "심층 분석",
+    "subtitle": "과거 데이터를 기반으로 한 정밀 분석",
+    "sumTitle": "합계 구간 분포 (최근 100회)",
+    "colorTitle": "번호 색상 분포",
+    "oddEvenTitle": "홀짝 비율 추이 (최근 20회)"
+  },
+  "fortune": {
+    "title": "로또 운세",
+    "subtitle": "꿈 해몽과 별자리로 알아보는 행운의 번호",
+    "dreamTab": "꿈 해몽",
+    "zodiacTab": "별자리 운세",
+    "dreamInputPlaceholder": "예: 뱀, 불, 조상님, 돼지..."
   }
 }
-

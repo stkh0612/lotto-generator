@@ -62,6 +62,8 @@ const items = ref([
   { title: t('navCompareLong'),  icon: 'mdi-magnify',        to: '/compare' },
   { title: t('navResults'),      icon: 'mdi-trophy',         to: '/results' },
   { title: t('navStats'),        icon: 'mdi-chart-bar',      to: '/stats' },
+  { title: t('navAnalysis'),     icon: 'mdi-chart-pie',      to: '/analysis' },
+  { title: t('navFortune'),      icon: 'mdi-sparkles',       to: '/fortune' },
   { title: t('navGuide'),        icon: 'mdi-book-open-page-variant', to: '/guide' },
 ])
 

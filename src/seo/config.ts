@@ -13,7 +13,7 @@ export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]['code']
 
 export const DEFAULT_LOCALE: SupportedLocale = 'ko'
 
-export type RouteSeoKey = 'home' | 'saved' | 'compare' | 'results' | 'stats' | 'guide'
+export type RouteSeoKey = 'home' | 'saved' | 'compare' | 'results' | 'stats' | 'guide' | 'analysis' | 'fortune'
 
 interface LocaleCopy {
   title: string
@@ -161,6 +161,50 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
         title: 'ロト初心者ガイド · LottoMate',
         description: 'ロトのルールや購入方法、保管のコツなど知っておきたい情報をまとめています。',
         keywords: 'ロトガイド, ロトルール, ロトのコツ'
+      }
+    }
+  },
+  analysis: {
+    path: '/analysis',
+    changefreq: 'weekly',
+    priority: 0.7,
+    copy: {
+      ko: {
+        title: '로또 심층 분석 & 통계 · 로또메이트',
+        description: '과거 100회 이상의 추첨 데이터를 기반으로 합계, 색상, 홀짝 분포를 정밀 분석합니다.',
+        keywords: '로또 분석, 로또 통계, 로또 패턴'
+      },
+      en: {
+        title: 'Deep Lotto Analysis & Statistics · LottoMate',
+        description: 'In-depth analysis of sum, color, and odd/even distribution based on historical draw data.',
+        keywords: 'lotto analysis, lotto statistics, lotto patterns'
+      },
+      ja: {
+        title: 'ロト詳細分析と統計 · LottoMate',
+        description: '過去の抽選データに基づき、合計、色、奇数・偶数の分布を詳しく分析します。',
+        keywords: 'ロト分析, ロト統計, ロトパターン'
+      }
+    }
+  },
+  fortune: {
+    path: '/fortune',
+    changefreq: 'daily',
+    priority: 0.6,
+    copy: {
+      ko: {
+        title: '로또 운세 & 꿈 해몽 · 로또메이트',
+        description: '꿈 해몽과 오늘의 별자리를 통해 당신만의 행운의 로또 번호를 찾아보세요.',
+        keywords: '로또 운세, 꿈 해몽 번호, 별자리 로또'
+      },
+      en: {
+        title: 'Lotto Fortune & Dream Interpretation · LottoMate',
+        description: 'Find your lucky numbers through dream interpretation and daily zodiac signs.',
+        keywords: 'lotto fortune, dream numbers, zodiac lotto'
+      },
+      ja: {
+        title: 'ロト占いと夢占い · LottoMate',
+        description: '夢占いや今日の星座から、あなただけの幸運のロト番号を見つけましょう。',
+        keywords: 'ロト占い, 夢占い番号, 星座ロト'
       }
     }
   }

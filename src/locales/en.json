@@ -18,6 +18,8 @@
   "navCompareLong": "Check Winning Numbers",
   "navResults": "Results",
   "navStats": "Stats",
+  "navAnalysis": "Deep Analysis",
+  "navFortune": "Fortune",
   "navGuide": "Guide",
   "results": {
     "title": "Check Draw Results",
@@ -35,6 +37,19 @@
     "top10": "Top 10 (most frequent)",
     "bottom10": "Bottom 10 (least frequent)",
     "tailDist": "Tail distribution (ones digit)"
+  },
+  "analysis": {
+    "title": "Deep Analysis",
+    "subtitle": "Detailed analysis based on historical data",
+    "sumTitle": "Sum Distribution (Last 100)",
+    "colorTitle": "Color Distribution",
+    "oddEvenTitle": "Odd/Even Trend (Last 20)"
+  },
+  "fortune": {
+    "title": "Lotto Fortune",
+    "subtitle": "Lucky numbers from dreams and zodiac signs",
+    "dreamTab": "Dream Interpretation",
+    "zodiacTab": "Zodiac",
+    "dreamInputPlaceholder": "e.g., Snake, Fire, Ancestor..."
   }
 }
-
