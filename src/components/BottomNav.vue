@@ -40,13 +40,13 @@
     </v-btn>
 
     <v-btn
-      value="Results"
-      :to="{ name: 'Results' }"
+      value="Simulation"
+      :to="{ name: 'Simulation' }"
       replace
     >
       <span class="d-flex flex-column align-center">
-        <v-icon>mdi-trophy</v-icon>
-        <span class="caption">{{ t('navResults') }}</span>
+        <v-icon>mdi-slot-machine</v-icon>
+        <span class="caption">{{ t('navSimulation') }}</span>
       </span>
     </v-btn>
 

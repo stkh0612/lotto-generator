@@ -13,7 +13,7 @@ export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]['code']
 
 export const DEFAULT_LOCALE: SupportedLocale = 'ko'
 
-export type RouteSeoKey = 'home' | 'saved' | 'compare' | 'results' | 'stats' | 'guide' | 'analysis' | 'fortune'
+export type RouteSeoKey = 'home' | 'saved' | 'compare' | 'simulation' | 'stats' | 'guide' | 'analysis' | 'fortune'
 
 interface LocaleCopy {
   title: string
@@ -98,25 +98,25 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
       }
     }
   },
-  results: {
-    path: '/results',
+  simulation: {
+    path: '/simulation',
     changefreq: 'daily',
     priority: 0.9,
     copy: {
       ko: {
-        title: '실시간 로또 당첨 결과 조회 · 로또메이트',
-        description: '회차를 입력해 실시간 로또 당첨 결과를 확인하고 내가 가진 번호와 즉시 비교해 보세요.',
-        keywords: '로또 당첨 조회, 로또 실시간 결과, 당첨 비교'
+        title: '로또 타임머신 (가상 시뮬레이션) · 로또메이트',
+        description: '내가 고른 번호로 과거에 샀다면 얼마를 벌었을까? 역대 당첨 결과를 바탕으로 가상 수익률을 계산해 드립니다.',
+        keywords: '로또 시뮬레이션, 로또 타임머신, 로또 가상 체험, 로또 수익률'
       },
       en: {
-        title: 'Real-Time Lotto Results Checker · LottoMate',
-        description: 'Enter a draw number to fetch lotto winning results and compare them with your selection instantly.',
-        keywords: 'lotto results checker, real-time lottery results, match lotto numbers'
+        title: 'Lotto Time Machine (Simulator) · LottoMate',
+        description: 'What if you played these numbers for the past 20 years? Calculate your hypothetical ROI based on historical data.',
+        keywords: 'lotto simulator, lotto time machine, lottery roi, virtual lottery'
       },
       ja: {
-        title: 'ロト当選結果を即時チェック · LottoMate',
-        description: '抽選回を入力してロトの当選結果を取得し、手元の番号とすぐに照合できます。',
-        keywords: 'ロト当選結果, リアルタイムロト, 番号照合'
+        title: 'ロトタイムマシン（シミュレーター） · LottoMate',
+        description: 'もし過去20年間この番号を買い続けていたら？過去のデータをもとに仮想収益率を計算します。',
+        keywords: 'ロトシミュレーター, ロトタイムマシン, ロト収益率'
       }
     }
   },

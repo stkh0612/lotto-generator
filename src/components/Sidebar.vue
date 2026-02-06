@@ -60,7 +60,7 @@ const items = ref([
   { title: t('navHome'),         icon: 'mdi-home',           to: '/' },
   { title: t('navSaved'),        icon: 'mdi-content-save',   to: '/saved' },
   { title: t('navCompareLong'),  icon: 'mdi-magnify',        to: '/compare' },
-  { title: t('navResults'),      icon: 'mdi-trophy',         to: '/results' },
+  { title: t('navSimulation'),   icon: 'mdi-slot-machine',   to: '/simulation' },
   { title: t('navStats'),        icon: 'mdi-chart-bar',      to: '/stats' },
   { title: t('navAnalysis'),     icon: 'mdi-chart-pie',      to: '/analysis' },
   { title: t('navFortune'),      icon: 'mdi-sparkles',       to: '/fortune' },
