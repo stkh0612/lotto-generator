@@ -10,12 +10,12 @@
 
       <!-- 1. 번호 입력/생성 -->
       <v-card class="glass-card mb-8 pa-4" elevation="0">
-        <div class="d-flex justify-center align-center flex-wrap" style="gap: 12px">
+        <div class="d-flex justify-center align-center flex-wrap" :style="{ gap }">
           <NumberCircle
             v-for="(num, idx) in myNumbers"
             :key="idx"
             :number="num || 0"
-            size="50"
+            :size="circleSize"
           />
         </div>
         <div class="d-flex justify-center mt-6" style="gap: 16px">
@@ -97,6 +97,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { useDisplay } from 'vuetify'
 import NumberCircle from '../components/NumberCircle.vue'
 import rawData from '../assets/lotto_numbers_en.json'
 import { playConfetti } from '../utils/AnimHelper'
@@ -118,6 +119,10 @@ type LottoRound = {
 const history = rawData as unknown as LottoRound[]
 const sortedHistory = [...history].sort((a,b) => a.round - b.round)
 const totalRounds = sortedHistory.length
+
+const { mobile } = useDisplay()
+const circleSize = computed(() => mobile.value ? 40 : 50)
+const gap = computed(() => mobile.value ? '8px' : '12px')
 
 const myNumbers = ref<number[]>([0,0,0,0,0,0])
 const loading = ref(false)

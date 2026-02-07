@@ -99,6 +99,8 @@ watch(active, (val) => {
   bottom: 0;
   width: 100%;
   z-index: 10;
+  padding-bottom: env(safe-area-inset-bottom);
+  height: calc(56px + env(safe-area-inset-bottom)) !important;
 }
 .caption {
   font-size: 0.75rem;
