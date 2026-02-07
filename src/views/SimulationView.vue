@@ -19,6 +19,9 @@
           />
         </div>
         <div class="d-flex justify-center mt-6" style="gap: 16px">
+          <v-btn color="secondary" size="large" variant="outlined" @click="openInputModal" prepend-icon="mdi-pencil">
+            직접 입력
+          </v-btn>
           <v-btn color="secondary" size="large" @click="generateRandom" prepend-icon="mdi-dice-5">
             랜덤 생성
           </v-btn>
@@ -34,6 +37,45 @@
           </v-btn>
         </div>
       </v-card>
+
+      <!-- 수동 입력 다이얼로그 -->
+      <v-dialog v-model="showInputModal" max-width="500">
+        <v-card class="pa-4 rounded-xl">
+          <v-card-title class="text-h6 font-weight-bold text-center">
+            번호 직접 선택 ({{ tempSelected.length }}/6)
+          </v-card-title>
+          <v-card-text>
+            <div class="d-flex flex-wrap justify-center" style="gap: 8px">
+              <v-btn
+                v-for="n in 45"
+                :key="n"
+                icon
+                size="small"
+                :color="tempSelected.includes(n) ? 'primary' : 'grey-lighten-3'"
+                @click="toggleNumber(n)"
+                elevation="0"
+              >
+                {{ n }}
+              </v-btn>
+            </div>
+            <p class="text-caption text-center mt-4 text-grey">
+              6개 번호를 모두 선택해야 합니다.
+            </p>
+          </v-card-text>
+          <v-card-actions class="justify-center">
+            <v-btn size="large" variant="text" @click="showInputModal = false">취소</v-btn>
+            <v-btn 
+              size="large" 
+              color="primary" 
+              variant="flat" 
+              :disabled="tempSelected.length !== 6"
+              @click="confirmManualInput"
+            >
+              확인
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
       <!-- 2. 결과 리포트 -->
       <v-expand-transition>
@@ -208,6 +250,38 @@ function runSimulation() {
 
     loading.value = false
   }, 500) // fake delay for effect
+}
+
+// --- Manual Input Logic ---
+const showInputModal = ref(false)
+const tempSelected = ref<number[]>([])
+
+function openInputModal() {
+  // 현재 설정된 번호가 있으면 가져오고, 없으면 빈 배열
+  // 0이 포함되어 있다면(초기상태) 빈 배열로 시작할 수도 있음.
+  // 여기서는 편의상 현재 myNumbers 중 0이 아닌 것만 가져옴
+  tempSelected.value = myNumbers.value.filter(n => n > 0)
+  showInputModal.value = true
+}
+
+function toggleNumber(n: number) {
+  const idx = tempSelected.value.indexOf(n)
+  if (idx >= 0) {
+    // 이미 있으면 제거
+    tempSelected.value.splice(idx, 1)
+  } else {
+    // 없으면 추가 (최대 6개)
+    if (tempSelected.value.length < 6) {
+      tempSelected.value.push(n)
+    }
+  }
+}
+
+function confirmManualInput() {
+  if (tempSelected.value.length < 6) return
+  myNumbers.value = [...tempSelected.value].sort((a,b) => a-b)
+  report.value = null
+  showInputModal.value = false
 }
 
 function formatMoney(n: number) {
