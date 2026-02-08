@@ -28,7 +28,7 @@ jobs:
 
       # 5. 의존성 설치 & 빌드
       - name: Install dependencies
-        run: npm ci --omit=optional
+        run: npm ci
 
       - name: Build
         run: npm run build
