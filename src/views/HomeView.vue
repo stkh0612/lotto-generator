@@ -366,7 +366,7 @@ export default defineComponent({
       }, 550)
     }
 
-    const savedNumbers = lottoStore.savedNumbers as LottoEntry[]
+    const savedNumbers = computed(() => lottoStore.savedNumbers as LottoEntry[])
 
     async function save() {
       if (numbers.value.length < 6) return
