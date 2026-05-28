@@ -32,7 +32,7 @@
     </v-list>
 
     <div class="mt-auto px-4 pb-4">
-      <!-- <AdBanner /> -->
+      <AdBanner />
     </div>
   </v-navigation-drawer>
 </template>
@@ -41,6 +41,7 @@
 import { computed, ref } from 'vue'
 import { useDisplay } from 'vuetify'
 import { useI18n } from 'vue-i18n'
+import AdBanner from './AdBanner.vue'
 
 const props = defineProps<{ modelValue: boolean }>()
 const emit = defineEmits<{
