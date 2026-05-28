@@ -13,7 +13,7 @@ export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]['code']
 
 export const DEFAULT_LOCALE: SupportedLocale = 'ko'
 
-export type RouteSeoKey = 'home' | 'saved' | 'compare' | 'simulation' | 'stats' | 'guide' | 'analysis' | 'fortune'
+export type RouteSeoKey = 'home' | 'saved' | 'compare' | 'simulation' | 'stats' | 'guide' | 'analysis' | 'fortune' | 'results'
 
 interface LocaleCopy {
   title: string
@@ -205,6 +205,28 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
         title: 'ロト占いと夢占い · LottoMate',
         description: '夢占いや今日の星座から、あなただけの幸運のロト番号を見つけましょう。',
         keywords: 'ロト占い, 夢占い番号, 星座ロト'
+      }
+    }
+  },
+  results: {
+    path: '/results',
+    changefreq: 'daily',
+    priority: 0.9,
+    copy: {
+      ko: {
+        title: '회차별 로또 당첨 결과 조회 · 로또메이트',
+        description: '찾으시는 로또 회차를 입력하여 당첨 번호와 보너스 번호를 실시간 조회하고 내 번호와 일치 개수를 확인해 보세요.',
+        keywords: '로또 결과 조회, 로또 당첨번호 확인, 로또 당첨결과'
+      },
+      en: {
+        title: 'Check Lotto Draw Results by Round · LottoMate',
+        description: 'Enter a lottery draw round to review the winning numbers, bonus ball, and match them with your ticket.',
+        keywords: 'lotto results check, lottery winning numbers, round check'
+      },
+      ja: {
+        title: '回次別ロト当選結果の照会 · LottoMate',
+        description: 'ロトの回次を入力して当選番号とボーナス番号を照会し、自分の番号との一致数を確認しましょう。',
+        keywords: 'ロト結果照会, ロト当選番号確認, 回次別結果'
       }
     }
   }

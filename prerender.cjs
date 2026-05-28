@@ -25,7 +25,7 @@ async function prerender() {
   const page = await browser.newPage()
 
   // 2) 나열한 SPA 경로 방문 → HTML 추출 → 파일 쓰기
-  const routes = ['/', '/saved', '/compare', '/results', '/stats', '/analysis', '/fortune', '/guide']
+  const routes = ['/', '/saved', '/compare', '/results', '/stats', '/analysis', '/fortune', '/guide', '/simulation']
   for (const route of routes) {
     const url = `http://localhost:5173${route}`
     await page.goto(url, { waitUntil: 'networkidle0' })

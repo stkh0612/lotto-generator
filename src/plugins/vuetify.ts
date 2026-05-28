@@ -20,20 +20,20 @@ export default createVuetify({
     themes: {
       light: {
         colors: {
-          primary: '#6200EA',   // Deep Purple
+          primary: '#7C4DFF',   // Deep Indigo/Purple
           secondary: '#FFD700', // Gold
-          accent: '#F50057',    // Pink
-          background: '#FFFFFF',
-          surface: '#F3E5F5',   // Light Purple tint
+          accent: '#E040FB',    // Neon Magenta
+          background: '#F8F6FC', // Soft lavender white
+          surface: '#EFEBFA',   // Light lavender surface
         },
       },
       dark: {
         colors: {
-          primary: '#B388FF',   // Lighter Purple for dark mode
+          primary: '#B388FF',   // Bright Lavender
           secondary: '#FFD700', // Gold
-          accent: '#FF4081',    // Pink
-          background: '#12002B', // Deep Space Purple
-          surface: '#2A0045',    // Dark Purple
+          accent: '#E040FB',    // Neon Magenta
+          background: '#0F041C', // Deepest Space Purple
+          surface: '#1E0B36',    // Dark Violet
         },
       },
     },
