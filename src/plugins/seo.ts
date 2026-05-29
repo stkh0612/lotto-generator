@@ -1,6 +1,7 @@
 import { effectScope, nextTick, watch } from 'vue'
 import type { Router } from 'vue-router'
 import type { I18n } from 'vue-i18n'
+import lottoResults from '../assets/lotto_numbers_en.json'
 import {
   BASE_URL,
   SITE_NAME,
@@ -84,29 +85,64 @@ function updateOgLocale(locale: SupportedLocale) {
   setMetaTag('property', 'og:locale', info.ogLocale)
 }
 
+function getRoundNumbersText(roundVal: string | number | (string | null)[]) {
+  const rNum = Number(roundVal)
+  if (isNaN(rNum)) return ''
+  const found = lottoResults.find((r: any) => r.round === rNum)
+  if (found) {
+    return `${found.num1}, ${found.num2}, ${found.num3}, ${found.num4}, ${found.num5}, ${found.num6} (보너스 ${found.bonus})`
+  }
+  return ''
+}
+
 function applySeo(route: Router['currentRoute']['value'], locale: SupportedLocale) {
   const key = resolveRouteSeoKey(route)
   const config = ROUTE_SEO_CONFIG[key]
   const copy = resolveSeoCopy(key, locale)
   const canonicalUrl = toAbsoluteUrl(route.fullPath || config.path)
 
-  document.title = copy.title
+  let title = copy.title
+  let description = copy.description
+  const keywords = copy.keywords
+
+  // 동적 회차 쿼리(?round=XXXX)나 경로 파라미터(:round)가 한국어 로케일에서 있을 때 SEO 정보를 고도화
+  const roundParam = route.query.round || route.params.round
+  if (locale === 'ko' && roundParam) {
+    const roundStr = String(roundParam)
+    const numbersText = getRoundNumbersText(roundStr)
+
+    if (key === 'compare') {
+      title = `제 ${roundStr}회 역대로또번호조회 및 당첨 결과 비교 · 로또메이트`
+      description = `제 ${roundStr}회 역대로또번호조회 당첨결과 정보 및 로또 번호 개수 비교 기능 제공.`
+      if (numbersText) {
+        description += ` 당첨번호: ${numbersText}`
+      }
+    } else if (key === 'results') {
+      title = `제 ${roundStr}회 로또당첨번호조회 및 오늘로또번호 확인 · 로또메이트`
+      description = `제 ${roundStr}회 이번주 로또번호 및 오늘로또번호 조회 실시간 확인.`
+      if (numbersText) {
+        description += ` 당첨번호는 ${numbersText} 입니다.`
+      }
+    }
+  }
+
+  document.title = title
   document.documentElement.setAttribute('lang', locale)
 
   ensureRobotsTag()
-  setMetaTag('name', 'description', copy.description)
-  setMetaTag('name', 'keywords', copy.keywords)
+  setMetaTag('name', 'description', description)
+  setMetaTag('name', 'keywords', keywords)
 
   setMetaTag('property', 'og:type', 'website')
   setMetaTag('property', 'og:site_name', SITE_NAME)
-  setMetaTag('property', 'og:title', copy.title)
-  setMetaTag('property', 'og:description', copy.description)
+  setMetaTag('property', 'og:title', title)
+  setMetaTag('property', 'og:description', description)
   setMetaTag('property', 'og:url', canonicalUrl)
   setMetaTag('property', 'og:image', OG_DEFAULT_IMAGE)
 
   setMetaTag('name', 'twitter:card', 'summary_large_image')
-  setMetaTag('name', 'twitter:title', copy.title)
-  setMetaTag('name', 'twitter:description', copy.description)
+  setMetaTag('name', 'twitter:title', title)
+  setMetaTag('name', 'twitter:description', description)
   setMetaTag('name', 'twitter:image', TWITTER_DEFAULT_IMAGE)
 
   updateOgLocale(locale)

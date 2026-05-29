@@ -49,12 +49,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
 import NumberCircle from '../components/NumberCircle.vue'
 import { fetchRound } from '../services/lottoApi'
+import lottoResults from '../assets/lotto_numbers_en.json'
 
 const { t } = useI18n()
+const route = useRoute()
+const router = useRouter()
 
 const round = ref<number | null>(null)
 const loading = ref(false)
@@ -84,12 +88,40 @@ async function onFetch() {
       throw new Error(t('results.notFound'))
     }
     result.value = data
+    if (route.params.round && Number(route.params.round) !== round.value) {
+      router.replace({ params: { round: round.value.toString() } })
+    } else if (!route.params.round && Number(route.query.round) !== round.value) {
+      router.replace({ query: { ...route.query, round: round.value.toString() } })
+    }
   } catch (e: any) {
     error.value = e?.message || t('results.error')
   } finally {
     loading.value = false
   }
 }
+
+function syncRoundFromQuery() {
+  const qRound = Number(route.query.round || route.params.round)
+  if (qRound && qRound > 0) {
+    round.value = qRound
+    onFetch()
+  }
+}
+
+watch(() => [route.query.round, route.params.round], () => {
+  const qRound = Number(route.query.round || route.params.round)
+  if (qRound && qRound !== round.value) {
+    syncRoundFromQuery()
+  }
+})
+
+onMounted(() => {
+  syncRoundFromQuery()
+  if (!round.value && !result.value && lottoResults && lottoResults.length > 0) {
+    round.value = lottoResults[0].round
+    onFetch()
+  }
+})
 
 const input = ref<(number | null)[]>([null, null, null, null, null, null])
 const matchCount = ref<number | null>(null)

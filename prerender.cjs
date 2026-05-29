@@ -16,8 +16,15 @@ const DIST = path.resolve(__dirname, 'dist')
 // 1) serve dist/ on http://localhost:5000
 const serveStatic = serve(DIST)
 const server = http.createServer((req, res) => {
+  // SPA Fallback: rewrite any clean path without a file extension to serve index.html
+  const urlPath = req.url.split('?')[0]
+  if (!path.extname(urlPath)) {
+    req.url = '/index.html'
+  }
   serveStatic(req, res, finalh(req, res))
 })
+
+const lottoResults = require('./src/assets/lotto_numbers_en.json')
 
 async function prerender() {
   await new Promise(r => server.listen(5173, r))
@@ -25,7 +32,12 @@ async function prerender() {
   const page = await browser.newPage()
 
   // 2) 나열한 SPA 경로 방문 → HTML 추출 → 파일 쓰기
-  const routes = ['/', '/saved', '/compare', '/results', '/stats', '/analysis', '/fortune', '/guide', '/simulation']
+  const baseRoutes = ['/', '/saved', '/compare', '/results', '/stats', '/analysis', '/fortune', '/guide', '/simulation']
+  const recentRounds = lottoResults.slice(0, 5).map(r => r.round)
+  const compareRoutes = recentRounds.map(r => `/compare/${r}`)
+  const resultsRoutes = recentRounds.map(r => `/results/${r}`)
+  const routes = [...baseRoutes, ...compareRoutes, ...resultsRoutes]
+
   for (const route of routes) {
     const url = `http://localhost:5173${route}`
     await page.goto(url, { waitUntil: 'networkidle0' })

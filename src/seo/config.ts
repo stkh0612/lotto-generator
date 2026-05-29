@@ -35,10 +35,10 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     priority: 1,
     copy: {
       ko: {
-        title: '로또메이트 · 로또 번호 생성기 & 당첨 확인',
+        title: '로또메이트 · 무료 로또번호 자동생성 및 추천',
         description:
-          '중복 없는 로또 번호를 자동으로 만들고 저장하며 지난 회차 당첨 결과까지 확인할 수 있는 올인원 로또 도우미입니다.',
-        keywords: '로또메이트, 로또 번호 생성기, 로또 당첨 확인, 번호 추천, 무료 로또'
+          '로또메이트에서 과학적인 필터링 알고리즘으로 중복 없는 로또번호 자동생성 및 추출 서비스를 이용해 보세요. 행운의 로또번호 추천부터 저장까지 모두 제공합니다.',
+        keywords: '로또번호 자동생성, 로또번호 추천, 로또번호생성, 로또번호추출, 로또번호 추천해줘, 무료 로또, 로또메이트'
       },
       en: {
         title: 'LottoMate · Smart Lotto Number Generator & Result Checker',
@@ -60,9 +60,9 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     priority: 0.8,
     copy: {
       ko: {
-        title: '저장한 로또 번호 관리 · 로또메이트',
-        description: '최대 5게임까지 저장한 로또 번호를 한눈에 확인하고 이미지로 내려받아 보관하세요.',
-        keywords: '로또 번호 저장, 로또 이미지 저장, 로또메이트 저장 번호'
+        title: '저장한 로또 번호 개수 및 목록 관리 · 로또메이트',
+        description: '로또메이트에서 자동으로 생성한 로또 번호 개수와 저장된 목록을 확인하고, 번호 이미지 다운로드 기능을 통해 편리하게 관리하세요.',
+        keywords: '로또 번호 개수, 로또 번호 저장, 로또 이미지 저장, 로또메이트'
       },
       en: {
         title: 'Manage Saved Lotto Numbers · LottoMate',
@@ -82,9 +82,9 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     priority: 0.8,
     copy: {
       ko: {
-        title: '회차별 로또 당첨 번호 비교 · 로또메이트',
-        description: '회차를 선택해 당첨 번호를 확인하고 보너스 번호까지 함께 비교해 보세요.',
-        keywords: '로또 당첨 번호, 회차별 당첨, 로또 비교'
+        title: '역대로또번호조회 및 당첨 결과 비교 · 로또메이트',
+        description: '역대로또번호조회 전체 내역과 대조해 당첨결과를 비교하고 일치하는 로또 번호 개수 및 등수를 실시간으로 확인해 보세요.',
+        keywords: '역대로또번호조회, 로또번호조회, 로또 번호 개수, 로또 당첨결과 비교, 로또메이트'
       },
       en: {
         title: 'Compare Lotto Winning Numbers by Draw · LottoMate',
@@ -104,9 +104,9 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     priority: 0.9,
     copy: {
       ko: {
-        title: '로또 타임머신 (가상 시뮬레이션) · 로또메이트',
-        description: '내가 고른 번호로 과거에 샀다면 얼마를 벌었을까? 역대 당첨 결과를 바탕으로 가상 수익률을 계산해 드립니다.',
-        keywords: '로또 시뮬레이션, 로또 타임머신, 로또 가상 체험, 로또 수익률'
+        title: '로또번호 예측 및 가상 수익률 시뮬레이터 · 로또메이트',
+        description: '내가 지정한 번호의 과거 당첨 기여도를 계산하고 가상 시뮬레이션을 통해 로또번호 예측 및 모의 수익률을 시뮬레이션해 보세요.',
+        keywords: '로또번호 예측, 로또 시뮬레이션, 로또 타임머신, 로또 가상 체험, 로또 수익률'
       },
       en: {
         title: 'Lotto Time Machine (Simulator) · LottoMate',
@@ -126,9 +126,9 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     priority: 0.6,
     copy: {
       ko: {
-        title: '로또 번호 통계 & 빈도 분석 · 로또메이트',
-        description: '누적 데이터로 계산한 번호별 출현 빈도와 꼬리 숫자 분포를 통해 전략을 세워 보세요.',
-        keywords: '로또 통계, 출현 빈도, 로또 분석'
+        title: '로또 번호 개수 통계 및 출현 빈도 분석 · 로또메이트',
+        description: '역대 당첨 데이터를 분석하여 자주 출현한 로또 번호 개수와 숫자 분포, 홀짝 비율 등 유용한 통계 자료를 제공합니다.',
+        keywords: '로또 번호 개수, 로또 통계, 출현 빈도, 로또 분석, 로또메이트'
       },
       en: {
         title: 'Lotto Number Statistics & Frequency Analysis · LottoMate',
@@ -148,9 +148,9 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     priority: 0.5,
     copy: {
       ko: {
-        title: '로또 초보자를 위한 가이드 · 로또메이트',
-        description: '로또 규칙, 참여 방법, 보관 팁 등 필수 정보를 정리한 가이드를 확인하세요.',
-        keywords: '로또 가이드, 로또 규칙, 로또 팁'
+        title: '로또 초보 가이드: 규칙부터 당첨 번호 개수까지 · 로또메이트',
+        description: '로또 당첨금 수령 방법, 실수령액 계산, 당첨에 필요한 로또 번호 개수와 규칙 등 기초적인 가이드를 정리해 드립니다.',
+        keywords: '로또 번호 개수, 로또 가이드, 로또 규칙, 로또 팁, 로또메이트'
       },
       en: {
         title: 'Beginner\'s Guide to Lotto · LottoMate',
@@ -170,9 +170,9 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     priority: 0.7,
     copy: {
       ko: {
-        title: '로또 심층 분석 & 통계 · 로또메이트',
-        description: '과거 100회 이상의 추첨 데이터를 기반으로 합계, 색상, 홀짝 분포를 정밀 분석합니다.',
-        keywords: '로또 분석, 로또 통계, 로또 패턴'
+        title: '로또 패턴 정밀 분석 및 통계 분석기 · 로또메이트',
+        description: '역대 100회 이상의 당첨 데이터를 기반으로 번호 합계, 색상, 홀짝 분포 및 패턴을 심층 분석하여 로또번호 예측을 돕습니다.',
+        keywords: '로또 분석, 로또 패턴, 로또번호 예측, 로또 통계, 로또메이트'
       },
       en: {
         title: 'Deep Lotto Analysis & Statistics · LottoMate',
@@ -192,9 +192,9 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     priority: 0.6,
     copy: {
       ko: {
-        title: '로또 운세 & 꿈 해몽 · 로또메이트',
-        description: '꿈 해몽과 오늘의 별자리를 통해 당신만의 행운의 로또 번호를 찾아보세요.',
-        keywords: '로또 운세, 꿈 해몽 번호, 별자리 로또'
+        title: '오늘의 로또 운세 및 행운의 번호 예측 · 로또메이트',
+        description: '꿈 해몽과 오늘 별자리 운세를 분석하여 당신에게 딱 맞는 행운의 로또번호 예측 및 추천 조합을 제공합니다.',
+        keywords: '로또번호 예측, 로또 운세, 꿈 해몽 번호, 별자리 로또, 로또메이트'
       },
       en: {
         title: 'Lotto Fortune & Dream Interpretation · LottoMate',
@@ -214,9 +214,9 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     priority: 0.9,
     copy: {
       ko: {
-        title: '회차별 로또 당첨 결과 조회 · 로또메이트',
-        description: '찾으시는 로또 회차를 입력하여 당첨 번호와 보너스 번호를 실시간 조회하고 내 번호와 일치 개수를 확인해 보세요.',
-        keywords: '로또 결과 조회, 로또 당첨번호 확인, 로또 당첨결과'
+        title: '이번주 로또당첨번호 및 오늘로또번호 조회 · 로또메이트',
+        description: '이번주 로또번호 및 오늘로또번호 조회를 포함해 실시간으로 회차별 당첨 결과를 알아보고 내 추천 번호와 일치하는 개수를 조회해 보세요.',
+        keywords: '로또번호조회, 이번주 로또번호, 오늘로또번호, 로또당첨번호조회, 로또 당첨번호 확인'
       },
       en: {
         title: 'Check Lotto Draw Results by Round · LottoMate',

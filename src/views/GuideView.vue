@@ -32,15 +32,18 @@
         <v-expansion-panel>
           <v-expansion-panel-title class="font-weight-bold text-h6">
             <v-icon start icon="mdi-calculator" class="mr-2 text-primary" />
-            확률의 수학: 814만분의 1
+            확률의 수학: 814만분의 1과 로또 번호 개수
           </v-expansion-panel-title>
           <v-expansion-panel-text class="text-body-1">
             <p class="mb-2">
-              로또 1등 당첨 확률은 45개의 숫자 중 순서에 상관없이 6개를 모두 맞춰야 하므로, 수학적으로 다음과 같이 계산됩니다.
+              로또 6/45는 전체 <strong>로또 번호 개수</strong> 45개 중에서 중복 없이 6개의 번호를 맞추는 게임입니다. 1등 당첨 확률은 순서에 상관없이 6개를 모두 맞춰야 하므로, 수학적으로 다음과 같이 계산됩니다.
             </p>
             <v-alert density="compact" variant="tonal" border="start" border-color="primary" class="my-3">
               (45 × 44 × 43 × 42 × 41 × 40) ÷ (6 × 5 × 4 × 3 × 2 × 1) = <strong>8,145,060</strong>
             </v-alert>
+            <p class="mb-2">
+              기본적으로 추첨을 통해 일치하는 <strong>로또 번호 개수</strong>에 따라 당첨 등수가 결정됩니다. (6개 일치 시 1등, 5개와 보너스 일치 시 2등, 5개 일치 시 3등, 4개 일치 시 4등, 3개 일치 시 5등)
+            </p>
             <p class="mb-2">
               이는 매주 10만원어치(100게임) 로또를 산다고 가정할 때, 1등에 당첨되기 위해서는 평균적으로 
               <strong>약 1,566년</strong>이 걸린다는 의미입니다.
@@ -48,7 +51,7 @@
             <p>
               <strong>독립 시행의 법칙:</strong> 많은 분들이 "지난주에 안 나온 번호가 이번 주에 나올 확률이 높다"고 생각하시지만, 
               이는 수학적으로 <strong>거짓</strong>입니다. 동전을 던져 앞면이 10번 나왔다고 해서 11번째에 뒷면이 나올 확률이 높아지지 않는 것과 같습니다. 
-              매 회차의 추첨은 이전 회차와 완전히 독립적입니다.
+              매 회차의 추첨은 이전 회차와 완전히 독립적입니다. 전체 45개의 로또 번호 개수 중에서 각 숫자가 뽑힐 확률은 매주 동일하게 45분의 1입니다.
             </p>
           </v-expansion-panel-text>
         </v-expansion-panel>

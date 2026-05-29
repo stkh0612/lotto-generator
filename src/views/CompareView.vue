@@ -72,8 +72,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, watch, onMounted } from 'vue'
 import { useDisplay } from 'vuetify'
+import { useRoute, useRouter } from 'vue-router'
 import NumberCircle from '../components/NumberCircle.vue'
 import lottoResults from '../assets/lotto_numbers_en.json'
 
@@ -81,26 +82,45 @@ export default defineComponent({
   name: 'CompareView',
   components: { NumberCircle },
   setup() {
-    // 반응형용 Vuetify Display 유틸
     const { mobile } = useDisplay()
+    const route = useRoute()
+    const router = useRouter()
     
-    // 모바일이면 40px, 아니면 56px
     const circleSize = computed(() => mobile.value ? 40 : 56)
-    // 간격도 모바일엔 8px, 데스크탑엔 16px
     const gap = computed(() => mobile.value ? 8 : 16)
 
-    // 모든 회차 리스트 (숫자 배열)
     const rounds = lottoResults.map(r => r.round)
-
-    // 선택된 회차 (기본 최신)
     const selectedRound = ref<number>(rounds[0])
 
-    // 선택된 회차의 결과 객체
+    function syncRoundFromQuery() {
+      const qRound = Number(route.query.round || route.params.round)
+      if (qRound && rounds.includes(qRound)) {
+        selectedRound.value = qRound
+      }
+    }
+
+    watch(selectedRound, (newVal) => {
+      if (newVal) {
+        if (route.params.round && Number(route.params.round) !== newVal) {
+          router.replace({ params: { round: newVal.toString() } })
+        } else if (!route.params.round && Number(route.query.round) !== newVal) {
+          router.replace({ query: { ...route.query, round: newVal.toString() } })
+        }
+      }
+    })
+
+    watch(() => [route.query.round, route.params.round], () => {
+      syncRoundFromQuery()
+    })
+
+    onMounted(() => {
+      syncRoundFromQuery()
+    })
+
     const result = computed(() => {
       return lottoResults.find(r => r.round === selectedRound.value)!
     })
 
-    // 메인 6개 번호 배열
     const mainNumbers = computed(() => [
       result.value.num1,
       result.value.num2,
@@ -110,7 +130,6 @@ export default defineComponent({
       result.value.num6,
     ])
 
-    // "YYYY-MM-DD" → "YYYY년 MM월 DD일" 포맷
     const formattedDate = computed(() => {
       const [y, m, d] = result.value.draw_date.split('-')
       return `${y}년 ${m}월 ${d}일`

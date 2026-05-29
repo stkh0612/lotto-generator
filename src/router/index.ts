@@ -13,13 +13,13 @@ import GuideView from '../views/GuideView.vue'
 const routes: RouteRecordRaw[] = [
   { path: '/', name: 'Home', component: HomeView, meta: { seoKey: 'home' } },
   { path: '/saved', name: 'Saved', component: SavedView, meta: { seoKey: 'saved' } },
-  { path: '/compare', name: 'Compare', component: CompareView, meta: { seoKey: 'compare' } },
+  { path: '/compare/:round?', name: 'Compare', component: CompareView, meta: { seoKey: 'compare' } },
   { path: '/simulation', name: 'Simulation', component: SimulationView, meta: { seoKey: 'simulation' } },
   { path: '/stats', name: 'Stats', component: StatsView, meta: { seoKey: 'stats' } },
   { path: '/analysis', name: 'Analysis', component: AnalysisView, meta: { seoKey: 'analysis' } },
   { path: '/fortune', name: 'Fortune', component: FortuneView, meta: { seoKey: 'fortune' } },
   { path: '/guide', name: 'Guide', component: GuideView, meta: { seoKey: 'guide' } },
-  { path: '/results', name: 'Results', component: ResultsView, meta: { seoKey: 'results' } },
+  { path: '/results/:round?', name: 'Results', component: ResultsView, meta: { seoKey: 'results' } },
   { path: '/:pathMatch(.*)*', redirect: '/' } // Redirect unknown paths to Home
 ]
 
