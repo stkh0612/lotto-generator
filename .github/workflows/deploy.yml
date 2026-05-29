@@ -1,24 +1,28 @@
-# 1. main 브랜치에 push 될 때마다 실행
+# 1. 트리거 설정 (push, schedule, workflow_dispatch)
 on:
   push:
     branches:
       - master
+  schedule:
+    # 매주 토요일 저녁 9:00 KST (UTC 12:00)에 실행
+    - cron: '0 12 * * 6'
+  workflow_dispatch:
 
-# 2. GitHub Token 권한 확대 (Pages에 쓰기 허용)
+# 2. GitHub Token 권한 확대 (레포 쓰기 및 Pages 배포 권한)
 permissions:
-  contents: write     # repo 컨텐츠 읽기/쓰기
+  contents: write     # repo 컨텐츠 읽기/쓰기 및 푸시 권한
   pages: write        # GitHub Pages 권한
-  id-token: write     # OIDC 토큰 (optional)
+  id-token: write     # OIDC 토큰
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      # 3. 코드 체크아웃 (토큰은 action-gh-pages에서 직접 사용하므로 false)
+      # 3. 코드 체크아웃 (자동 업데이트 커밋 푸시를 위해 persist-credentials를 true로 설정)
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          persist-credentials: false
+          persist-credentials: true
 
       # 4. Node.js 설치
       - name: Setup Node.js
@@ -26,20 +30,64 @@ jobs:
         with:
           node-version: '18'
 
-      # 5. 의존성 설치 & 빌드
+      # 5. 의존성 설치
       - name: Install dependencies
         run: npm ci
 
+      # 6. 로또 번호 업데이트 스크립트 실행
+      - name: Update Lotto Numbers
+        run: npm run update:lotto
+
+      # 7. 데이터 업데이트가 발생했을 경우 Git에 반영
+      - name: Commit and push changes if updated
+        id: check_update
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/assets/lotto_numbers_en.json
+          
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: auto-update lotto numbers [skip ci]"
+            git push origin master
+            echo "updated=true" >> $GITHUB_OUTPUT
+          else
+            echo "No changes in lotto numbers file."
+            echo "updated=false" >> $GITHUB_OUTPUT
+          fi
+
+      # 8. 빌드
       - name: Build
         run: npm run build
 
       #- name: Pre-render
       #  run: npm run prerender
 
-      # 6. gh-pages 브랜치에 dist/ 업로드
+      # 9. gh-pages 브랜치에 dist/ 업로드
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           cname: lottomate.life
+
+      # 10. 로또 번호가 업데이트 되었을 때만 이메일 발송
+      - name: Send mail on update success
+        if: steps.check_update.outputs.updated == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "[Lottomate] 로또 당첨 번호 업데이트 성공!"
+          to: stkh0612+lotto@gmail.com
+          from: Lottomate Auto Update <${{ secrets.MAIL_USERNAME }}>
+          body: |
+            로또 당첨 번호가 성공적으로 업데이트되었습니다.
+            
+            - 대상 사이트: lottomate.life
+            - 일시: KST 토요일 저녁 (GitHub Action 자동 실행 완료)
+            - 변경 확인: https://github.com/${{ github.repository }}/commits/master
+
+
