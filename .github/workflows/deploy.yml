@@ -47,7 +47,7 @@ jobs:
           git add src/assets/lotto_numbers_en.json
           
           if ! git diff --cached --quiet; then
-            git commit -m "chore: auto-update lotto numbers [skip ci]"
+            git commit -m "chore: auto-update lotto numbers [skip actions]"
             git push origin master
             echo "updated=true" >> $GITHUB_OUTPUT
           else
