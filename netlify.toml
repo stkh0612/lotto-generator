@@ -1,5 +1,5 @@
 [build]
-  command    = "npm ci --legacy-peer-deps && npm run build && npm run prerender"  # 빌드 명령어 + 사전렌더링
+  command    = "npm ci --legacy-peer-deps && npm run build"  # 빌드 명령어
   publish    = "dist"           # 빌드 후 폴더
   functions  = "netlify/functions"  # 함수 소스 위치
 
