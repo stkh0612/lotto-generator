@@ -9,6 +9,8 @@ import AnalysisView from '../views/AnalysisView.vue'
 import FortuneView from '../views/FortuneView.vue'
 import ResultsView from '../views/ResultsView.vue'
 import GuideView from '../views/GuideView.vue'
+import PrivacyView from '../views/PrivacyView.vue'
+import TermsView from '../views/TermsView.vue'
 
 const routes: RouteRecordRaw[] = [
   { path: '/', name: 'Home', component: HomeView, meta: { seoKey: 'home' } },
@@ -19,6 +21,8 @@ const routes: RouteRecordRaw[] = [
   { path: '/analysis', name: 'Analysis', component: AnalysisView, meta: { seoKey: 'analysis' } },
   { path: '/fortune', name: 'Fortune', component: FortuneView, meta: { seoKey: 'fortune' } },
   { path: '/guide', name: 'Guide', component: GuideView, meta: { seoKey: 'guide' } },
+  { path: '/privacy', name: 'Privacy', component: PrivacyView, meta: { seoKey: 'privacy' } },
+  { path: '/terms', name: 'Terms', component: TermsView, meta: { seoKey: 'terms' } },
   { path: '/results/:round?', name: 'Results', component: ResultsView, meta: { seoKey: 'results' } },
   { path: '/:pathMatch(.*)*', redirect: '/' } // Redirect unknown paths to Home
 ]

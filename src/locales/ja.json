@@ -19,6 +19,8 @@
   "navResults": "結果",
   "navStats": "統計",
   "navGuide": "ガイド",
+  "navPrivacy": "個人情報保護方針",
+  "navTerms": "利用規約",
   "results": {
     "title": "回次結果の照会",
     "roundLabel": "回次",

@@ -31,7 +31,12 @@
       </v-list-item>
     </v-list>
 
-    <div class="mt-auto px-4 pb-4">
+    <div class="mt-auto px-4 pb-2">
+      <div class="policy-links d-flex justify-center mb-2">
+        <router-link to="/privacy" class="policy-link" @click="onItemClick">{{ t('navPrivacy') }}</router-link>
+        <span class="policy-separator mx-2">|</span>
+        <router-link to="/terms" class="policy-link" @click="onItemClick">{{ t('navTerms') }}</router-link>
+      </div>
       <AdBanner />
     </div>
   </v-navigation-drawer>
@@ -110,5 +115,23 @@ function onItemClick() {
 /* 호버 시 배경 변화 */
 .menu-item:hover {
   background-color: rgba(0, 0, 0, 0.04);
+}
+
+.policy-links {
+  font-size: 0.72rem;
+  color: #757575;
+}
+.policy-link {
+  color: #757575;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.policy-link:hover {
+  color: #1976d2;
+  text-decoration: underline;
+}
+.policy-separator {
+  color: #bdbdbd;
 }
 </style>

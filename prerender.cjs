@@ -32,7 +32,7 @@ async function prerender() {
   const page = await browser.newPage()
 
   // 2) 나열한 SPA 경로 방문 → HTML 추출 → 파일 쓰기
-  const baseRoutes = ['/', '/saved', '/compare', '/results', '/stats', '/analysis', '/fortune', '/guide', '/simulation']
+  const baseRoutes = ['/', '/saved', '/compare', '/results', '/stats', '/analysis', '/fortune', '/guide', '/simulation', '/privacy', '/terms']
   const recentRounds = lottoResults.slice(0, 5).map(r => r.round)
   const compareRoutes = recentRounds.map(r => `/compare/${r}`)
   const resultsRoutes = recentRounds.map(r => `/results/${r}`)

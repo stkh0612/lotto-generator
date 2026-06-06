@@ -13,7 +13,7 @@ module.exports = defineConfig({
     vuetify({ autoImport: true }),
     vitePrerender({
       staticDir: require('path').join(__dirname, 'dist'),
-      routes: ['/', '/saved', '/compare', '/simulation', '/stats', '/analysis', '/fortune', '/guide', '/results'],
+      routes: ['/', '/saved', '/compare', '/simulation', '/stats', '/analysis', '/fortune', '/guide', '/results', '/privacy', '/terms'],
     }),
   ]
 })
