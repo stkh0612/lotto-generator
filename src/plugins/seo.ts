@@ -51,7 +51,14 @@ function toAbsoluteUrl(path: string) {
   if (!path || path === '/') {
     return `${BASE_URL}/`
   }
-  return `${BASE_URL}${path.startsWith('/') ? path : `/${path}`}`
+  const [pathname, search] = path.split(/[?#]/)
+  const suffix = path.slice(pathname.length)
+  let formattedPath = pathname.startsWith('/') ? pathname : `/${pathname}`
+  const lastSegment = formattedPath.split('/').pop() || ''
+  if (!lastSegment.includes('.') && !formattedPath.endsWith('/')) {
+    formattedPath += '/'
+  }
+  return `${BASE_URL}${formattedPath}${suffix}`
 }
 
 function ensureJsonLd(locale: SupportedLocale) {
