@@ -20,4 +20,36 @@ app.use(i18n)
 
 installSeo(router, i18n)
 
+function initAnalyticsAndAds() {
+  const host = window.location.hostname
+  const userAgent = navigator.userAgent || ''
+  const isHeadless = userAgent.includes('Headless') || userAgent.includes('Prerender') || (window as any).__PRERENDER_INJECTED
+  
+  if ((host === 'lottomate.life' || host.endsWith('netlify.app')) && !isHeadless) {
+    // 1) Load Google AdSense
+    const adsenseScript = document.createElement('script')
+    adsenseScript.async = true
+    adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3971187501349159'
+    adsenseScript.setAttribute('crossorigin', 'anonymous')
+    document.head.appendChild(adsenseScript)
+
+    // 2) Load Google Analytics
+    const gaScript = document.createElement('script')
+    gaScript.async = true
+    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-LMKESBRXMP'
+    document.head.appendChild(gaScript)
+
+    // 3) Init gtag
+    const anyWin = window as any
+    anyWin.dataLayer = anyWin.dataLayer || []
+    anyWin.gtag = function () {
+      anyWin.dataLayer.push(arguments)
+    }
+    anyWin.gtag('js', new Date())
+    anyWin.gtag('config', 'G-LMKESBRXMP')
+  }
+}
+
+initAnalyticsAndAds()
+
 app.mount('#app')
