@@ -30,6 +30,19 @@
           </template>
         </div>
 
+        <!-- 필자 정보 (E-E-A-T 강화) -->
+        <div class="author-card mt-8 pa-4 rounded-lg d-flex align-center">
+          <v-avatar size="56" color="primary" class="mr-4">
+            <v-icon icon="mdi-account-tie" color="white" size="32" />
+          </v-avatar>
+          <div class="text-left">
+            <div class="text-subtitle-1 font-weight-bold text-primary">{{ post.author }}</div>
+            <div class="text-caption text-grey-darken-1" style="line-height: 1.5;">
+              로또메이트 전문 분석 필진으로, 복권 확률 모델 연구, 세무/금융 가이드 작성 및 건전한 게임 이용에 관한 전문 정보를 제공합니다.
+            </div>
+          </div>
+        </div>
+
         <v-divider class="my-8" />
 
         <!-- 꼬리말 및 다른 글 안내 -->
@@ -183,5 +196,16 @@ function formatDate(iso: string) {
 .v-theme--dark :deep(code) {
   background-color: rgba(255, 255, 255, 0.08) !important;
   color: #b39ddb !important;
+}
+
+.author-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(124, 77, 255, 0.15) !important;
+  text-align: left;
+}
+
+.v-theme--light .author-card {
+  background: #f9f9f9;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
 }
 </style>

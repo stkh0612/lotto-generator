@@ -13,7 +13,7 @@ export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]['code']
 
 export const DEFAULT_LOCALE: SupportedLocale = 'ko'
 
-export type RouteSeoKey = 'home' | 'saved' | 'compare' | 'simulation' | 'stats' | 'guide' | 'analysis' | 'fortune' | 'results' | 'blog' | 'blogPost'
+export type RouteSeoKey = 'home' | 'saved' | 'compare' | 'simulation' | 'stats' | 'guide' | 'analysis' | 'fortune' | 'results' | 'blog' | 'blogPost' | 'about'
 
 interface LocaleCopy {
   title: string
@@ -271,6 +271,28 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
         title: 'LottoMate ブログ記事 · ロト専門情報',
         description: 'ロトの統計、分析、税金および当選金受け取りガイドなど、専門的で深い記事をお届けします。',
         keywords: 'ロト記事, ロト情報, ロト統計, 当選金受け取り'
+      }
+    }
+  },
+  about: {
+    path: '/about',
+    changefreq: 'monthly',
+    priority: 0.6,
+    copy: {
+      ko: {
+        title: '로또메이트 소개 · 서비스 철학 및 건전한 복권 이용 강령',
+        description: '로또메이트(LottoMate) 서비스의 기획 의도, 독립적인 운영 철학, 제공 서비스 안내 및 소액으로 즐기는 건전한 복권 구매 행동 강령을 소개합니다.',
+        keywords: '로또메이트 소개, 서비스 철학, 복권 행동 강령, 건전한 복권, 문의 사항, 로또메이트'
+      },
+      en: {
+        title: 'About LottoMate · Service Philosophy & Guidelines',
+        description: 'Learn about LottoMate, our commitment to responsible gaming, scientific lottery analysis, and services we provide.',
+        keywords: 'about LottoMate, lottery philosophy, responsible gaming, contact LottoMate'
+      },
+      ja: {
+        title: 'LottoMate について · サービス哲学とガイドライン',
+        description: 'LottoMate の設立趣旨、健全なロト利用のための行動綱領、提供サービスおよびお問い合わせ先をご紹介します。',
+        keywords: 'LottoMate について, サービス哲学, 健全なロト利用, お問い合わせ'
       }
     }
   }

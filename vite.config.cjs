@@ -20,7 +20,7 @@ module.exports = defineConfig({
       staticDir: require('path').join(__dirname, 'dist'),
       routes: [
         '/', '/saved', '/compare', '/simulation', '/stats', '/analysis', '/fortune', '/guide', '/results', '/privacy', '/terms',
-        '/blog', '/blog/1', '/blog/2', '/blog/3', '/blog/4', '/blog/5',
+        '/blog', '/blog/1', '/blog/2', '/blog/3', '/blog/4', '/blog/5', '/about',
         ...compareRoutes,
         ...resultsRoutes
       ],

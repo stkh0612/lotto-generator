@@ -72,6 +72,7 @@ const items = ref([
   { title: t('navFortune'),      icon: 'mdi-sparkles',       to: '/fortune' },
   { title: t('navGuide'),        icon: 'mdi-book-open-page-variant', to: '/guide' },
   { title: t('navBlog', '로또 블로그'), icon: 'mdi-post-outline', to: '/blog' },
+  { title: t('navAbout', '소개'), icon: 'mdi-information-outline', to: '/about' },
 ])
 
 function onItemClick() {

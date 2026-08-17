@@ -87,6 +87,65 @@ function ensureJsonLd(locale: SupportedLocale) {
   script.textContent = JSON.stringify(schema)
 }
 
+function ensureBlogPostingJsonLd(route: Router['currentRoute']['value'], locale: SupportedLocale) {
+  const BLOG_LD_ID = 'seo-blogposting-schema'
+  let script = document.head.querySelector<HTMLScriptElement>(`#${BLOG_LD_ID}`)
+  
+  const key = resolveRouteSeoKey(route)
+  if (key !== 'blogPost') {
+    if (script) script.remove()
+    return
+  }
+
+  const idParam = route.query.id || route.params.id
+  if (!idParam) {
+    if (script) script.remove()
+    return
+  }
+
+  const postId = Number(idParam)
+  const foundPost = blogPosts.find((p: any) => p.id === postId)
+  if (!foundPost) {
+    if (script) script.remove()
+    return
+  }
+
+  if (!script) {
+    script = document.createElement('script')
+    script.type = 'application/ld+json'
+    script.id = BLOG_LD_ID
+    document.head.appendChild(script)
+  }
+
+  const canonicalUrl = toAbsoluteUrl(route.fullPath)
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': canonicalUrl,
+    'headline': foundPost.title,
+    'description': foundPost.summary,
+    'datePublished': foundPost.date,
+    'author': {
+      '@type': 'Organization',
+      'name': foundPost.author || SITE_NAME
+    },
+    'publisher': {
+      '@type': 'Organization',
+      'name': SITE_NAME,
+      'logo': {
+        '@type': 'ImageObject',
+        'url': `${BASE_URL}/og-image.png`
+      }
+    },
+    'mainEntityOfPage': {
+      '@type': 'WebPage',
+      '@id': canonicalUrl
+    }
+  }
+
+  script.textContent = JSON.stringify(schema)
+}
+
 function updateOgLocale(locale: SupportedLocale) {
   const info = SUPPORTED_LOCALES.find(({ code }) => code === locale)
   if (!info) return
@@ -169,6 +228,7 @@ function applySeo(route: Router['currentRoute']['value'], locale: SupportedLocal
   updateOgLocale(locale)
   setLinkCanonical(canonicalUrl)
   ensureJsonLd(locale)
+  ensureBlogPostingJsonLd(route, locale)
 }
 
 export function installSeo(router: Router, i18n: I18n) {

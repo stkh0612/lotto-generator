@@ -4,6 +4,8 @@
     <v-container>
       <!-- 약관 및 정책 링크 -->
       <div class="footer-links mb-4 d-flex justify-center flex-wrap align-center">
+        <router-link to="/about" class="footer-link">{{ t('navAbout', '소개') }}</router-link>
+        <span class="divider mx-3">|</span>
         <router-link to="/privacy" class="footer-link">{{ t('navPrivacy', '개인정보처리방침') }}</router-link>
         <span class="divider mx-3">|</span>
         <router-link to="/terms" class="footer-link">{{ t('navTerms', '이용약관') }}</router-link>
