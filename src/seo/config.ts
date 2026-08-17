@@ -13,7 +13,7 @@ export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]['code']
 
 export const DEFAULT_LOCALE: SupportedLocale = 'ko'
 
-export type RouteSeoKey = 'home' | 'saved' | 'compare' | 'simulation' | 'stats' | 'guide' | 'analysis' | 'fortune' | 'results'
+export type RouteSeoKey = 'home' | 'saved' | 'compare' | 'simulation' | 'stats' | 'guide' | 'analysis' | 'fortune' | 'results' | 'blog' | 'blogPost'
 
 interface LocaleCopy {
   title: string
@@ -227,6 +227,50 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
         title: '回次別ロト当選結果の照会 · LottoMate',
         description: 'ロトの回次を入力して当選番号とボーナス番号を照会し、自分の番号との一致数を確認しましょう。',
         keywords: 'ロト結果照会, ロト当選番号確認, 回次別結果'
+      }
+    }
+  },
+  blog: {
+    path: '/blog',
+    changefreq: 'weekly',
+    priority: 0.8,
+    copy: {
+      ko: {
+        title: '로또메이트 정보 블로그 · 유용한 로또 가이드와 통계 분석',
+        description: '로또메이트 정보 블로그에서 로또 당첨금 세금 계산 방법, 역대 당첨 번호 통계 분석, 명당 복권방의 확률적 진실 등 깊이 있고 유용한 정보를 확인하세요.',
+        keywords: '로또 블로그, 로또 분석, 로또 세금 계산, 로또 명당 확률, 로또 확률 수학, 로또메이트'
+      },
+      en: {
+        title: 'LottoMate Info Blog · Helpful Lotto Guides & Statistics',
+        description: 'Explore deep-dive analyses on lottery odds, tax calculations, prize claim instructions, and historical statistics.',
+        keywords: 'lotto blog, lotto analysis, lottery statistics, lotto tax guide, LottoMate'
+      },
+      ja: {
+        title: 'LottoMate 情報ブログ · ロトガイドと統計分析',
+        description: 'ロト当選金の税金計算方法、過去の当選番号統計、有名売り場の確率の真実など、深く役立つ情報をチェックしましょう。',
+        keywords: 'ロトブログ, ロト分析, 税금計算, 当選確率, LottoMate'
+      }
+    }
+  },
+  blogPost: {
+    path: '/blog',
+    changefreq: 'monthly',
+    priority: 0.7,
+    copy: {
+      ko: {
+        title: '로또메이트 블로그 아티클 · 로또 전문 정보',
+        description: '로또메이트 블로그에서 전해드리는 전문적이고 깊이 있는 로또 통계, 분석, 세금 및 수령 가이드입니다.',
+        keywords: '로또 정보, 로또 분석, 로또 통계, 로또 수령법, 로또메이트'
+      },
+      en: {
+        title: 'LottoMate Blog Articles · Expert Lottery Information',
+        description: 'Read expert advice on lotto odds, tax calculations, and detailed prize-claiming instructions.',
+        keywords: 'lotto article, lottery tips, lotto payout, claim lotto prize'
+      },
+      ja: {
+        title: 'LottoMate ブログ記事 · ロト専門情報',
+        description: 'ロトの統計、分析、税金および当選金受け取りガイドなど、専門的で深い記事をお届けします。',
+        keywords: 'ロト記事, ロト情報, ロト統計, 当選金受け取り'
       }
     }
   }

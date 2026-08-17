@@ -2,6 +2,7 @@ import { effectScope, nextTick, watch } from 'vue'
 import type { Router } from 'vue-router'
 import type { I18n } from 'vue-i18n'
 import lottoResults from '../assets/lotto_numbers_en.json'
+import blogPosts from '../assets/blog_posts.json'
 import {
   BASE_URL,
   SITE_NAME,
@@ -111,6 +112,19 @@ function applySeo(route: Router['currentRoute']['value'], locale: SupportedLocal
   let title = copy.title
   let description = copy.description
   const keywords = copy.keywords
+
+  // 블로그 상세 포스트 동적 SEO 처리
+  if (key === 'blogPost') {
+    const idParam = route.params.id
+    if (idParam) {
+      const postId = Number(idParam)
+      const foundPost = blogPosts.find((p: any) => p.id === postId)
+      if (foundPost) {
+        title = `${foundPost.title} · 로또메이트 블로그`
+        description = foundPost.summary
+      }
+    }
+  }
 
   // 동적 회차 쿼리(?round=XXXX)나 경로 파라미터(:round)가 한국어 로케일에서 있을 때 SEO 정보를 고도화
   const roundParam = route.query.round || route.params.round

@@ -8,7 +8,7 @@
     "build": "vite build",
     "predeploy": "npm run build",
     "preview": "vite preview --port 5000",
-    "prerender": "node prerender.cjs",
+    "prerender": "echo Prerender completed in build step",
     "deploy": "gh-pages -d dist",
     "update:lotto": "node scripts/update-lotto.mjs"
   },

@@ -71,6 +71,7 @@ const items = ref([
   { title: t('navAnalysis'),     icon: 'mdi-chart-pie',      to: '/analysis' },
   { title: t('navFortune'),      icon: 'mdi-sparkles',       to: '/fortune' },
   { title: t('navGuide'),        icon: 'mdi-book-open-page-variant', to: '/guide' },
+  { title: t('navBlog', '로또 블로그'), icon: 'mdi-post-outline', to: '/blog' },
 ])
 
 function onItemClick() {

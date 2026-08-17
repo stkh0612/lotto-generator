@@ -4,6 +4,7 @@
     <v-main>
       <AppBar @toggle-drawer="drawer = !drawer" @show-info="onShowInfo" />
       <router-view />
+      <AppFooter />
     </v-main>
     <BottomNav />
     <div class="locale-switcher">
@@ -21,6 +22,7 @@ import { ref } from 'vue'
 import Sidebar from './components/Sidebar.vue'
 import AppBar from './components/AppBar.vue'
 import BottomNav from './components/BottomNav.vue'
+import AppFooter from './components/AppFooter.vue'
 import { useI18n } from 'vue-i18n'
 
 const drawer = ref(false)

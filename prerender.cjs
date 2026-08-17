@@ -27,20 +27,43 @@ const server = http.createServer((req, res) => {
 const lottoResults = require('./src/assets/lotto_numbers_en.json')
 
 async function prerender() {
-  await new Promise(r => server.listen(5173, r))
+  await new Promise(r => server.listen(5555, r))
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
+
+  // 블로그, 애드센스 등 외부 스크립트 차단 (오류 방지 및 속도 향상)
+  await page.setRequestInterception(true)
+  page.on('request', req => {
+    const url = req.url()
+    if (
+      url.includes('googlesyndication') ||
+      url.includes('googletagmanager') ||
+      url.includes('googleads') ||
+      url.includes('google-analytics') ||
+      url.includes('adsbygoogle') ||
+      url.includes('sodar')
+    ) {
+      req.abort()
+    } else {
+      req.continue()
+    }
+  })
 
   // 2) 나열한 SPA 경로 방문 → HTML 추출 → 파일 쓰기
   const baseRoutes = ['/', '/saved', '/compare', '/results', '/stats', '/analysis', '/fortune', '/guide', '/simulation', '/privacy', '/terms']
   const recentRounds = lottoResults.slice(0, 5).map(r => r.round)
   const compareRoutes = recentRounds.map(r => `/compare/${r}`)
   const resultsRoutes = recentRounds.map(r => `/results/${r}`)
-  const routes = [...baseRoutes, ...compareRoutes, ...resultsRoutes]
+  const blogRoutes = ['/blog', '/blog/1', '/blog/2', '/blog/3', '/blog/4', '/blog/5']
+  const routes = [...baseRoutes, ...compareRoutes, ...resultsRoutes, ...blogRoutes]
 
   for (const route of routes) {
-    const url = `http://localhost:5173${route}`
-    await page.goto(url, { waitUntil: 'networkidle0' })
+    const url = `http://localhost:5555${route}`
+    try {
+      await page.goto(url, { waitUntil: 'networkidle2', timeout: 15000 })
+    } catch (e) {
+      console.warn(`[Prerender Warning] Navigation timed out or failed for ${url}: ${e.message}`)
+    }
     const html = await page.content()
 
     // determine output file path
