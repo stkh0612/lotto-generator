@@ -171,11 +171,22 @@ function processRoute(routePath, seoData, customJsonLd = null) {
   html = html.replace(/<meta property="og:title" content=".*?">/, ogTitleTag);
   html = html.replace(/<meta name="twitter:title" content=".*?">/, twTitleTag);
 
+  // Hreflang 태그 주입
+  const canonicalPath = routePath === '/' ? '/' : (routePath.endsWith('/') ? routePath : `${routePath}/`);
+  const hreflangTags = [
+    `<link rel="alternate" hreflang="ko" href="https://lottomate.life${canonicalPath}">`,
+    `<link rel="alternate" hreflang="en" href="https://lottomate.life${canonicalPath}?lang=en">`,
+    `<link rel="alternate" hreflang="ja" href="https://lottomate.life${canonicalPath}?lang=ja">`,
+    `<link rel="alternate" hreflang="x-default" href="https://lottomate.life${canonicalPath}">`
+  ].join('\n  ');
+
+  html = html.replace('</head>', `  ${hreflangTags}\n</head>`);
+
   // JSON-LD 주입
   if (customJsonLd) {
     const jsonLdScript = `<script id="seo-blogposting-schema" type="application/ld+json">${JSON.stringify(customJsonLd)}</script>`;
     // head가 끝나기 전에 추가
-    html = html.replace('</head>', `${jsonLdScript}\n</head>`);
+    html = html.replace('</head>', `  ${jsonLdScript}\n</head>`);
   }
 
   // body HTML 내용 주입 (crawler readability 및 pre-rendering 해결)
@@ -264,3 +275,89 @@ blogPosts.forEach((post) => {
 });
 
 console.log('[post-build-seo] 모든 대상 페이지 주입 완료!');
+
+// 6. 사이트맵 자동 생성 및 파일 갱신
+console.log('[post-build-seo] sitemap.xml 자동 생성 시작...');
+try {
+  const lottoNumbersPath = path.join(__dirname, '../src/assets/lotto_numbers_en.json');
+  let lottoRounds = [];
+  try {
+    const lottoData = JSON.parse(fs.readFileSync(lottoNumbersPath, 'utf8'));
+    // 최신 순으로 정렬하여 상위 30개 회차 추출
+    const sortedData = lottoData.sort((a, b) => b.round - a.round);
+    lottoRounds = sortedData.slice(0, 30).map(r => r.round);
+  } catch (e) {
+    console.warn('[post-build-seo] lotto_numbers_en.json 로드 실패, 사이트맵에 최신 회차 추가 불가:', e);
+  }
+
+  // 사이트맵에 들어갈 URL 목록 빌드
+  const urls = [];
+
+  // 1) 정적 페이지
+  const staticRoutes = [
+    { path: '/', changefreq: 'daily', priority: '1.0' },
+    { path: '/results/', changefreq: 'daily', priority: '0.9' },
+    { path: '/saved/', changefreq: 'weekly', priority: '0.8' },
+    { path: '/compare/', changefreq: 'weekly', priority: '0.8' },
+    { path: '/simulation/', changefreq: 'daily', priority: '0.9' },
+    { path: '/analysis/', changefreq: 'weekly', priority: '0.7' },
+    { path: '/stats/', changefreq: 'monthly', priority: '0.6' },
+    { path: '/fortune/', changefreq: 'daily', priority: '0.6' },
+    { path: '/guide/', changefreq: 'monthly', priority: '0.5' },
+    { path: '/privacy/', changefreq: 'monthly', priority: '0.3' },
+    { path: '/terms/', changefreq: 'monthly', priority: '0.3' },
+    { path: '/blog/', changefreq: 'weekly', priority: '0.8' },
+    { path: '/about/', changefreq: 'monthly', priority: '0.6' }
+  ];
+
+  staticRoutes.forEach(r => {
+    urls.push(`  <url>
+    <loc>https://lottomate.life${r.path}</loc>
+    <changefreq>${r.changefreq}</changefreq>
+    <priority>${r.priority}</priority>
+  </url>`);
+  });
+
+  // 2) 최근 30개 회차 결과 및 비교 페이지
+  lottoRounds.forEach(round => {
+    urls.push(`  <url>
+    <loc>https://lottomate.life/results/${round}/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>`);
+    urls.push(`  <url>
+    <loc>https://lottomate.life/compare/${round}/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`);
+  });
+
+  // 3) 블로그 개별 글 상세 페이지
+  blogPosts.forEach(post => {
+    urls.push(`  <url>
+    <loc>https://lottomate.life/blog/${post.id}/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`);
+  });
+
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.join('\n')}
+</urlset>
+`;
+
+  // public/sitemap.xml 및 dist/sitemap.xml 에 저장
+  const publicSitemapPath = path.join(__dirname, '../public/sitemap.xml');
+  const distSitemapPath = path.join(__dirname, '../dist/sitemap.xml');
+
+  // 디렉토리가 존재하는지 확인 후 쓰기
+  fs.writeFileSync(publicSitemapPath, sitemapXml, 'utf8');
+  if (fs.existsSync(path.dirname(distSitemapPath))) {
+    fs.writeFileSync(distSitemapPath, sitemapXml, 'utf8');
+  }
+  console.log('[post-build-seo] sitemap.xml 자동 생성 및 업데이트 완료! (경로: public/, dist/)');
+
+} catch (err) {
+  console.error('[post-build-seo] sitemap.xml 생성 중 에러 발생:', err);
+}

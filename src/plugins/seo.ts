@@ -38,6 +38,54 @@ function setLinkCanonical(href: string) {
   link.setAttribute('href', href)
 }
 
+function updateHrefLangLinks(routeFullPath: string) {
+  // 기존의 hreflang 링크 제거
+  const existingLinks = document.head.querySelectorAll('link[rel="alternate"][hreflang]')
+  existingLinks.forEach(el => el.remove())
+
+  // 경로 및 기타 쿼리스트링 파싱 (lang은 제외)
+  const [pathname, search] = routeFullPath.split(/[?#]/)
+  let formattedPath = pathname.startsWith('/') ? pathname : `/${pathname}`
+  const lastSegment = formattedPath.split('/').pop() || ''
+  if (!lastSegment.includes('.') && !formattedPath.endsWith('/')) {
+    formattedPath += '/'
+  }
+
+  let queryString = ''
+  if (search) {
+    const params = new URLSearchParams(search)
+    params.delete('lang')
+    const qs = params.toString()
+    if (qs) {
+      queryString = `?${qs}`
+    }
+  }
+
+  const basePageUrl = `${BASE_URL}${formattedPath}${queryString}`
+
+  // 각 지원하는 로케일별로 alternate 링크 생성
+  SUPPORTED_LOCALES.forEach(({ code, hrefLang }) => {
+    const link = document.createElement('link')
+    link.setAttribute('rel', 'alternate')
+    link.setAttribute('hreflang', hrefLang)
+    
+    let url = basePageUrl
+    if (code !== 'ko') {
+      url += (queryString ? '&' : '?') + `lang=${code}`
+    }
+    
+    link.setAttribute('href', url)
+    document.head.appendChild(link)
+  })
+
+  // x-default 주입 (한국어 기준)
+  const defaultLink = document.createElement('link')
+  defaultLink.setAttribute('rel', 'alternate')
+  defaultLink.setAttribute('hreflang', 'x-default')
+  defaultLink.setAttribute('href', basePageUrl)
+  document.head.appendChild(defaultLink)
+}
+
 function ensureRobotsTag() {
   const existing = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]')
   if (!existing) {
@@ -227,6 +275,7 @@ function applySeo(route: Router['currentRoute']['value'], locale: SupportedLocal
 
   updateOgLocale(locale)
   setLinkCanonical(canonicalUrl)
+  updateHrefLangLinks(route.fullPath)
   ensureJsonLd(locale)
   ensureBlogPostingJsonLd(route, locale)
 }

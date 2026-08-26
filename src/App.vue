@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import Sidebar from './components/Sidebar.vue'
 import AppBar from './components/AppBar.vue'
 import BottomNav from './components/BottomNav.vue'
@@ -27,6 +27,12 @@ import { useI18n } from 'vue-i18n'
 
 const drawer = ref(false)
 const { locale } = useI18n()
+
+watch(locale, (newLocale) => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('lottomate-locale', newLocale)
+  }
+})
 
 function onShowInfo() {
   // TODO: connect to modal when the information panel is ready
