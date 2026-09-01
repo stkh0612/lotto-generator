@@ -7,6 +7,7 @@
       <AppFooter />
     </v-main>
     <BottomNav />
+    <PwaInstallPrompt />
     <div class="locale-switcher">
       <select v-model="locale" aria-label="Select language">
         <option value="ko">한국어</option>
@@ -23,6 +24,7 @@ import Sidebar from './components/Sidebar.vue'
 import AppBar from './components/AppBar.vue'
 import BottomNav from './components/BottomNav.vue'
 import AppFooter from './components/AppFooter.vue'
+import PwaInstallPrompt from './components/PwaInstallPrompt.vue'
 import { useI18n } from 'vue-i18n'
 
 const drawer = ref(false)

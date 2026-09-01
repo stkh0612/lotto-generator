@@ -50,6 +50,25 @@ function initAnalyticsAndAds() {
   }
 }
 
+function registerServiceWorker() {
+  if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+    const userAgent = navigator.userAgent || ''
+    const isHeadless = userAgent.includes('Headless') || userAgent.includes('Prerender') || (window as any).__PRERENDER_INJECTED
+    if (!isHeadless) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((reg) => {
+            console.log('[PWA] Service Worker registered with scope:', reg.scope)
+          })
+          .catch((err) => {
+            console.warn('[PWA] Service Worker registration failed:', err)
+          })
+      })
+    }
+  }
+}
+
 initAnalyticsAndAds()
+registerServiceWorker()
 
 app.mount('#app')

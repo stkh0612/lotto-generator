@@ -4,8 +4,10 @@ on:
     branches:
       - master
   schedule:
-    # 매주 토요일 저녁 9:00 KST (UTC 12:00)에 실행
-    - cron: '0 12 * * 6'
+    # 매주 토요일 KST 20:45 (UTC 11:45), 21:15 (UTC 12:15), 22:00 (UTC 13:00) 3회 자동 실행
+    - cron: '45 11 * * 6'
+    - cron: '15 12 * * 6'
+    - cron: '0 13 * * 6'
   workflow_dispatch:
 
 # 2. GitHub Token 권한 확대 (레포 쓰기 및 Pages 배포 권한)
@@ -38,16 +40,20 @@ jobs:
       - name: Update Lotto Numbers
         run: npm run update:lotto
 
-      # 7. 데이터 업데이트가 발생했을 경우 Git에 반영
+      # 7. 프로덕션 빌드 및 정적 SEO/사이트맵 생성
+      - name: Build and Generate SEO Pages
+        run: npm run build
+
+      # 8. 데이터 및 사이트맵 업데이트 발생 시 Git에 반영
       - name: Commit and push changes if updated
         id: check_update
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/assets/lotto_numbers_en.json
+          git add src/assets/lotto_numbers_en.json public/sitemap.xml
           
           if ! git diff --cached --quiet; then
-            git commit -m "chore: auto-update lotto numbers [skip actions]"
+            git commit -m "chore: auto-update lotto numbers & sitemap [skip actions]"
             git push origin master
             echo "updated=true" >> $GITHUB_OUTPUT
           else
@@ -55,14 +61,7 @@ jobs:
             echo "updated=false" >> $GITHUB_OUTPUT
           fi
 
-      # 8. 빌드
-      - name: Build
-        run: npm run build
-
-      #- name: Pre-render
-      #  run: npm run prerender
-
-      # 9. gh-pages 브랜치에 dist/ 업로드
+      # 9. gh-pages 브랜치에 dist/ 업로드 (GitHub Pages 백업)
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -72,7 +71,9 @@ jobs:
 
       # 10. 로또 번호가 업데이트 되었을 때만 이메일 발송
       - name: Send mail on update success
-        if: steps.check_update.outputs.updated == 'true'
+        if: steps.check_update.outputs.updated == 'true' && env.MAIL_USERNAME != ''
+        env:
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -80,14 +81,14 @@ jobs:
           secure: true
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "[Lottomate] 로또 당첨 번호 업데이트 성공!"
-          to: stkh0612+lotto@gmail.com
+          subject: "[Lottomate] 로또 당첨 번호 및 사이트맵 자동 갱신 완료!"
+          to: superman612@kakao.com
           from: Lottomate Auto Update <${{ secrets.MAIL_USERNAME }}>
           body: |
-            로또 당첨 번호가 성공적으로 업데이트되었습니다.
+            로또 신규 당첨 번호와 정적 SEO 페이지가 성공적으로 업데이트 및 배포되었습니다.
             
-            - 대상 사이트: lottomate.life
-            - 일시: KST 토요일 저녁 (GitHub Action 자동 실행 완료)
-            - 변경 확인: https://github.com/${{ github.repository }}/commits/master
+            - 대상 사이트: https://lottomate.life
+            - 일시: KST 토요일 저녁 (GitHub Actions 자동 실행 완료)
+            - 커밋 확인: https://github.com/${{ github.repository }}/commits/master
 
 
