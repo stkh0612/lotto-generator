@@ -7,7 +7,19 @@
     width="280"
     class="sidebar"
   >
-    <v-list dense>
+    <!-- 사이드바 상단 헤더 (iOS 노치 안전 영역 여백 및 로고) -->
+    <div class="sidebar-header pa-4 pb-2 d-flex align-center justify-space-between">
+      <div class="d-flex align-center" style="gap: 8px;">
+        <v-avatar size="28" color="primary">
+          <v-img src="/leafgrad.svg" alt="LottoMate" />
+        </v-avatar>
+        <span class="text-subtitle-1 font-weight-bold text-primary">LottoMate</span>
+      </div>
+      <v-btn v-if="isMobile" icon="mdi-close" variant="text" size="small" @click="drawer = false" />
+    </div>
+    <v-divider class="mb-1" />
+
+    <v-list dense class="pt-0">
       <v-list-item
         v-for="item in items"
         :key="item.title"
@@ -86,6 +98,10 @@ function onItemClick() {
   flex-direction: column;
   background: #fff;
   border-right: 1px solid #e0e0e0;
+}
+
+.sidebar-header {
+  padding-top: calc(16px + env(safe-area-inset-top, 0px)) !important;
 }
 
 /* 한 줄 flex 배치 */

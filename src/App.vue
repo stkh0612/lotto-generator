@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <Sidebar v-model="drawer" />
+    <AppBar @toggle-drawer="drawer = !drawer" @show-info="onShowInfo" />
     <v-main>
-      <AppBar @toggle-drawer="drawer = !drawer" @show-info="onShowInfo" />
       <router-view />
       <AppFooter />
     </v-main>
