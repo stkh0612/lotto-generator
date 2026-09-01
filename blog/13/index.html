@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="ko"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>로또 2등 당첨 구조와 보너스 번호의 통계적 역학 관계 · 로또메이트 블로그</title>
+  <meta name="description" content="로또 2등과 3등은 똑같이 5개 번호를 맞췄는데 당첨금은 수십 배 차이가 납니다. 보너스 번호의 추첨 방식과 2등 당첨 확률의 수학적 구조를 파헤칩니다.">
+  <meta name="keywords" content="로또 분석, 로또 2등 당첨 구조와 보너, 로또 세금, 로또 통계, 로또메이트">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#6200EA">
+  <meta name="naver-site-verification" content="ce97740ab2f7b75c8f95e02dd77b4fa283dea5a8">
+  <meta name="msvalidate.01" content="961BB7E244BDE89956761D6C8DBE31EC">
+  <link rel="icon" type="image/svg+xml" href="/leafgrad.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link rel="canonical" href="https://lottomate.life/blog/13/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LottoMate">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:url" content="https://lottomate.life/blog/13/">
+  <meta property="og:title" content="로또 2등 당첨 구조와 보너스 번호의 통계적 역학 관계 · 로또메이트 블로그">
+  <meta property="og:description" content="로또 2등과 3등은 똑같이 5개 번호를 맞췄는데 당첨금은 수십 배 차이가 납니다. 보너스 번호의 추첨 방식과 2등 당첨 확률의 수학적 구조를 파헤칩니다.">
+  <meta property="og:image" content="https://lottomate.life/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="로또 2등 당첨 구조와 보너스 번호의 통계적 역학 관계 · 로또메이트 블로그">
+  <meta name="twitter:description" content="로또 2등과 3등은 똑같이 5개 번호를 맞췄는데 당첨금은 수십 배 차이가 납니다. 보너스 번호의 추첨 방식과 2등 당첨 확률의 수학적 구조를 파헤칩니다.">
+  <meta name="twitter:image" content="https://lottomate.life/twitter-image.png">
+  <script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202608260101/show_ads_impl.js"></script><script id="seo-website-schema" type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "LottoMate",
+        "url": "https://lottomate.life/",
+        "inLanguage": "ko",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://lottomate.life/results?round={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3971187501349159" crossorigin="anonymous" data-checked-head="true"></script>
+    <script type="module" crossorigin="" src="/assets/index-CQlGGHj6.js"></script>
+    <link rel="stylesheet" crossorigin="" href="/assets/index-zJiLRAJ8.css">
+  <meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9nrunKdU5m96PSN1XsSGr3qOP0lvPFUB2AiAylCDlN5DTl17uDFkpQuHj1AFtgWLxpLaiBZuhrtb2WOu7ofHwEAAACKeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A93bovR+QVXNx2/38qDbmeYYf1wdte9EO37K9eMq3r+541qo0byhYU899BhPB7Cv9QqD7wIbR1B6OAc9kEfYCA4AAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A1S5fojrAunSDrFbD8OfGmFHdRFZymSM/1ss3G+NEttCLfHkXvlcF6LGLH8Mo5PakLO1sCASXU1/gQf6XGuTBgwAAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9">  <link rel="alternate" hreflang="ko" href="https://lottomate.life/blog/13/">
+  <link rel="alternate" hreflang="en" href="https://lottomate.life/blog/13/?lang=en">
+  <link rel="alternate" hreflang="ja" href="https://lottomate.life/blog/13/?lang=ja">
+  <link rel="alternate" hreflang="x-default" href="https://lottomate.life/blog/13/">
+  <script id="seo-blogposting-schema" type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lottomate.life/blog/13/","headline":"로또 2등 당첨 구조와 보너스 번호의 통계적 역학 관계","description":"로또 2등과 3등은 똑같이 5개 번호를 맞췄는데 당첨금은 수십 배 차이가 납니다. 보너스 번호의 추첨 방식과 2등 당첨 확률의 수학적 구조를 파헤칩니다.","datePublished":"2026-06-10T00:00:00Z","author":{"@type":"Organization","name":"로또메이트 통계연구원"},"publisher":{"@type":"Organization","name":"LottoMate","logo":{"@type":"ImageObject","url":"https://lottomate.life/og-image.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://lottomate.life/blog/13/"}}</script>
+</head>
+
+<body>
+  <div id="app">
+    <div class="pre-rendered-seo-body" style="display: block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 840px; margin: 40px auto; padding: 0 24px; text-align: left; line-height: 1.8; color: #212121;">
+      <h1 style="color: #6200EA; font-size: 2.2rem; border-bottom: 2px solid #E0E0E0; padding-bottom: 12px; margin-bottom: 24px;">로또 2등 당첨 구조와 보너스 번호의 통계적 역학 관계</h1>
+      <div class="content-body" style="font-size: 1.05rem; margin-top: 20px;">
+        
+    <div style="font-size: 0.95rem; color: #757575; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 8px;">
+      <span>📅 발행일: 2026-06-10</span> | <span>✍️ 작성자: 로또메이트 통계연구원</span>
+    </div>
+    <h3 style="color: #6200EA; font-size: 1.4rem; border-left: 4px solid #6200EA; padding-left: 10px; margin-top: 28px; margin-bottom: 12px;">2등과 3등을 가르는 단 하나의 숫자: 보너스 번호의 모든 것</h3>
+<p style="margin-bottom: 16px; line-height: 1.8; text-align: justify;">로또 추첨 방송을 보면 메인 당첨 번호 6개가 뽑힌 뒤 마지막에 1개의 공이 추가로 뽑힙니다. 이것이 바로 <strong>'보너스 번호(Bonus Number)'</strong>입니다. 보너스 번호는 오직 <strong>'2등 당첨자'를 가려내기 위해서만 사용</strong>되는 특수 번호입니다.</p>
+<h4 style="color: #512da8; font-size: 1.2rem; margin-top: 24px; margin-bottom: 8px;">1. 2등과 3등의 결정적 차이</h4>
+<ul style="padding-left: 24px; margin-bottom: 16px;">
+<li style="margin-bottom: 6px; line-height: 1.7;"><strong>1등</strong>: 본 추첨 번호 6개 모두 일치 (확률: 1 / 8,145,060)</li>
+<li style="margin-bottom: 6px; line-height: 1.7;"><strong>2등</strong>: 본 추첨 번호 5개 일치 + <strong>보너스 번호 일치</strong> (확률: <strong>1 / 1,357,510</strong>)</li>
+<li style="margin-bottom: 6px; line-height: 1.7;"><strong>3등</strong>: 본 추첨 번호 5개 일치 (보너스 번호 불일치) (확률: <strong>1 / 35,724</strong>)</li>
+</ul>
+<p style="margin-bottom: 16px; line-height: 1.8; text-align: justify;">3등은 5개 번호만 맞추면 되지만, 2등은 5개를 맞춘 상태에서 빗나간 나머지 1개 번호가 반드시 추첨된 보너스 번호와 정확히 일치해야 합니다.</p>
+<h4 style="color: #512da8; font-size: 1.2rem; margin-top: 24px; margin-bottom: 8px;">2. 2등 확률 135만분의 1의 계산 과정</h4>
+<p style="margin-bottom: 16px; line-height: 1.8; text-align: justify;">2등 조합의 총개수는 어떻게 계산될까요?</p>
+<ul style="padding-left: 24px; margin-bottom: 16px;">
+<li style="margin-bottom: 6px; line-height: 1.7;">1등 번호 6개 중 맞춘 5개를 선택하는 방법: C(6, 5) = 6가지</li>
+<li style="margin-bottom: 6px; line-height: 1.7;">나머지 1개 번호가 보너스 번호여야 하는 경우: C(1, 1) = 1가지</li>
+<li style="margin-bottom: 6px; line-height: 1.7;">총 2등 가능한 조합 수: 6 × 1 = <strong>6가지</strong></li>
+</ul>
+<p style="margin-bottom: 16px; line-height: 1.8; text-align: justify;">따라서 2등 당첨 확률은 <strong>6 / 8,145,060 = 1 / 1,357,510 (약 135만분의 1)</strong>이 됩니다.<br />반면 3등 조합 수는 6 × (45 - 6 - 1) = 6 × 38 = <strong>228가지</strong>이므로 3등 당첨 확률은 228 / 8,145,060 = <strong>1 / 35,724</strong>가 됩니다.</p>
+<h4 style="color: #512da8; font-size: 1.2rem; margin-top: 24px; margin-bottom: 8px;">3. 당첨금 격차와 심리적 아쉬움</h4>
+<p style="margin-bottom: 16px; line-height: 1.8; text-align: justify;">이러한 확률 차이로 인해 당첨금에서도 큰 격차가 발생합니다.</p>
+<ul style="padding-left: 24px; margin-bottom: 16px;">
+<li style="margin-bottom: 6px; line-height: 1.7;"><strong>2등 평균 당첨금</strong>: 약 <strong>4,000만 원 ~ 6,000만 원</strong> (당첨자 수에 따라 변동)</li>
+<li style="margin-bottom: 6px; line-height: 1.7;"><strong>3등 평균 당첨금</strong>: 약 <strong>130만 원 ~ 160만 원</strong></li>
+</ul>
+<p style="margin-bottom: 16px; line-height: 1.8; text-align: justify;">5개 번호를 똑같이 맞추고도 마지막 번호 하나가 보너스 번호와 일치하느냐에 따라 수령액이 약 30~40배 이상 벌어지게 됩니다. 2등 당첨자분들은 1등(20억)을 눈앞에서 놓쳤다는 아쉬움을 느끼기도 하지만, 135만분의 1이라는 엄청난 확률을 뚫고 수천만 원의 목돈을 쥐게 된 대단한 행운의 주인공입니다.</p>
+    <div class="eeat-bio-card" style="background: #fbf9ff; border: 1px solid #d1c4e9; padding: 20px; border-radius: 8px; margin-top: 40px; display: flex; align-items: center;">
+      <div style="font-size: 2.2rem; margin-right: 16px;">📊</div>
+      <div>
+        <strong style="color: #6200EA; font-size: 1.1rem;">로또메이트 통계연구원 (LottoMate 리서치팀)</strong>
+        <p style="margin: 4px 0 0 0; font-size: 0.9rem; color: #555; line-height: 1.5;">
+          로또메이트 전문 분석 필진으로, 복권 확률 모델 연구, 세무/금융 가이드 작성 및 건전한 게임 이용에 관한 전문 정보를 제공합니다.
+        </p>
+      </div>
+    </div>
+  
+      </div>
+      <hr style="margin: 40px 0; border: 0; border-top: 1px solid #E0E0E0;" />
+      <footer style="font-size: 0.9rem; color: #757575;">
+        <p>© 2026 로또메이트 (LottoMate). 본 정보는 통계 보조 데이터이며 건전한 소액 복권 이용을 장려합니다.</p>
+        <p>문의: <a href="mailto:stkh0612@gmail.com" style="color: #6200EA; text-decoration: none;">stkh0612@gmail.com</a> | <a href="/privacy" style="color: #6200EA; text-decoration: none;">개인정보처리방침</a> | <a href="/terms" style="color: #6200EA; text-decoration: none;">이용약관</a></p>
+      </footer>
+    </div>
+  </div>
+
+
+<ins class="adsbygoogle adsbygoogle-noablate" data-ad-hi="true" data-adsbygoogle-status="done" style="display: none !important;"><div id="aswift_0_host" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;min-height:auto;max-height:none;min-width:auto;max-width:none;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-3971187501349159&amp;output=html&amp;adk=1812271804&amp;adf=3025194257&amp;abgtt=6&amp;lmt=1788248440&amp;plat=1%3A8%2C2%3A8%2C3%3A2162688%2C4%3A2162688%2C9%3A32776%2C16%3A8388608%2C17%3A32%2C24%3A32%2C25%3A32%2C30%3A1048576%2C32%3A32%2C41%3A32%2C42%3A32%2C43%3A32%2C44%3A32&amp;format=0x0&amp;url=http%3A%2F%2Flocalhost%3A8000%2Fblog%2F13&amp;pra=5&amp;aiof=13&amp;asro=0&amp;aimartd=4&amp;aieuf=1&amp;aicrs=1&amp;dt=1788248443144&amp;bpp=179&amp;bdt=1073&amp;idt=1957&amp;shv=r20260831&amp;mjsv=m202608260101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;nras=1&amp;correlator=6315380548751&amp;frm=20&amp;pv=2&amp;u_tz=0&amp;u_his=2&amp;u_h=600&amp;u_w=800&amp;u_ah=600&amp;u_aw=800&amp;u_cd=24&amp;u_sd=1&amp;dmc=8&amp;adx=-12245933&amp;ady=-12245933&amp;biw=800&amp;bih=600&amp;scr_x=0&amp;scr_y=0&amp;eid=95399629%2C95400781%2C42533293&amp;oid=2&amp;pvsid=6043290360049184&amp;tmod=212913317&amp;uas=0&amp;nvt=1&amp;fsapi=1&amp;fc=1920&amp;brdim=0%2C0%2C0%2C0%2C800%2C0%2C800%2C600%2C800%2C600&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=32768&amp;bc=31&amp;bz=1&amp;ifi=1&amp;uci=a!1&amp;fsb=1&amp;dtd=2315" data-google-container-id="a!1" tabindex="0" title="Advertisement" aria-label="Advertisement" data-load-complete="true"></iframe></div></ins></body><iframe id="google_esf" name="google_esf" src="https://googleads.g.doubleclick.net/pagead/html/r20260831/r20190131/zrt_lookup.html" style="display: none;"></iframe></html>

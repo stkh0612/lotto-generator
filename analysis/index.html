@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="ko"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>로또 패턴 및 필터링 생성 · 로또메이트</title>
-  <meta name="description" content="과거 출현 조합 필터링, 제외수 설정, 고합/저합 균형 필터링 등 다차원 조합 추출 방식을 제공합니다.">
-  <meta name="keywords" content="로또 분석기, 로또 필터링, 로또 패턴 분석, 로또 번호 조합">
+  <title>로또 심층 패턴 분석 및 합계 구간·색상·홀짝 비율 · 로또메이트</title>
+  <meta name="description" content="최근 100회차 당첨 번호의 총합 구간 정규분포, 5개 색상 대역별 점유율, 홀짝 비율 추이 등 다차원 패턴 데이터를 심층 분석합니다.">
+  <meta name="keywords" content="로또 분석, 로또 패턴, 로또 합계 구간, 로또 색상 통계, 로또 홀짝 비율, 로또메이트">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#6200EA">
   <meta name="naver-site-verification" content="ce97740ab2f7b75c8f95e02dd77b4fa283dea5a8">
@@ -11,19 +11,19 @@
   <link rel="icon" type="image/svg+xml" href="/leafgrad.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link rel="canonical" href="https://lottomate.life/analysis">
+  <link rel="canonical" href="https://lottomate.life/analysis/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="LottoMate">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:url" content="https://lottomate.life/analysis">
-  <meta property="og:title" content="로또 패턴 및 필터링 생성 · 로또메이트">
-  <meta property="og:description" content="과거 출현 조합 필터링, 제외수 설정, 고합/저합 균형 필터링 등 다차원 조합 추출 방식을 제공합니다.">
+  <meta property="og:url" content="https://lottomate.life/analysis/">
+  <meta property="og:title" content="로또 심층 패턴 분석 및 합계 구간·색상·홀짝 비율 · 로또메이트">
+  <meta property="og:description" content="최근 100회차 당첨 번호의 총합 구간 정규분포, 5개 색상 대역별 점유율, 홀짝 비율 추이 등 다차원 패턴 데이터를 심층 분석합니다.">
   <meta property="og:image" content="https://lottomate.life/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="로또 패턴 및 필터링 생성 · 로또메이트">
-  <meta name="twitter:description" content="과거 출현 조합 필터링, 제외수 설정, 고합/저합 균형 필터링 등 다차원 조합 추출 방식을 제공합니다.">
+  <meta name="twitter:title" content="로또 심층 패턴 분석 및 합계 구간·색상·홀짝 비율 · 로또메이트">
+  <meta name="twitter:description" content="최근 100회차 당첨 번호의 총합 구간 정규분포, 5개 색상 대역별 점유율, 홀짝 비율 추이 등 다차원 패턴 데이터를 심층 분석합니다.">
   <meta name="twitter:image" content="https://lottomate.life/twitter-image.png">
-  <script id="seo-website-schema" type="application/ld+json">
+  <script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202608280101/show_ads_impl.js?bust=122880757"></script><script id="seo-website-schema" type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
@@ -37,9 +37,10 @@
         }
       }
     </script>
-  <script type="module" crossorigin="" src="/assets/index-D9azxDJJ.js"></script>
-  <link rel="stylesheet" crossorigin="" href="/assets/index-DvUWOotn.css">
-  <link rel="alternate" hreflang="ko" href="https://lottomate.life/analysis/">
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3971187501349159" crossorigin="anonymous" data-checked-head="true"></script>
+    <script type="module" crossorigin="" src="/assets/index-CQlGGHj6.js"></script>
+    <link rel="stylesheet" crossorigin="" href="/assets/index-zJiLRAJ8.css">
+  <meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9nrunKdU5m96PSN1XsSGr3qOP0lvPFUB2AiAylCDlN5DTl17uDFkpQuHj1AFtgWLxpLaiBZuhrtb2WOu7ofHwEAAACKeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A93bovR+QVXNx2/38qDbmeYYf1wdte9EO37K9eMq3r+541qo0byhYU899BhPB7Cv9QqD7wIbR1B6OAc9kEfYCA4AAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A1S5fojrAunSDrFbD8OfGmFHdRFZymSM/1ss3G+NEttCLfHkXvlcF6LGLH8Mo5PakLO1sCASXU1/gQf6XGuTBgwAAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9">  <link rel="alternate" hreflang="ko" href="https://lottomate.life/analysis/">
   <link rel="alternate" hreflang="en" href="https://lottomate.life/analysis/?lang=en">
   <link rel="alternate" hreflang="ja" href="https://lottomate.life/analysis/?lang=ja">
   <link rel="alternate" hreflang="x-default" href="https://lottomate.life/analysis/">
@@ -47,18 +48,40 @@
 
 <body>
   <div id="app">
-    <div class="pre-rendered-seo-body" style="display: block; font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: left; line-height: 1.8; color: #333;">
-      <h1 style="color: #6200EA; font-size: 2.2rem; border-bottom: 2px solid #E0E0E0; padding-bottom: 12px;">로또 패턴 분석 생성</h1>
-      <div class="content-body" style="font-size: 1.1rem; margin-top: 24px;">
-        <p>과거 패턴 및 통계적 필터 규칙에 기초한 맞춤형 로또 번호 추출 필터링 서비스입니다.</p>
+    <div class="pre-rendered-seo-body" style="display: block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 840px; margin: 40px auto; padding: 0 24px; text-align: left; line-height: 1.8; color: #212121;">
+      <h1 style="color: #6200EA; font-size: 2.2rem; border-bottom: 2px solid #E0E0E0; padding-bottom: 12px; margin-bottom: 24px;">로또 6/45 심층 패턴 분석 및 다차원 통계 지표</h1>
+      <div class="content-body" style="font-size: 1.05rem; margin-top: 20px;">
+        
+      <h2>1. 합계 구간(Sum Distribution)과 정규분포 곡선</h2>
+      <p>당첨 번호 6개 숫자를 모두 더한 합계(Sum)는 최소 21(1+2+3+4+5+6)부터 최대 255(40+41+42+43+44+45)까지 분포할 수 있습니다. 그러나 중심극한정리에 의해 당첨 번호의 합계는 가운데 지점인 <strong>138을 중심으로 종 모양의 정규분포(Bell Curve)</strong>를 그립니다.</p>
+      <ul>
+        <li><strong>안정 구간 (100 ~ 170)</strong>: 전체 역대 당첨 번호의 약 <strong>80.5%</strong>가 이 구간에 집중됩니다.</li>
+        <li><strong>황금 구간 (121 ~ 150)</strong>: 가장 높은 출현 빈도를 자랑하는 핵심 합계 범위입니다.</li>
+        <li><strong>극단 구간 (80 미만 또는 190 초과)</strong>: 출현 빈도가 3% 미만으로 극히 희박합니다.</li>
+      </ul>
+
+      <h2>2. 번호 색상 대역별 출현 비율</h2>
+      <p>로또 공은 번호 대역별로 5가지 고유 색상으로 구분됩니다.</p>
+      <ul>
+        <li><strong>노란색 (1 ~ 10번)</strong>: 10개 번호 (22.2%)</li>
+        <li><strong>파란색 (11 ~ 20번)</strong>: 10개 번호 (22.2%)</li>
+        <li><strong>빨간색 (21 ~ 30번)</strong>: 10개 번호 (22.2%)</li>
+        <li><strong>회색 (31 ~ 40번)</strong>: 10개 번호 (22.2%)</li>
+        <li><strong>초록색 (41 ~ 45번)</strong>: 5개 번호 (11.1%)</li>
+      </ul>
+      <p>실제 당첨 번호는 보통 3~4가지 이상의 색상이 고루 섞여 나오는 경향이 90% 이상을 차지합니다.</p>
+
+      <h2>3. 홀짝 비율(Odd/Even Ratio) 추이 분석</h2>
+      <p>최근 20회차 및 전체 회차의 홀수와 짝수 비율을 분석하면, 3:3 (약 33%) 및 4:2 / 2:4 (약 48%)가 압도적인 비중을 차지합니다. 올홀(6:0) 또는 올짝(0:6)은 각각 1% 내외에 불과하므로, 균형 있는 홀짝 배합이 권장됩니다.</p>
+    
       </div>
       <hr style="margin: 40px 0; border: 0; border-top: 1px solid #E0E0E0;" />
       <footer style="font-size: 0.9rem; color: #757575;">
-        <p>© 2026 로또메이트 (LottoMate). 본 정보는 모의 통계 및 보조 데이터이며 건전한 게임 이용을 장려합니다.</p>
-        <p>문의: <a href="mailto:stkh0612@gmail.com" style="color: #6200EA; text-decoration: none;">stkh0612@gmail.com</a> | <a href="/privacy" style="color: #6200EA; text-decoration: none;">개인정보처리방침</a></p>
+        <p>© 2026 로또메이트 (LottoMate). 본 정보는 통계 보조 데이터이며 건전한 소액 복권 이용을 장려합니다.</p>
+        <p>문의: <a href="mailto:stkh0612@gmail.com" style="color: #6200EA; text-decoration: none;">stkh0612@gmail.com</a> | <a href="/privacy" style="color: #6200EA; text-decoration: none;">개인정보처리방침</a> | <a href="/terms" style="color: #6200EA; text-decoration: none;">이용약관</a></p>
       </footer>
     </div>
   </div>
 
 
-</body></html>
+<ins class="adsbygoogle adsbygoogle-noablate" data-ad-hi="true" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_0_host" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;min-height:auto;max-height:none;min-width:auto;max-width:none;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-3971187501349159&amp;output=html&amp;adk=1812271804&amp;adf=3025194257&amp;abgtt=6&amp;lmt=1788248440&amp;plat=1%3A8%2C2%3A8%2C3%3A2162688%2C4%3A2162688%2C9%3A32776%2C16%3A8388608%2C17%3A32%2C24%3A32%2C25%3A32%2C30%3A1048576%2C32%3A32%2C41%3A32%2C42%3A32%2C43%3A32%2C44%3A32&amp;format=0x0&amp;url=http%3A%2F%2Flocalhost%3A8000%2Fanalysis&amp;pra=5&amp;asro=0&amp;aimartd=4&amp;aieuf=1&amp;aicrs=1&amp;dt=1788248442474&amp;bpp=153&amp;bdt=499&amp;idt=1070&amp;shv=r20260831&amp;mjsv=m202608280101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;nras=1&amp;correlator=1316701699605&amp;frm=20&amp;pv=2&amp;u_tz=0&amp;u_his=2&amp;u_h=600&amp;u_w=800&amp;u_ah=600&amp;u_aw=800&amp;u_cd=24&amp;u_sd=1&amp;dmc=8&amp;adx=-12245933&amp;ady=-12245933&amp;biw=800&amp;bih=600&amp;scr_x=0&amp;scr_y=0&amp;eid=95399629%2C95400774%2C122880597%2C122880757&amp;oid=2&amp;pvsid=1241723745685270&amp;tmod=266095646&amp;uas=0&amp;nvt=1&amp;fsapi=1&amp;fc=1920&amp;brdim=0%2C0%2C0%2C0%2C800%2C0%2C800%2C600%2C800%2C600&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=32768&amp;bc=31&amp;bz=1&amp;ifi=1&amp;uci=a!1&amp;fsb=1&amp;dtd=1520" data-google-container-id="a!1" tabindex="0" title="Advertisement" aria-label="Advertisement" data-load-complete="true"></iframe></div></ins><script type="text/javascript" src="https://ep2.adtrafficquality.google/sodar/sodar2.js"></script></body><iframe id="google_esf" name="google_esf" src="https://googleads.g.doubleclick.net/pagead/html/r20260831/r20190131/zrt_lookup.html" style="display: none;"></iframe></html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="ko"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>로또메이트 · 로또 번호 생성기 & 당첨 확인</title>
-  <meta name="description" content="중복 없는 로또 번호를 자동 생성하고 저장하며 지난 회차 당첨 결과까지 확인할 수 있는 Vue 기반 로또 도우미입니다.">
-  <meta name="keywords" content="로또메이트, 로또 번호 생성기, 로또 당첨 확인, 번호 추천, 무료 로또">
+  <title>로또메이트 · 과학적 로또 번호 생성기 및 통계 분석 포털</title>
+  <meta name="description" content="역대 당첨 데이터 필터링, 홀짝/총합 균형 생성, 3D 물리 추첨 시뮬레이터 및 실시간 당첨 번호 대조를 무료로 제공하는 스마트 로또 도우미입니다.">
+  <meta name="keywords" content="로또메이트, 로또 번호 생성기, 로또 당첨 확인, 로또 번호 추천, 무료 로또, 로또 통계, 로또 분석">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#6200EA">
   <meta name="naver-site-verification" content="ce97740ab2f7b75c8f95e02dd77b4fa283dea5a8">
@@ -16,14 +16,14 @@
   <meta property="og:site_name" content="LottoMate">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:url" content="https://lottomate.life/">
-  <meta property="og:title" content="로또메이트 · 로또 번호 생성기 & 당첨 확인">
-  <meta property="og:description" content="중복 없는 로또 번호를 자동 생성하고 저장하며 지난 회차 당첨 결과까지 확인할 수 있는 Vue 기반 로또 도우미입니다.">
+  <meta property="og:title" content="로또메이트 · 과학적 로또 번호 생성기 및 통계 분석 포털">
+  <meta property="og:description" content="역대 당첨 데이터 필터링, 홀짝/총합 균형 생성, 3D 물리 추첨 시뮬레이터 및 실시간 당첨 번호 대조를 무료로 제공하는 스마트 로또 도우미입니다.">
   <meta property="og:image" content="https://lottomate.life/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="로또메이트 · 로또 번호 생성기 & 당첨 확인">
-  <meta name="twitter:description" content="중복 없는 로또 번호를 자동 생성하고 저장하며 지난 회차 당첨 결과까지 확인할 수 있는 Vue 기반 로또 도우미입니다.">
+  <meta name="twitter:title" content="로또메이트 · 과학적 로또 번호 생성기 및 통계 분석 포털">
+  <meta name="twitter:description" content="역대 당첨 데이터 필터링, 홀짝/총합 균형 생성, 3D 물리 추첨 시뮬레이터 및 실시간 당첨 번호 대조를 무료로 제공하는 스마트 로또 도우미입니다.">
   <meta name="twitter:image" content="https://lottomate.life/twitter-image.png">
-  <script id="seo-website-schema" type="application/ld+json">
+  <script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202608260101/show_ads_impl.js"></script><script id="seo-website-schema" type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
@@ -37,9 +37,10 @@
         }
       }
     </script>
-  <script type="module" crossorigin="" src="/assets/index-D9azxDJJ.js"></script>
-  <link rel="stylesheet" crossorigin="" href="/assets/index-DvUWOotn.css">
-  <link rel="alternate" hreflang="ko" href="https://lottomate.life/">
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3971187501349159" crossorigin="anonymous" data-checked-head="true"></script>
+    <script type="module" crossorigin="" src="/assets/index-CQlGGHj6.js"></script>
+    <link rel="stylesheet" crossorigin="" href="/assets/index-zJiLRAJ8.css">
+  <meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9nrunKdU5m96PSN1XsSGr3qOP0lvPFUB2AiAylCDlN5DTl17uDFkpQuHj1AFtgWLxpLaiBZuhrtb2WOu7ofHwEAAACKeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A93bovR+QVXNx2/38qDbmeYYf1wdte9EO37K9eMq3r+541qo0byhYU899BhPB7Cv9QqD7wIbR1B6OAc9kEfYCA4AAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A1S5fojrAunSDrFbD8OfGmFHdRFZymSM/1ss3G+NEttCLfHkXvlcF6LGLH8Mo5PakLO1sCASXU1/gQf6XGuTBgwAAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9">  <link rel="alternate" hreflang="ko" href="https://lottomate.life/">
   <link rel="alternate" hreflang="en" href="https://lottomate.life/?lang=en">
   <link rel="alternate" hreflang="ja" href="https://lottomate.life/?lang=ja">
   <link rel="alternate" hreflang="x-default" href="https://lottomate.life/">
@@ -47,18 +48,42 @@
 
 <body>
   <div id="app">
-    <div class="pre-rendered-seo-body" style="display: block; font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: left; line-height: 1.8; color: #333;">
-      <h1 style="color: #6200EA; font-size: 2.2rem; border-bottom: 2px solid #E0E0E0; padding-bottom: 12px;">로또메이트 (LottoMate)</h1>
-      <div class="content-body" style="font-size: 1.1rem; margin-top: 24px;">
-        <p>로또메이트는 균형 있는 번호 필터링 생성과 투명한 당첨 분석, 가상 수익률 시뮬레이션을 제공하는 건전한 복권 동반자입니다.</p>
+    <div class="pre-rendered-seo-body" style="display: block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 840px; margin: 40px auto; padding: 0 24px; text-align: left; line-height: 1.8; color: #212121;">
+      <h1 style="color: #6200EA; font-size: 2.2rem; border-bottom: 2px solid #E0E0E0; padding-bottom: 12px; margin-bottom: 24px;">로또메이트 (LottoMate) · 스마트 로또 번호 생성기 & 데이터 분석 포털</h1>
+      <div class="content-body" style="font-size: 1.05rem; margin-top: 20px;">
+        
+      <h2>1. 로또메이트 서비스 소개 및 핵심 알고리즘</h2>
+      <p>로또메이트(LottoMate)는 대한민국 동행복권 로또 6/45의 방대한 역대 추첨 데이터를 바탕으로, 통계학적 균형 모델과 정밀 필터링을 결합한 <strong>무료 로또 번호 자동 생성 및 종합 분석 플랫폼</strong>입니다.</p>
+      <p>단순한 난수 발생기와 달리, 로또메이트는 과거 1회부터 현재까지 이미 1등으로 출현했던 불필요한 중복 조합을 필터링하고, 통계적으로 지나치게 한쪽으로 치우친 극단적 조합(예: 6개 연속 번호, 6개 모두 홀수/짝수, 특정 번호대에만 6개 몰림)을 배제하여 최적의 균형 조합을 추출합니다.</p>
+
+      <h2>2. 로또 6/45 추첨의 수학적 독립 시행과 필터링의 원리</h2>
+      <p>대한민국 로또 6/45는 1부터 45까지의 숫자 중 6개를 무작위로 추첨하는 게임으로, 1등 당첨 확률은 정확히 <strong>1 / 8,145,060 (약 814만분의 1)</strong>입니다. 매 회차 추첨은 이전 결과와 완전히 무관한 <em>독립 시행(Independent Trials)</em>이지만, 수많은 회차가 누적되면서 전체 데이터는 다음과 같은 통계학적 정규 분포를 형성합니다.</p>
+      <ul>
+        <li><strong>홀짝 비율(Odd/Even)</strong>: 당첨 번호의 81% 이상이 3:3, 4:2, 2:4의 균형 잡힌 비율로 출현합니다.</li>
+        <li><strong>총합 구간(Sum Range)</strong>: 6개 숫자의 합계는 약 80% 이상의 확률로 100~170 구간 내에 위치합니다.</li>
+        <li><strong>번호대 분포</strong>: 단번대, 10번대, 20번대, 30번대, 40번대 중 최소 3~4개 구간에 골고루 분산되어 출현합니다.</li>
+      </ul>
+
+      <h2>3. 주요 제공 기능 및 이용 가이드</h2>
+      <ul>
+        <li><strong>3D 물리 추첨 믹서</strong>: 실제 방송 추첨기와 동일한 물리 엔진 시뮬레이션으로 생생한 추첨 연출을 지원합니다.</li>
+        <li><strong>로또 시뮬레이터</strong>: 과거 1회부터 현재까지 내가 고른 번호로 샀을 때의 가상 수익률과 1등 당첨까지의 소요 기간을 측정합니다.</li>
+        <li><strong>역대 통계 및 심층 분석</strong>: 번호별 누적 출현 빈도, 색상 분포, 끝수 통계를 실시간 인터랙티브 차트로 제공합니다.</li>
+        <li><strong>타로 & 꿈해몽 운세</strong>: 동양 전통 꿈해몽 키워드 및 타로 메이저 아르카나 시드를 활용한 행운 번호를 추천합니다.</li>
+        <li><strong>세금 계산기 및 수령 가이드</strong>: 1등 당첨 시 실수령액과 농협은행 본점 방문 절차를 상세 안내합니다.</li>
+      </ul>
+
+      <h2>4. 건전한 복권 문화 및 책임감 있는 이용 원칙</h2>
+      <p>로또메이트는 절대 "1등 당첨을 보장한다"거나 "당첨 번호를 100% 예측한다"는 허위/과장 주장을 하지 않습니다. 복권은 한 주의 작은 설렘과 일상의 활력을 더하는 소소한 오락이며, 매주 1만 원 이하의 소액으로 건전하게 즐기시기를 강력히 권장합니다.</p>
+    
       </div>
       <hr style="margin: 40px 0; border: 0; border-top: 1px solid #E0E0E0;" />
       <footer style="font-size: 0.9rem; color: #757575;">
-        <p>© 2026 로또메이트 (LottoMate). 본 정보는 모의 통계 및 보조 데이터이며 건전한 게임 이용을 장려합니다.</p>
-        <p>문의: <a href="mailto:stkh0612@gmail.com" style="color: #6200EA; text-decoration: none;">stkh0612@gmail.com</a> | <a href="/privacy" style="color: #6200EA; text-decoration: none;">개인정보처리방침</a></p>
+        <p>© 2026 로또메이트 (LottoMate). 본 정보는 통계 보조 데이터이며 건전한 소액 복권 이용을 장려합니다.</p>
+        <p>문의: <a href="mailto:stkh0612@gmail.com" style="color: #6200EA; text-decoration: none;">stkh0612@gmail.com</a> | <a href="/privacy" style="color: #6200EA; text-decoration: none;">개인정보처리방침</a> | <a href="/terms" style="color: #6200EA; text-decoration: none;">이용약관</a></p>
       </footer>
     </div>
   </div>
 
 
-</body></html>
+<ins class="adsbygoogle adsbygoogle-noablate" data-ad-hi="true" data-adsbygoogle-status="done" style="display: none !important;"><div id="aswift_0_host" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;min-height:auto;max-height:none;min-width:auto;max-width:none;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-3971187501349159&amp;output=html&amp;adk=1812271804&amp;adf=3025194257&amp;abgtt=6&amp;lmt=1788248440&amp;plat=1%3A8%2C2%3A8%2C3%3A2162688%2C4%3A2162688%2C9%3A32776%2C16%3A8388608%2C17%3A32%2C24%3A32%2C25%3A32%2C30%3A1048576%2C32%3A32%2C41%3A32%2C42%3A32%2C43%3A32%2C44%3A32&amp;format=0x0&amp;url=http%3A%2F%2Flocalhost%3A8000%2F&amp;pra=5&amp;asro=0&amp;aimartd=4&amp;aieuf=1&amp;aicrs=1&amp;dt=1788248442447&amp;bpp=150&amp;bdt=559&amp;idt=1588&amp;shv=r20260831&amp;mjsv=m202608260101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;nras=1&amp;correlator=146849802667&amp;frm=20&amp;pv=2&amp;u_tz=0&amp;u_his=2&amp;u_h=600&amp;u_w=800&amp;u_ah=600&amp;u_aw=800&amp;u_cd=24&amp;u_sd=1&amp;dmc=8&amp;adx=-12245933&amp;ady=-12245933&amp;biw=800&amp;bih=600&amp;scr_x=0&amp;scr_y=0&amp;eid=95399157%2C95399629%2C95400774%2C122880597&amp;oid=2&amp;pvsid=5109096159490204&amp;tmod=698414056&amp;uas=0&amp;nvt=1&amp;fsapi=1&amp;fc=1920&amp;brdim=0%2C0%2C0%2C0%2C800%2C0%2C800%2C600%2C800%2C600&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=32768&amp;bc=31&amp;bz=1&amp;ifi=1&amp;uci=a!1&amp;fsb=1&amp;dtd=2040" data-google-container-id="a!1" tabindex="0" title="Advertisement" aria-label="Advertisement" data-load-complete="true"></iframe></div></ins><script type="text/javascript" src="https://ep2.adtrafficquality.google/sodar/sodar2.js"></script></body><iframe id="google_esf" name="google_esf" src="https://googleads.g.doubleclick.net/pagead/html/r20260831/r20190131/zrt_lookup.html" style="display: none;"></iframe></html>
