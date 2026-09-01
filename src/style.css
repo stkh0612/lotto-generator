@@ -219,9 +219,13 @@ h1, h2, h3, h4, h5, h6, .v-btn, .v-card-title, .text-h1, .text-h2, .text-h3, .te
   height: calc(56px + env(safe-area-inset-top, 0px)) !important;
 }
 
-.v-main {
-  padding-top: calc(56px + env(safe-area-inset-top, 0px)) !important;
-  padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px)) !important;
+.v-app-bar.v-toolbar .v-toolbar__content {
+  height: 56px !important;
+}
+
+.v-main, .app-main-content {
+  padding-top: calc(72px + env(safe-area-inset-top, 0px)) !important;
+  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
 }
 
 .sidebar.v-navigation-drawer {

@@ -2,7 +2,7 @@
   <v-app>
     <Sidebar v-model="drawer" />
     <AppBar @toggle-drawer="drawer = !drawer" @show-info="onShowInfo" />
-    <v-main>
+    <v-main class="app-main-content">
       <router-view />
       <AppFooter />
     </v-main>
@@ -43,6 +43,11 @@ function onShowInfo() {
 </script>
 
 <style scoped>
+.app-main-content {
+  padding-top: calc(72px + env(safe-area-inset-top, 0px)) !important;
+  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
 .locale-switcher {
   position: fixed;
   right: 16px;
