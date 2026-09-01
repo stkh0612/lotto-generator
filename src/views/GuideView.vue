@@ -140,6 +140,52 @@
 
       </v-expansion-panels>
       
+      <!-- 실시간 세금 및 실수령액 계산기 인터랙티브 카드 -->
+      <v-card variant="outlined" class="pa-5 my-6 rounded-lg" style="background: rgba(124, 77, 255, 0.03); border: 1px solid rgba(124, 77, 255, 0.2);">
+        <div class="text-subtitle-1 font-weight-bold text-primary mb-3">
+          🧮 실시간 로또 당첨금 세금 및 실수령액 계산기
+        </div>
+        <v-row dense align="center" class="mb-2">
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model.number="calcPrize"
+              label="당첨금 입력 (원 단위)"
+              type="number"
+              variant="outlined"
+              density="compact"
+              prefix="₩"
+              hide-details
+            />
+          </v-col>
+          <v-col cols="12" sm="6">
+            <div class="d-flex justify-space-around flex-wrap text-caption text-grey" style="gap: 4px;">
+              <v-btn size="small" variant="tonal" color="primary" @click="calcPrize = 2000000000">1등 20억</v-btn>
+              <v-btn size="small" variant="tonal" color="primary" @click="calcPrize = 50000000">2등 5천만</v-btn>
+              <v-btn size="small" variant="tonal" color="primary" @click="calcPrize = 1500000">3등 150만</v-btn>
+            </div>
+          </v-col>
+        </v-row>
+        
+        <div v-if="calcPrize > 0" class="mt-4 pa-4 rounded-lg bg-surface-variant text-left" style="background: rgba(0, 0, 0, 0.04);">
+          <div class="d-flex justify-space-between mb-2">
+            <span class="text-body-2 text-grey-darken-1">총 당첨 금액:</span>
+            <strong>{{ formatWon(calcPrize) }}</strong>
+          </div>
+          <div class="d-flex justify-space-between mb-2 text-error">
+            <span class="text-body-2">원천징수 세금 합계:</span>
+            <strong>- {{ formatWon(taxCalculation.totalTax) }} (실효세율 {{ taxCalculation.effectiveRate }}%)</strong>
+          </div>
+          <div class="text-caption text-grey ml-2 mb-2">
+            * 200만원 이하: 비과세 | 3억원 이하: 22% (소득세 20%+주민세 2%) | 3억원 초과분: 33% (소득세 30%+주민세 3%)
+          </div>
+          <v-divider class="my-2" />
+          <div class="d-flex justify-space-between align-center text-h6 font-weight-bold text-success">
+            <span>최종 통장 실수령액:</span>
+            <span>{{ formatWon(taxCalculation.netPayout) }}</span>
+          </div>
+        </div>
+      </v-card>
+
       <div class="mt-8 pa-4 bg-grey-lighten-4 rounded text-center text-caption text-grey">
         본 사이트에서 제공하는 정보는 참고용이며, 복권기금법 및 동행복권의 최신 정책에 따라 달라질 수 있습니다.
         <br/>지나친 도박은 개인과 가정에 불행을 초래할 수 있습니다.
@@ -150,9 +196,38 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const panel = ref([0]) // Open first panel by default
+const calcPrize = ref<number>(2000000000)
+
+const taxCalculation = computed(() => {
+  const p = calcPrize.value || 0
+  if (p <= 2000000) {
+    return { totalTax: 0, netPayout: p, effectiveRate: '0.0' }
+  }
+  
+  let tax = 0
+  if (p <= 300000000) {
+    tax = p * 0.22
+  } else {
+    // 3억 이하 22% + 3억 초과 33%
+    tax = (300000000 * 0.22) + ((p - 300000000) * 0.33)
+  }
+  
+  const net = p - tax
+  const rate = ((tax / p) * 100).toFixed(1)
+  return { totalTax: Math.floor(tax), netPayout: Math.floor(net), effectiveRate: rate }
+})
+
+function formatWon(n: number): string {
+  if (n >= 100000000) {
+    const eok = Math.floor(n / 100000000)
+    const man = Math.floor((n % 100000000) / 10000)
+    return man > 0 ? `${eok}억 ${man.toLocaleString()}원` : `${eok}억 원`
+  }
+  return `${n.toLocaleString()}원`
+}
 </script>
 
 <style scoped>

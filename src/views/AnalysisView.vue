@@ -31,6 +31,24 @@
         </v-col>
       </v-row>
 
+      <!-- 심층 패턴 분석 해설 카드 (SEO & 정보성 강화) -->
+      <v-card class="glass-card pa-6 text-left mt-8" style="background: rgba(124, 77, 255, 0.03) !important;">
+        <h3 class="text-subtitle-1 font-weight-bold text-primary mb-3">
+          📈 합계 구간 정규분포 및 다차원 패턴 필터링 가이드
+        </h3>
+        <div class="text-body-2 text-grey-darken-1" style="line-height: 1.8;">
+          <p class="mb-3">
+            <strong>1. 합계 구간(Sum Distribution)의 의미:</strong> 로또 6개 번호의 이론적 합계 범위는 21부터 255까지입니다. 중심극한정리에 의해 역대 당첨 번호의 합계는 가운데 지점인 <strong>138을 축으로 종 모양의 대칭 정규분포</strong>를 형성하며, 전체 당첨 번호의 약 80% 이상이 <code>100 ~ 170</code> 구간 사이에 안정적으로 밀집됩니다.
+          </p>
+          <p class="mb-3">
+            <strong>2. 5대 색상 대역의 분산:</strong> 1~10(노랑), 11~20(파랑), 21~30(빨강), 31~40(회색), 41~45(초록)의 5개 구간에서 보통 3~4개 이상의 색상이 골고루 섞여 출현합니다. 특정 한 가지 색상에만 5~6개 번호가 몰리는 현상은 과거 20년간 발생 확률이 0.1% 미만에 불과합니다.
+          </p>
+          <p class="mb-0">
+            <strong>3. 홀짝 균형 전략:</strong> 홀수와 짝수의 비율이 3:3 (약 33%) 또는 4:2 / 2:4 (약 48%)인 경우가 전체의 81% 이상입니다. 올홀수(6:0)나 올짝수(0:6)와 같은 극단적인 조합을 피하는 것만으로도 비효율적인 조합을 효과적으로 걸러낼 수 있습니다.
+          </p>
+        </div>
+      </v-card>
+
     </v-sheet>
   </v-container>
 </template>

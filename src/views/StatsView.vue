@@ -32,12 +32,28 @@
 
       <v-divider class="my-6" />
 
-      <div class="text-subtitle-1 mb-2">{{ t('stats.tailDist') }}</div>
-      <!-- Tail dist kept as simple chips for now, or could be a chart too. Let's keep chips for variety essentially or making it a small chart is better? Charts are better. -->
       <v-card outlined>
         <v-card-text style="height: 200px;">
           <Bar v-if="loaded" :data="tailData" :options="freqOptions" />
         </v-card-text>
+      </v-card>
+
+      <!-- 심층 통계 해설 섹션 (SEO & 정보성 강화) -->
+      <v-card class="glass-card pa-6 text-left mt-8" style="background: rgba(124, 77, 255, 0.03) !important;">
+        <h3 class="text-subtitle-1 font-weight-bold text-primary mb-3">
+          📊 로또 통계 분석 지표 및 대수의 법칙(Law of Large Numbers) 해설
+        </h3>
+        <div class="text-body-2 text-grey-darken-1" style="line-height: 1.8;">
+          <p class="mb-3">
+            대한민국 로또 6/45의 역대 1회부터 현재까지 1,200회 이상의 추첨 통계를 집계하면, 45개 번호 중 가장 많이 출현한 상위권 번호(34, 43, 27, 18, 12 등)와 하위권 번호(9, 22, 41, 23 등) 사이에 뚜렷한 빈도 차이가 관찰됩니다.
+          </p>
+          <p class="mb-3">
+            <strong>대수의 법칙과 통계적 의미:</strong> 수학적으로 시행 횟수가 무한히 증가할 경우 모든 45개 숫자의 출현 확률은 동일하게 <code>1/45 (약 2.22%)</code>로 수렴하게 됩니다. 현재의 출현 편차는 표본 누적 과정에서의 일시적인 표준편차를 나타내며, 번호 조합 시 지나치게 빈출수나 낙첨수에만 쏠리지 않도록 조율하는 데 활용할 수 있습니다.
+          </p>
+          <p class="mb-0">
+            <strong>끝수 분포 활용법:</strong> 0부터 9까지의 끝수(일의 자리 숫자) 통계를 살펴보면, 6개 번호 조합 중 동일한 끝수가 3개 이상 겹치지 않고 4개 이상의 서로 다른 끝수로 구성된 조합이 전체 당첨 번호의 약 85% 이상을 차지합니다.
+          </p>
+        </div>
       </v-card>
     </v-sheet>
   </v-container>
