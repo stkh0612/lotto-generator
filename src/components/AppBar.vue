@@ -47,8 +47,8 @@ export default defineComponent({
   name: 'AppBar',
   setup() {
     const infoDialog = ref(false)
-    // 실제 사용하실 이메일 주소로 교체하세요
-    const email = 'stkh0612@gmail.com'
+    // 실제 사용하실 이메일 주소
+    const email = 'superman612@kakao.com'
     const theme = useTheme()
     // 현재 테마 이름(light/dark)
     const currentTheme = computed(() => theme.global.name.value)

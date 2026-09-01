@@ -9,6 +9,10 @@
         <router-link to="/privacy" class="footer-link">{{ t('navPrivacy', '개인정보처리방침') }}</router-link>
         <span class="divider mx-3">|</span>
         <router-link to="/terms" class="footer-link">{{ t('navTerms', '이용약관') }}</router-link>
+        <span class="divider mx-3">|</span>
+        <a href="https://www.dhlottery.co.kr" target="_blank" rel="noopener noreferrer" class="footer-link">
+          동행복권 공식사이트 ↗
+        </a>
       </div>
 
       <!-- 면책 조항 및 주의사항 -->
@@ -25,7 +29,7 @@
       <div class="footer-copyright text-center text-caption text-grey-darken-1">
         <div>© {{ currentYear }} LottoMate. All rights reserved.</div>
         <div class="mt-1">
-          고객문의: <a href="mailto:stkh0612@gmail.com" class="contact-email">stkh0612@gmail.com</a>
+          고객문의: <a href="mailto:superman612@kakao.com" class="contact-email">superman612@kakao.com</a>
         </div>
       </div>
     </v-container>

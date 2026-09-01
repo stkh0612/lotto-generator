@@ -214,7 +214,7 @@ const staticSeoConfig = {
       <p>우리는 "로또 1등을 100% 예측할 수 있다"는 시중의 유료 사기 업체들의 허위 광고에 단호히 반대합니다. 로또 추첨은 완전한 <strong>수학적 독립 시행</strong>이며 미래 번호를 확정적으로 맞추는 기법은 수학적으로 존재하지 않습니다. 로또메이트는 번호 선택의 재미를 극대화하고, 냉정한 확률을 정확히 인지하여 <strong>복권을 건전하고 유쾌한 오락</strong>으로 즐길 수 있도록 돕는 것을 핵심 사명으로 삼습니다.</p>
 
       <h2>2. 데이터 출처 및 연동 시스템</h2>
-      <p>로또메이트에서 제공하는 모든 역대 당첨 번호, 등수별 당첨금, 판매점 통계는 대한민국 정부 공인 수탁사업자인 <strong>동행복권(dhlottery.co.kr) 공공데이터 포털 API</strong> 및 공시 자료에 기반하여 매주 토요일 추첨 직후 신속하고 정확하게 검증 및 업데이트됩니다.</p>
+      <p>로또메이트에서 제공하는 모든 역대 당첨 번호, 등수별 당첨금, 판매점 통계는 대한민국 정부 공인 수탁사업자인 <strong><a href="https://www.dhlottery.co.kr" target="_blank" rel="noopener noreferrer" style="color: #6200EA; text-decoration: underline;">동행복권(dhlottery.co.kr)</a></strong>의 공공데이터 포털 API 및 공식 발표 자료에 기반하여 매주 토요일 추첨 직후 신속하고 정확하게 검증 및 업데이트됩니다.</p>
 
       <h2>3. 건전한 복권 구매를 위한 4대 행동 수칙</h2>
       <ul>
@@ -225,7 +225,7 @@ const staticSeoConfig = {
       </ul>
 
       <h2>4. 문의 및 피드백 (Contact Us)</h2>
-      <p>서비스 기능 제안, 데이터 표기 오류 제보, 제휴 문의는 공식 이메일(<a href="mailto:stkh0612@gmail.com" style="color: #6200EA; font-weight: bold;">stkh0612@gmail.com</a>)로 연락 주시면 신속히 답변해 드리겠습니다.</p>
+      <p>서비스 기능 제안, 데이터 표기 오류 제보, 제휴 문의는 공식 이메일(<a href="mailto:superman612@kakao.com" style="color: #6200EA; font-weight: bold;">superman612@kakao.com</a>)로 연락 주시면 신속히 답변해 드리겠습니다.</p>
     `
   },
   '/blog': {
@@ -365,7 +365,7 @@ const staticSeoConfig = {
       <p>서비스 품질 향상 및 트래픽 분석을 위해 Google Analytics를 사용하며, 비개인 식별 데이터(방문 국가, 브라우저 환경, 페이지뷰 등)만을 익명 처리하여 집계합니다.</p>
 
       <h2>5. 개인정보보호 문의처</h2>
-      <p>개인정보 처리 및 정책에 관한 문의 사항은 <a href="mailto:stkh0612@gmail.com">stkh0612@gmail.com</a>으로 연락 주시기 바랍니다.</p>
+      <p>개인정보 처리 및 정책에 관한 문의 사항은 <a href="mailto:superman612@kakao.com">superman612@kakao.com</a>으로 연락 주시기 바랍니다.</p>
     `
   },
   '/terms': {
@@ -529,7 +529,7 @@ function processRoute(routePath, seoData, customJsonLd = null) {
       <hr style="margin: 40px 0; border: 0; border-top: 1px solid #E0E0E0;" />
       <footer style="font-size: 0.9rem; color: #757575;">
         <p>© 2026 로또메이트 (LottoMate). 본 정보는 통계 보조 데이터이며 건전한 소액 복권 이용을 장려합니다.</p>
-        <p>문의: <a href="mailto:stkh0612@gmail.com" style="color: #6200EA; text-decoration: none;">stkh0612@gmail.com</a> | <a href="/privacy" style="color: #6200EA; text-decoration: none;">개인정보처리방침</a> | <a href="/terms" style="color: #6200EA; text-decoration: none;">이용약관</a></p>
+        <p>문의: <a href="mailto:superman612@kakao.com" style="color: #6200EA; text-decoration: none;">superman612@kakao.com</a> | <a href="/privacy" style="color: #6200EA; text-decoration: none;">개인정보처리방침</a> | <a href="/terms" style="color: #6200EA; text-decoration: none;">이용약관</a> | <a href="https://www.dhlottery.co.kr" target="_blank" rel="noopener noreferrer" style="color: #6200EA; text-decoration: none;">동행복권 공식사이트 ↗</a></p>
       </footer>
     </div>
   `;

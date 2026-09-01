@@ -109,7 +109,7 @@
               <li class="mb-2"><strong>1등:</strong> NH농협은행 본점 (서울) 방문 수령. (신분증, 당첨복권 필수)</li>
               <li class="mb-2"><strong>2등, 3등:</strong> 전국 NH농협은행 지점 어디서나 가능. (신분증, 당첨복권 필수)</li>
               <li class="mb-2"><strong>4등, 5등:</strong> 일반 판매점 또는 농협은행 지점에서 수령 가능. (당첨복권 필수)</li>
-              <li><strong>인터넷 구매:</strong> 4, 5등은 예치금 계좌로 자동 지급, 고액 당첨은 실명 확인 후 지급.</li>
+              <li><strong>인터넷 구매:</strong> 4, 5등은 예치금 계좌로 자동 지급, 고액 당첨은 실명 확인 후 지급됩니다. 공식 온라인 복권 구매 및 당첨금 수령 세부 절차는 <a href="https://www.dhlottery.co.kr" target="_blank" rel="noopener noreferrer" class="text-primary font-weight-bold">동행복권 공식 홈페이지(dhlottery.co.kr) ↗</a>에서 확인하실 수 있습니다.</li>
             </ul>
             <v-alert type="warning" variant="outlined" density="compact" class="mt-4">
               <strong>주의:</strong> 복권 뒷면에 미리 서명해두세요. 분실 시 소유권을 주장할 수 있는 중요한 근거가 됩니다.

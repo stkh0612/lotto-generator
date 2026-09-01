@@ -80,6 +80,21 @@
         </v-alert>
       </div>
 
+      <!-- Section: Data Source & Official Link -->
+      <div class="mb-8 text-left">
+        <h2 class="text-h6 font-weight-bold mb-3 text-primary" style="border-left: 4px solid #7c4dff; padding-left: 8px;">
+          데이터 출처 및 공식 사이트 안내
+        </h2>
+        <p class="text-body-1 mb-2" style="line-height: 1.8;">
+          로또메이트에서 활용하는 모든 로또 6/45 당첨 번호, 등수별 당첨금 및 추첨 결과 데이터는 대한민국 복권 수탁사업자인 <strong>동행복권(Donghang Lottery)</strong>의 공식 공공데이터 포털 API 및 공식 발표 자료에 기반합니다.
+        </p>
+        <p class="text-body-1" style="line-height: 1.8;">
+          실제 온라인 복권 구매, 당첨금 수령 확인 및 공식 공지사항은 동행복권 공식 웹사이트를 이용해 주시기 바랍니다.
+          <br/>
+          * <strong>공식 홈페이지</strong>: <a href="https://www.dhlottery.co.kr" target="_blank" rel="noopener noreferrer" class="text-primary font-weight-bold">동행복권 공식 사이트 (dhlottery.co.kr) ↗</a>
+        </p>
+      </div>
+
       <!-- Section 4: Contact -->
       <div class="mb-6 text-left">
         <h2 class="text-h6 font-weight-bold mb-3 text-primary" style="border-left: 4px solid #7c4dff; padding-left: 8px;">
@@ -88,7 +103,7 @@
         <p class="text-body-1" style="line-height: 1.8;">
           로또메이트에 대한 피드백, 제안 사항, 데이터 기재 오류 보정 요청 등은 언제든 이메일로 보내주시면 성실히 검토하고 빠르게 보완하겠습니다.
           <br/>
-          * **이메일**: <a href="mailto:stkh0612@gmail.com" class="text-primary font-weight-bold">stkh0612@gmail.com</a>
+          * **이메일**: <a href="mailto:superman612@kakao.com" class="text-primary font-weight-bold">superman612@kakao.com</a>
         </p>
       </div>
     </v-sheet>

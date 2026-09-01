@@ -40,7 +40,7 @@
         <h3 class="text-h6 font-weight-bold mb-2">5. 개인정보보호책임자 및 문의처</h3>
         <p class="mb-4 text-body-1">
           서비스 이용 중 개인정보 처리와 관련하여 문의 사항이 있으신 경우 아래의 연락처로 문의해 주시기 바랍니다.
-          <br/>- 이메일: <a href="mailto:stkh0612@gmail.com">stkh0612@gmail.com</a>
+          <br/>- 이메일: <a href="mailto:superman612@kakao.com">superman612@kakao.com</a>
         </p>
 
         <v-divider class="my-4"></v-divider>
@@ -84,7 +84,7 @@
         <h3 class="text-h6 font-weight-bold mb-2">5. お問い合わせ先</h3>
         <p class="mb-4 text-body-1">
           当サービスの個人情報の取り扱いに関するお問い合わせは、以下までご連絡ください。
-          <br/>- メール: <a href="mailto:stkh0612@gmail.com">stkh0612@gmail.com</a>
+          <br/>- メール: <a href="mailto:superman612@kakao.com">superman612@kakao.com</a>
         </p>
 
         <v-divider class="my-4"></v-divider>
@@ -128,7 +128,7 @@
         <h3 class="text-h6 font-weight-bold mb-2">5. Contact Information</h3>
         <p class="mb-4 text-body-1">
           If you have any questions about this Privacy Policy, please feel free to contact us:
-          <br/>- Email: <a href="mailto:stkh0612@gmail.com">stkh0612@gmail.com</a>
+          <br/>- Email: <a href="mailto:superman612@kakao.com">superman612@kakao.com</a>
         </p>
 
         <v-divider class="my-4"></v-divider>
