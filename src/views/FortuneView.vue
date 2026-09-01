@@ -210,6 +210,14 @@
 
     </v-sheet>
 
+    <!-- 공유 모달 (카카오톡 및 SNS) -->
+    <ShareModal
+      v-model="showShareModal"
+      :title="shareTitle"
+      :text="shareText"
+      :url="shareUrl"
+    />
+
     <!-- 토스트 알림 (Snackbar) -->
     <v-snackbar v-model="snackbar" timeout="2500" color="primary" rounded="pill">
       {{ snackbarText }}
@@ -227,8 +235,8 @@ import { useI18n } from 'vue-i18n'
 import html2canvas from 'html2canvas'
 import { playConfetti } from '../utils/AnimHelper'
 import NumberCircle from '../components/NumberCircle.vue'
+import ShareModal from '../components/ShareModal.vue'
 import { useLottoStore } from '../store'
-import { shareContent } from '../utils/ShareHelper'
 
 const { t } = useI18n()
 const tab = ref('tarot')
@@ -336,21 +344,20 @@ async function downloadTarotImage() {
   document.body.removeChild(link)
 }
 
-// 공유 기능
-async function shareTarotResult() {
-  if (tarotNumbers.value.length < 6) return
-  const title = '🔮 LottoMate 타로 로또 운세 보고서'
-  const cardNames = selectedCards.value.map(idx => tarotDeck[idx].name.split('.')[1] || tarotDeck[idx].name).join(', ')
-  const text = `로또메이트 타로 운세 결과:\n뽑은 카드들: [ ${cardNames} ]\n추천된 행운수: [ ${tarotNumbers.value.join(', ')} ]\n\n지금 타로 카드를 뽑고 당신의 로또 행운을 알아보세요!`
-  const url = window.location.origin + '/fortune'
+// 공유 모달 상태
+const showShareModal = ref(false)
+const shareTitle = ref('')
+const shareText = ref('')
+const shareUrl = ref('')
 
-  const isNative = await shareContent(title, text, url)
-  if (isNative) {
-    snackbarText.value = '공유 창을 열었습니다!'
-  } else {
-    snackbarText.value = '클립보드에 타로 운세 결과가 복사되었습니다!'
-  }
-  snackbar.value = true
+// 공유 기능
+function shareTarotResult() {
+  if (tarotNumbers.value.length < 6) return
+  const cardNames = selectedCards.value.map(idx => tarotDeck[idx].name.split('.')[1] || tarotDeck[idx].name).join(', ')
+  shareTitle.value = '🔮 LottoMate 타로 로또 운세 보고서'
+  shareText.value = `로또메이트 타로 운세 결과:\n뽑은 카드들: [ ${cardNames} ]\n추천된 행운수: [ ${tarotNumbers.value.join(', ')} ]\n\n지금 타로 카드를 뽑고 당신의 로또 대박 운세를 확인해 보세요! 🎰`
+  shareUrl.value = window.location.origin + '/fortune'
+  showShareModal.value = true
 }
 
 

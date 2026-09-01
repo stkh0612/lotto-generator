@@ -163,6 +163,14 @@
       </div>
     </v-card>
 
+    <!-- 공유 모달 (카카오톡 및 SNS) -->
+    <ShareModal
+      v-model="showShareModal"
+      :title="shareTitle"
+      :text="shareText"
+      :url="shareUrl"
+    />
+
     <!-- 토스트 알림 (Snackbar) -->
     <v-snackbar v-model="snackbar" timeout="2500" color="primary" rounded="pill">
       {{ snackbarText }}
@@ -182,11 +190,11 @@ import { onBeforeRouteLeave } from 'vue-router'
 import { useLottoStore, LottoEntry } from '../store'
 
 import NumberCircle from '../components/NumberCircle.vue'
+import ShareModal from '../components/ShareModal.vue'
 import axios from 'axios'
 import lottoResults from '../assets/lotto_numbers_en.json'
 import { playConfetti } from '../utils/AnimHelper'
 import { playDrawBeep, playVictoryChime } from '../utils/AudioHelper'
-import { shareContent } from '../utils/ShareHelper'
 
 interface MixerBall {
   id: number
@@ -199,7 +207,7 @@ interface MixerBall {
 
 export default defineComponent({
   name: 'HomeView',
-  components: { NumberCircle },
+  components: { NumberCircle, ShareModal },
   setup() {
     const { t, tm } = useI18n()
     const { mobile } = useDisplay()
@@ -389,20 +397,19 @@ export default defineComponent({
       }
     }
 
+    // 공유 모달 상태
+    const showShareModal = ref(false)
+    const shareTitle = ref('')
+    const shareText = ref('')
+    const shareUrl = ref('')
+
     // 공유 기능 연동
-    async function shareNumbers() {
+    function shareNumbers() {
       if (numbers.value.length < 6) return
-      const title = '☘️ LottoMate 행운의 번호 추천!'
-      const text = `로또메이트 번호 생성기에서 뽑은 오늘의 행운수:\n[ ${numbers.value.join(', ')} ]\n\n대박을 기원합니다! 1등 가즈아~`
-      const url = window.location.href
-      
-      const isNative = await shareContent(title, text, url)
-      if (isNative) {
-        snackbarText.value = '공유 창을 열었습니다!'
-      } else {
-        snackbarText.value = '클립보드에 추천 번호가 복사되었습니다!'
-      }
-      snackbar.value = true
+      shareTitle.value = '☘️ LottoMate 행운의 번호 추천!'
+      shareText.value = `로또메이트 번호 생성기에서 뽑은 오늘의 행운수:\n[ ${numbers.value.join(', ')} ]\n\n대박을 기원합니다! 1등 가즈아~ 🎰`
+      shareUrl.value = window.location.origin
+      showShareModal.value = true
     }
 
     function formatDate(iso: string) {
@@ -443,6 +450,10 @@ export default defineComponent({
       mixerBalls,
       snackbar,
       snackbarText,
+      showShareModal,
+      shareTitle,
+      shareText,
+      shareUrl,
       startDraw,
       save,
       shareNumbers,

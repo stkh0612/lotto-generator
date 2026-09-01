@@ -307,6 +307,14 @@
 
     </v-sheet>
 
+    <!-- 공유 모달 (카카오톡 및 SNS) -->
+    <ShareModal
+      v-model="showShareModal"
+      :title="shareTitle"
+      :text="shareText"
+      :url="shareUrl"
+    />
+
     <!-- 토스트 알림 (Snackbar) -->
     <v-snackbar v-model="snackbar" timeout="2500" color="primary" rounded="pill">
       {{ snackbarText }}
@@ -323,9 +331,9 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useDisplay } from 'vuetify'
 import html2canvas from 'html2canvas'
 import NumberCircle from '../components/NumberCircle.vue'
+import ShareModal from '../components/ShareModal.vue'
 import rawData from '../assets/lotto_numbers_en.json'
 import { playConfetti } from '../utils/AnimHelper'
-import { shareContent } from '../utils/ShareHelper'
 
 // Types
 type LottoRound = {
@@ -593,26 +601,25 @@ async function downloadInfiniteReport() {
   document.body.removeChild(link)
 }
 
+// 공유 모달 상태
+const showShareModal = ref(false)
+const shareTitle = ref('')
+const shareText = ref('')
+const shareUrl = ref('')
+
 // 공유 기능 구현
-async function shareInfiniteResult() {
+function shareInfiniteResult() {
   if (!infWon.value) return
-  const title = '🚀 LottoMate 1등 당첨 시뮬레이션 보고서'
   const years = Math.floor(infStats.value.weeks / 52)
   const costStr = formatMoney(infStats.value.cost)
   const prizeStr = formatMoney(infStats.value.prize)
   const netProfitStr = formatMoney(infStats.value.prize - infStats.value.cost)
   const genStr = formatGenerations(infStats.value.weeks)
   
-  const text = `로또 1등 당첨될 때까지 가상 구매 결과:\n내 번호: [ ${myNumbers.value.join(', ')} ]\n당첨 소요 시간: ${years.toLocaleString()}년 (${genStr}대손 경과)\n누적 가상 소비액: ${costStr}\n누적 가상 당첨금: ${prizeStr}\n누적 순수익: ${netProfitStr}\n\n지금 로또메이트에서 1등에 당첨되려면 얼마나 걸릴지 시뮬레이션해 보세요!`
-  const url = window.location.origin + '/simulation'
-
-  const isNative = await shareContent(title, text, url)
-  if (isNative) {
-    snackbarText.value = '공유 창을 열었습니다!'
-  } else {
-    snackbarText.value = '클립보드에 결과가 복사되었습니다!'
-  }
-  snackbar.value = true
+  shareTitle.value = '🚀 LottoMate 1등 당첨 시뮬레이션 보고서'
+  shareText.value = `로또 1등 당첨될 때까지 가상 구매 결과:\n내 번호: [ ${myNumbers.value.join(', ')} ]\n당첨 소요 시간: ${years.toLocaleString()}년 (${genStr}대손 경과)\n누적 가상 소비액: ${costStr}\n누적 가상 당첨금: ${prizeStr}\n누적 순수익: ${netProfitStr}\n\n지금 로또메이트에서 1등에 당첨되려면 얼마나 걸릴지 시뮬레이션해 보세요! 🎰`
+  shareUrl.value = window.location.origin + '/simulation'
+  showShareModal.value = true
 }
 
 // --- 수동 입력 모달 연동 로직 ---
