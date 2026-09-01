@@ -1,8 +1,8 @@
 <!-- src/components/AppBar.vue -->
 <template>
-  <v-app-bar app color="primary" dark>
+  <v-app-bar app color="primary" dark class="custom-app-bar">
     <v-app-bar-nav-icon @click="$emit('toggle-drawer')" />
-    <v-toolbar-title>LottoMate</v-toolbar-title>
+    <v-toolbar-title class="app-title">LottoMate</v-toolbar-title>
     <v-spacer />
 
     <!-- 다크 모드 토글 -->
@@ -41,8 +41,6 @@ import { defineComponent, computed } from 'vue'
 import { useTheme } from 'vuetify'
 import { ref } from 'vue'
 
-
-
 export default defineComponent({
   name: 'AppBar',
   setup() {
@@ -64,3 +62,18 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped>
+.custom-app-bar {
+  padding-top: env(safe-area-inset-top, 0px) !important;
+  height: calc(56px + env(safe-area-inset-top, 0px)) !important;
+}
+
+:deep(.v-toolbar__content) {
+  height: 56px !important;
+}
+
+.app-title {
+  font-weight: 700;
+}
+</style>
