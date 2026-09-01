@@ -1,0 +1,27 @@
+{
+  "name": "로또메이트 - 스마트 로또 번호 생성기 & 통계",
+  "short_name": "로또메이트",
+  "description": "과학적 로또 번호 생성, 3D 물리 추첨 믹서, 1등 시뮬레이터, 실시간 세금 계산기 및 심층 통계 분석 포털",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0F041C",
+  "theme_color": "#6200EA",
+  "lang": "ko",
+  "categories": ["utilities", "entertainment", "finance"],
+  "icons": [
+    {
+      "src": "/leafgrad.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/og-image.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
