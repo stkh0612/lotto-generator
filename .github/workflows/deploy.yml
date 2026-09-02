@@ -69,7 +69,12 @@ jobs:
           publish_dir: ./dist
           cname: lottomate.life
 
-      # 10. 로또 번호가 업데이트 되었을 때만 이메일 발송
+      # 10. IndexNow 색인 자동 제출 (Bing, Naver 등)
+      - name: Submit URLs to IndexNow
+        run: npm run submit:indexnow
+        continue-on-error: true
+
+      # 11. 로또 번호가 업데이트 되었을 때만 이메일 발송
       - name: Send mail on update success
         if: steps.check_update.outputs.updated == 'true' && env.MAIL_USERNAME != ''
         env:

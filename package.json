@@ -10,7 +10,8 @@
     "preview": "vite preview --port 5000",
     "prerender": "echo Prerender completed in build step",
     "deploy": "gh-pages -d dist",
-    "update:lotto": "node scripts/update-lotto.mjs"
+    "update:lotto": "node scripts/update-lotto.mjs",
+    "submit:indexnow": "node scripts/submit-indexnow.mjs"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
