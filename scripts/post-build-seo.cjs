@@ -214,7 +214,7 @@ const staticSeoConfig = {
       <p>우리는 "로또 1등을 100% 예측할 수 있다"는 시중의 유료 사기 업체들의 허위 광고에 단호히 반대합니다. 로또 추첨은 완전한 <strong>수학적 독립 시행</strong>이며 미래 번호를 확정적으로 맞추는 기법은 수학적으로 존재하지 않습니다. 로또메이트는 번호 선택의 재미를 극대화하고, 냉정한 확률을 정확히 인지하여 <strong>복권을 건전하고 유쾌한 오락</strong>으로 즐길 수 있도록 돕는 것을 핵심 사명으로 삼습니다.</p>
 
       <h2>2. 데이터 출처 및 연동 시스템</h2>
-      <p>로또메이트에서 제공하는 모든 역대 당첨 번호, 등수별 당첨금, 판매점 통계는 대한민국 정부 공인 수탁사업자인 <strong><a href="https://www.dhlottery.co.kr" target="_blank" rel="noopener noreferrer" style="color: #6200EA; text-decoration: underline;">동행복권(dhlottery.co.kr)</a></strong>의 공공데이터 포털 API 및 공식 발표 자료에 기반하여 매주 토요일 추첨 직후 신속하고 정확하게 검증 및 업데이트됩니다.</p>
+      <p>로또메이트에서 제공하는 모든 역대 당첨 번호, 등수별 당첨금, 판매점 통계는 대한민국 정부 공인 수탁사업자인 <strong><a href="https://www.dhlottery.co.kr" target="_blank" rel="noopener noreferrer" style="color: #17653a; text-decoration: underline;">동행복권(dhlottery.co.kr)</a></strong>의 공공데이터 포털 API 및 공식 발표 자료에 기반하여 매주 토요일 추첨 직후 신속하고 정확하게 검증 및 업데이트됩니다.</p>
 
       <h2>3. 건전한 복권 구매를 위한 4대 행동 수칙</h2>
       <ul>
@@ -225,7 +225,7 @@ const staticSeoConfig = {
       </ul>
 
       <h2>4. 문의 및 피드백 (Contact Us)</h2>
-      <p>서비스 기능 제안, 데이터 표기 오류 제보, 제휴 문의는 공식 이메일(<a href="mailto:superman612@kakao.com" style="color: #6200EA; font-weight: bold;">superman612@kakao.com</a>)로 연락 주시면 신속히 답변해 드리겠습니다.</p>
+      <p>서비스 기능 제안, 데이터 표기 오류 제보, 제휴 문의는 공식 이메일(<a href="mailto:superman612@kakao.com" style="color: #17653a; font-weight: bold;">superman612@kakao.com</a>)로 연락 주시면 신속히 답변해 드리겠습니다.</p>
     `
   },
   '/blog': {
@@ -401,9 +401,9 @@ function mdToHtml(md) {
 
   // 1. 헤더 변환 (#### -> <h4>, ### -> <h3>, ## -> <h2>, # -> <h1>)
   text = text.replace(/^#### (.*?)$/gm, '<h4 style="color: #512da8; font-size: 1.2rem; margin-top: 24px; margin-bottom: 8px;">$1</h4>');
-  text = text.replace(/^### (.*?)$/gm, '<h3 style="color: #6200EA; font-size: 1.4rem; border-left: 4px solid #6200EA; padding-left: 10px; margin-top: 28px; margin-bottom: 12px;">$1</h3>');
+  text = text.replace(/^### (.*?)$/gm, '<h3 style="color: #17653a; font-size: 1.4rem; border-left: 4px solid #17653a; padding-left: 10px; margin-top: 28px; margin-bottom: 12px;">$1</h3>');
   text = text.replace(/^## (.*?)$/gm, '<h2 style="color: #311b92; font-size: 1.6rem; margin-top: 32px; margin-bottom: 16px;">$1</h2>');
-  text = text.replace(/^# (.*?)$/gm, '<h1 style="color: #6200EA; font-size: 1.8rem; margin-top: 36px; margin-bottom: 16px;">$1</h1>');
+  text = text.replace(/^# (.*?)$/gm, '<h1 style="color: #17653a; font-size: 1.8rem; margin-top: 36px; margin-bottom: 16px;">$1</h1>');
 
   // 2. 인라인 볼드 **text**
   text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -412,7 +412,7 @@ function mdToHtml(md) {
   text = text.replace(/\$(.*?)\$/g, '<code style="background: #ede7f6; color: #4a148c; padding: 2px 6px; border-radius: 4px; font-weight: bold;">$1</code>');
 
   // 4. 링크 [text](url)
-  text = text.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener" style="color: #6200EA; text-decoration: underline;">$1</a>');
+  text = text.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener" style="color: #17653a; text-decoration: underline;">$1</a>');
 
   // 5. 블록 분할 및 리스트 / 문단 파싱
   const rawBlocks = text.split(/\n\s*\n/);
@@ -522,14 +522,14 @@ function processRoute(routePath, seoData, customJsonLd = null) {
   // pre-rendered SEO 본문 구성
   const appBody = `
     <div class="pre-rendered-seo-body" style="display: block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 840px; margin: 40px auto; padding: 0 24px; text-align: left; line-height: 1.8; color: #212121;">
-      <h1 style="color: #6200EA; font-size: 2.2rem; border-bottom: 2px solid #E0E0E0; padding-bottom: 12px; margin-bottom: 24px;">${seoData.h1}</h1>
+      <h1 style="color: #17653a; font-size: 2.2rem; border-bottom: 2px solid #E0E0E0; padding-bottom: 12px; margin-bottom: 24px;">${seoData.h1}</h1>
       <div class="content-body" style="font-size: 1.05rem; margin-top: 20px;">
         ${seoData.body}
       </div>
       <hr style="margin: 40px 0; border: 0; border-top: 1px solid #E0E0E0;" />
       <footer style="font-size: 0.9rem; color: #757575;">
         <p>© 2026 로또메이트 (LottoMate). 본 정보는 통계 보조 데이터이며 건전한 소액 복권 이용을 장려합니다.</p>
-        <p>문의: <a href="mailto:superman612@kakao.com" style="color: #6200EA; text-decoration: none;">superman612@kakao.com</a> | <a href="/privacy" style="color: #6200EA; text-decoration: none;">개인정보처리방침</a> | <a href="/terms" style="color: #6200EA; text-decoration: none;">이용약관</a> | <a href="https://www.dhlottery.co.kr" target="_blank" rel="noopener noreferrer" style="color: #6200EA; text-decoration: none;">동행복권 공식사이트 ↗</a></p>
+        <p>문의: <a href="mailto:superman612@kakao.com" style="color: #17653a; text-decoration: none;">superman612@kakao.com</a> | <a href="/privacy" style="color: #17653a; text-decoration: none;">개인정보처리방침</a> | <a href="/terms" style="color: #17653a; text-decoration: none;">이용약관</a> | <a href="https://www.dhlottery.co.kr" target="_blank" rel="noopener noreferrer" style="color: #17653a; text-decoration: none;">동행복권 공식사이트 ↗</a></p>
       </footer>
     </div>
   `;
@@ -570,7 +570,7 @@ blogPosts.forEach((post) => {
     <div class="eeat-bio-card" style="background: #fbf9ff; border: 1px solid #d1c4e9; padding: 20px; border-radius: 8px; margin-top: 40px; display: flex; align-items: center;">
       <div style="font-size: 2.2rem; margin-right: 16px;">📊</div>
       <div>
-        <strong style="color: #6200EA; font-size: 1.1rem;">${post.author} (LottoMate 리서치팀)</strong>
+        <strong style="color: #17653a; font-size: 1.1rem;">${post.author} (LottoMate 리서치팀)</strong>
         <p style="margin: 4px 0 0 0; font-size: 0.9rem; color: #555; line-height: 1.5;">
           로또메이트 전문 분석 필진으로, 복권 확률 모델 연구, 세무/금융 가이드 작성 및 건전한 게임 이용에 관한 전문 정보를 제공합니다.
         </p>
@@ -624,7 +624,7 @@ recent5Rounds.forEach((r) => {
   const resultsBody = `
     <h2>제 ${r.round}회 공식 추첨 결과 (${r.draw_date} 추첨)</h2>
     <div style="background: #f5f0ff; border: 1px solid #d1c4e9; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
-      <div style="font-size: 1.4rem; font-weight: bold; color: #6200EA; margin-bottom: 12px;">
+      <div style="font-size: 1.4rem; font-weight: bold; color: #17653a; margin-bottom: 12px;">
         당첨 번호: <span style="letter-spacing: 4px;">${nums.join('  ')}</span> + 보너스 <span style="color: #ff6f00;">${r.bonus}</span>
       </div>
       <div style="font-size: 0.95rem; color: #555;">
