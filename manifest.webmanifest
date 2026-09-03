@@ -6,8 +6,8 @@
   "id": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0F041C",
-  "theme_color": "#6200EA",
+  "background_color": "#0f172a",
+  "theme_color": "#17653a",
   "lang": "ko",
   "categories": ["utilities", "entertainment", "finance"],
   "icons": [
