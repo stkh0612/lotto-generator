@@ -1,27 +1,22 @@
 <!-- src/views/BlogPostView.vue -->
 <template>
-  <v-container fluid class="py-6">
-    <v-sheet class="mx-auto px-6 py-6" max-width="820" elevation="1" rounded>
-      <div v-if="post">
+  <v-container fluid class="blog-post-view py-6">
+    <div class="subpage-container">
+      <div v-if="post" class="clean-card pa-6 pa-sm-10">
         <!-- 네비게이션 브레드크럼 -->
-        <v-btn
-          variant="text"
-          prepend-icon="mdi-arrow-left"
-          to="/blog"
-          color="primary"
-          class="pl-0 mb-4 font-weight-bold"
-        >
+        <router-link to="/blog" class="back-link mb-6 d-inline-flex align-center">
+          <v-icon size="18" class="mr-1">mdi-arrow-left</v-icon>
           블로그 목록으로 돌아가기
-        </v-btn>
+        </router-link>
 
-        <h1 class="text-h4 font-weight-bold text-primary mb-3">{{ post.title }}</h1>
+        <h1 class="post-detail-title mb-4">{{ post.title }}</h1>
         
-        <div class="d-flex justify-space-between align-center mb-6 flex-wrap text-caption text-grey">
+        <div class="d-flex justify-space-between align-center mb-6 flex-wrap post-meta">
           <span>작성일: {{ formatDate(post.date) }}</span>
           <span>작성자: {{ post.author }}</span>
         </div>
 
-        <v-divider class="mb-6" />
+        <v-divider class="mb-8" />
 
         <!-- 블로그 본문 (Markdown 파싱 렌더링) -->
         <div class="blog-content">
@@ -31,13 +26,13 @@
         </div>
 
         <!-- 필자 정보 (E-E-A-T 강화) -->
-        <div class="author-card mt-8 pa-4 rounded-lg d-flex align-center">
+        <div class="author-card mt-10 pa-5 rounded-xl d-flex align-center">
           <v-avatar size="56" color="primary" class="mr-4">
             <v-icon icon="mdi-account-tie" color="white" size="32" />
           </v-avatar>
           <div class="text-left">
             <div class="text-subtitle-1 font-weight-bold text-primary">{{ post.author }}</div>
-            <div class="text-caption text-grey-darken-1" style="line-height: 1.5;">
+            <div class="text-caption text-grey-darken-1" style="line-height: 1.6;">
               로또메이트 전문 분석 필진으로, 복권 확률 모델 연구, 세무/금융 가이드 작성 및 건전한 게임 이용에 관한 전문 정보를 제공합니다.
             </div>
           </div>
@@ -52,6 +47,7 @@
             variant="outlined"
             size="small"
             color="primary"
+            rounded="lg"
             :to="`/blog/${prevPost.id}`"
             prepend-icon="mdi-chevron-left"
           >
@@ -64,6 +60,7 @@
             variant="outlined"
             size="small"
             color="primary"
+            rounded="lg"
             :to="`/blog/${nextPost.id}`"
             append-icon="mdi-chevron-right"
           >
@@ -71,12 +68,12 @@
           </v-btn>
         </div>
       </div>
-      <div v-else class="text-center py-12">
-        <v-icon icon="mdi-alert-circle-outline" size="64" color="error" class="mb-4" />
+      <div v-else class="clean-card text-center py-12 pa-6">
+        <v-icon icon="mdi-alert-circle-outline" size="64" color="grey" class="mb-4" />
         <h2 class="text-h6 mb-4">해당 블로그 기사를 찾을 수 없습니다.</h2>
-        <v-btn color="primary" to="/blog">블로그 목록으로 이동</v-btn>
+        <v-btn color="primary" to="/blog" rounded="lg">블로그 목록으로 이동</v-btn>
       </div>
-    </v-sheet>
+    </div>
   </v-container>
 </template>
 
@@ -136,10 +133,10 @@ function renderMarkdown(content: string): string[] {
     
     // Headings
     if (block.startsWith('#### ')) {
-      return `<h4 class="text-subtitle-1 font-weight-bold mt-5 mb-2 text-secondary">${block.replace('#### ', '')}</h4>`
+      return `<h4 class="text-subtitle-1 font-weight-bold mt-5 mb-2">${block.replace('#### ', '')}</h4>`
     }
     if (block.startsWith('### ')) {
-      return `<h3 class="text-h6 font-weight-bold mt-7 mb-3 text-primary" style="border-left: 4px solid #7c4dff; padding-left: 8px;">${block.replace('### ', '')}</h3>`
+      return `<h3 class="post-subheading mt-7 mb-3">${block.replace('### ', '')}</h3>`
     }
     
     // Lists
@@ -154,18 +151,15 @@ function renderMarkdown(content: string): string[] {
     
     // Paragraphs
     const lines = block.split('\n').map(line => parseInline(line)).join('<br/>')
-    return `<p class="mb-4 text-body-1" style="line-height: 1.8; text-align: justify;">${lines}</p>`
+    return `<p class="mb-4 text-body-1 post-paragraph">${lines}</p>`
   })
 }
 
 function parseInline(text: string): string {
   let result = text
-  // Bold **text**
   result = result.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-  // Inline formulas / code $math$
-  result = result.replace(/\$(.*?)\$/g, '<code class="px-1 py-0.5 rounded bg-grey-lighten-3 text-deep-purple font-weight-bold">$1</code>')
-  // Links [text](url)
-  result = result.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" class="text-primary font-weight-bold">$1</a>')
+  result = result.replace(/\$(.*?)\$/g, '<code class="px-1.5 py-0.5 rounded font-weight-bold post-inline-code">$1</code>')
+  result = result.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" class="post-inline-link">$1</a>')
   return result
 }
 
@@ -179,33 +173,129 @@ function formatDate(iso: string) {
 </script>
 
 <style scoped>
+.blog-post-view {
+  min-height: calc(100vh - 64px);
+}
+
+.subpage-container {
+  max-width: 860px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.clean-card {
+  background: #ffffff;
+  border: 1px solid #eef2ef;
+  border-radius: 22px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.v-theme--dark .clean-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.back-link {
+  font-size: 14px;
+  font-weight: 700;
+  color: #17653a;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #12532f;
+}
+
+.v-theme--dark .back-link {
+  color: #6ee7b7;
+}
+
+.v-theme--dark .back-link:hover {
+  color: #a7f3d0;
+}
+
+.post-detail-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.6px;
+  line-height: 1.35;
+}
+
+.v-theme--dark .post-detail-title {
+  color: #f1f5f9;
+}
+
+.post-meta {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.v-theme--dark .post-meta {
+  color: #94a3b8;
+}
+
 .blog-content {
-  color: #ECEFF1;
+  color: #334155;
 }
 
-.v-theme--light .blog-content {
-  color: #37474F;
+.v-theme--dark .blog-content {
+  color: #cbd5e1;
 }
 
-/* Deep purple style code overrides in light theme */
-.v-theme--light :deep(code) {
-  background-color: #f5f5f5 !important;
-  color: #512da8 !important;
+.post-paragraph {
+  line-height: 1.8;
+  text-align: justify;
 }
 
-.v-theme--dark :deep(code) {
-  background-color: rgba(255, 255, 255, 0.08) !important;
-  color: #b39ddb !important;
+:deep(.post-subheading) {
+  font-size: 18px;
+  font-weight: 800;
+  color: #17653a;
+  border-left: 4px solid #17653a;
+  padding-left: 10px;
+}
+
+.v-theme--dark :deep(.post-subheading) {
+  color: #6ee7b7;
+  border-left-color: #10b981;
+}
+
+:deep(.post-inline-code) {
+  background-color: #e8f5e9 !important;
+  color: #17653a !important;
+}
+
+.v-theme--dark :deep(.post-inline-code) {
+  background-color: #064e3b !important;
+  color: #6ee7b7 !important;
+}
+
+:deep(.post-inline-link) {
+  color: #17653a;
+  font-weight: 700;
+}
+
+.v-theme--dark :deep(.post-inline-link) {
+  color: #6ee7b7;
 }
 
 .author-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(124, 77, 255, 0.15) !important;
+  background: #f8faf8;
+  border: 1px solid #e2e8f0;
   text-align: left;
 }
 
-.v-theme--light .author-card {
-  background: #f9f9f9;
-  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+.v-theme--dark .author-card {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+@media (max-width: 600px) {
+  .post-detail-title {
+    font-size: 22px;
+  }
 }
 </style>
+

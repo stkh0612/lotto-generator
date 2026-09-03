@@ -20,20 +20,20 @@ export default createVuetify({
     themes: {
       light: {
         colors: {
-          primary: '#7C4DFF',   // Deep Indigo/Purple
-          secondary: '#FFD700', // Gold
-          accent: '#E040FB',    // Neon Magenta
-          background: '#F8F6FC', // Soft lavender white
-          surface: '#EFEBFA',   // Light lavender surface
+          primary: '#17653A',   // Deep Forest Green
+          secondary: '#22C55E', // Accent Green
+          accent: '#10B981',    // Emerald
+          background: '#F8FAF8', // Soft clean background
+          surface: '#FFFFFF',   // Pure white surface
         },
       },
       dark: {
         colors: {
-          primary: '#B388FF',   // Bright Lavender
-          secondary: '#FFD700', // Gold
-          accent: '#E040FB',    // Neon Magenta
-          background: '#0F041C', // Deepest Space Purple
-          surface: '#1E0B36',    // Dark Violet
+          primary: '#22C55E',   // Bright Green
+          secondary: '#86EFAC', // Mint Green
+          accent: '#10B981',    // Emerald
+          background: '#0F172A', // Dark Slate
+          surface: '#1E293B',    // Dark Slate Surface
         },
       },
     },

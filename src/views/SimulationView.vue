@@ -1,311 +1,322 @@
 <!-- src/views/SimulationView.vue -->
 <template>
   <v-container fluid class="simulation-view py-6">
-    <v-sheet class="mx-auto px-6 py-8 glass-card" max-width="850" elevation="2" rounded="xl">
+    <div class="subpage-container">
       
-      <div class="text-center mb-6">
-        <h1 class="text-h4 font-weight-bold gradient-text mb-2">🎰 로또 시뮬레이터</h1>
-        <p class="text-subtitle-1 text-grey">
-          과거의 기록 혹은 가상의 미래에서 로또 당첨의 짜릿함을 가상 시뮬레이션해 보세요!
+      <!-- 상단 서브 히어로 배너 -->
+      <div class="subpage-hero mb-8 text-center">
+        <div class="subpage-badge">
+          <v-icon size="14" class="mr-1">mdi-slot-machine</v-icon>
+          확률 시뮬레이션
+        </div>
+        <h1 class="subpage-title">로또 시뮬레이터</h1>
+        <p class="subpage-subtitle">
+          과거의 1회차부터 현재까지의 실전 대조, 혹은 1등이 나올 때까지의 가상 구매 루프를 체험해 보세요!
         </p>
       </div>
 
-      <!-- 시뮬레이터 탭 선택 -->
-      <v-tabs v-model="simTab" color="primary" class="mb-6" align-tabs="center">
-        <v-tab value="timemachine">🕰️ 로또 타임머신</v-tab>
-        <v-tab value="infinite">🚀 1등 될 때까지! 무한 구매</v-tab>
-      </v-tabs>
+      <!-- 시뮬레이터 메인 카드 -->
+      <div class="clean-card pa-6 pa-sm-8 mb-8">
+        <!-- 시뮬레이터 탭 선택 -->
+        <v-tabs v-model="simTab" color="primary" class="mb-6 sim-tabs" align-tabs="center">
+          <v-tab value="timemachine">🕰️ 로또 타임머신</v-tab>
+          <v-tab value="infinite">🚀 1등 될 때까지! 무한 구매</v-tab>
+        </v-tabs>
 
-      <!-- 1. 번호 선택/생성 공용 카드 -->
-      <v-card class="glass-card mb-8 pa-4" elevation="0" border>
-        <div class="text-subtitle-2 text-center text-primary mb-3">
-          시뮬레이션에 사용할 번호 6개
-        </div>
-        <div class="d-flex justify-center align-center flex-wrap mb-4" :style="{ gap }">
-          <NumberCircle
-            v-for="(num, idx) in myNumbers"
-            :key="idx"
-            :number="num || 0"
-            :size="circleSize"
-          />
-        </div>
-        
-        <div class="d-flex justify-center mt-2 flex-wrap" style="gap: 12px">
-          <v-btn color="secondary" size="small" variant="outlined" @click="openInputModal" prepend-icon="mdi-pencil">
-            직접 선택
-          </v-btn>
-          <v-btn color="secondary" size="small" variant="flat" @click="generateRandom" prepend-icon="mdi-dice-5">
-            무작위 생성
-          </v-btn>
-        </div>
-      </v-card>
-
-      <!-- 윈도우 콘텐츠 -->
-      <v-window v-model="simTab">
-        
-        <!-- Tab 1: 로또 타임머신 -->
-        <v-window-item value="timemachine">
-          <v-card variant="flat" class="bg-transparent text-center">
-            <p class="text-body-2 text-grey mb-6">
-              "내가 이 번호 조합으로 <strong>로또 1회차부터 매주 한 장씩</strong> 샀다면 지금 결과는 어떨까요?"
-            </p>
-
-            <v-btn 
-              class="btn-premium click-pop px-8 py-3 mb-6" 
-              size="large"
-              @click="runTimeMachine" 
-              :disabled="myNumbers.some(n => n === 0) || loading"
-              :loading="loading"
-            >
-              타임머신 작동 (총 {{ totalRounds }}회차 대조)
+        <!-- 1. 번호 선택/생성 공용 카드 -->
+        <div class="number-selector-box mb-8 pa-5">
+          <div class="text-subtitle-2 text-center font-weight-bold text-primary mb-3">
+            시뮬레이션에 사용할 번호 6개
+          </div>
+          <div class="d-flex justify-center align-center flex-wrap mb-4" :style="{ gap }">
+            <NumberCircle
+              v-for="(num, idx) in myNumbers"
+              :key="idx"
+              :number="num || 0"
+              :size="circleSize"
+            />
+          </div>
+          
+          <div class="d-flex justify-center mt-2 flex-wrap" style="gap: 12px">
+            <v-btn color="primary" size="small" variant="outlined" rounded="lg" @click="openInputModal" prepend-icon="mdi-pencil">
+              직접 선택
             </v-btn>
+            <v-btn color="primary" size="small" variant="flat" rounded="lg" @click="generateRandom" prepend-icon="mdi-dice-5">
+              무작위 생성
+            </v-btn>
+          </div>
+        </div>
 
-            <!-- 결과 리포트 -->
-            <v-expand-transition>
-              <div v-if="report" class="result-section text-left">
-                <v-divider class="my-6"></v-divider>
-                
-                <h3 class="text-h6 font-weight-bold mb-4 text-center text-primary">🕰️ 타임머신 보고서</h3>
-                
-                <v-row class="mb-6 text-center">
+        <!-- 윈도우 콘텐츠 -->
+        <v-window v-model="simTab">
+          
+          <!-- Tab 1: 로또 타임머신 -->
+          <v-window-item value="timemachine">
+            <div class="text-center">
+              <p class="text-body-2 text-grey-darken-1 mb-6">
+                "내가 이 번호 조합으로 <strong>로또 1회차부터 매주 한 장씩</strong> 샀다면 지금 결과는 어떨까요?"
+              </p>
+
+              <button 
+                type="button"
+                class="btn-action-primary px-8 py-3 mb-6" 
+                @click="runTimeMachine" 
+                :disabled="myNumbers.some(n => n === 0) || loading"
+              >
+                <v-icon v-if="!loading" size="20" class="mr-2">mdi-history</v-icon>
+                <v-progress-circular v-else indeterminate size="20" width="2" color="white" class="mr-2" />
+                타임머신 작동 (총 {{ totalRounds }}회차 대조)
+              </button>
+
+              <!-- 결과 리포트 -->
+              <v-expand-transition>
+                <div v-if="report" class="result-section text-left mt-6">
+                  <v-divider class="mb-6"></v-divider>
+                  
+                  <h3 class="text-h6 font-weight-bold mb-4 text-center text-primary">🕰️ 타임머신 보고서</h3>
+                  
+                  <v-row class="mb-6 text-center">
+                    <v-col cols="6" sm="3">
+                      <div class="text-caption text-grey">총 투자금</div>
+                      <div class="text-h6 font-weight-bold">{{ formatMoney(report.totalCost) }}</div>
+                    </v-col>
+                    <v-col cols="6" sm="3">
+                      <div class="text-caption text-grey">총 당첨금</div>
+                      <div class="text-h6 font-weight-bold text-success">
+                        {{ formatMoney(report.totalPrize) }}
+                      </div>
+                    </v-col>
+                    <v-col cols="6" sm="3">
+                      <div class="text-caption text-grey">수익률 (ROI)</div>
+                      <div class="text-h6 font-weight-bold" :class="Number(report.roi) >= 0 ? 'text-success' : 'text-error'">
+                        {{ report.roi }}%
+                      </div>
+                    </v-col>
+                    <v-col cols="6" sm="3">
+                      <div class="text-caption text-grey">최고 등수</div>
+                      <div class="text-h6 font-weight-black text-primary">
+                        {{ report.bestRank === 6 ? '낙첨' : `${report.bestRank}등` }}
+                      </div>
+                    </v-col>
+                  </v-row>
+
+                  <!-- 등수별 카운트 -->
+                  <div class="rank-grid mb-6">
+                    <div v-for="r in 5" :key="r" class="rank-card pa-3 text-center">
+                      <div class="text-subtitle-2 font-weight-bold text-primary">{{ r }}등</div>
+                      <div class="font-weight-bold text-h5 my-1">{{ report.ranks[r] }}회</div>
+                      <div class="text-caption text-grey">{{ formatMoney(getPrizeByRank(r)) }}</div>
+                    </div>
+                  </div>
+
+                  <v-alert
+                    :color="report.netProfit > 0 ? 'success' : 'error'"
+                    variant="tonal"
+                    class="text-center rounded-xl"
+                  >
+                    <h3 class="text-h6 font-weight-bold">
+                      {{ report.netProfit > 0 ? '축하합니다! 시뮬레이션 결과 대성공!' : '휴... 실제로 매주 안 사길 다행이네요!' }}
+                    </h3>
+                    <div class="mt-2 text-body-1">
+                      순수익: <strong>{{ formatMoney(report.netProfit) }}</strong>
+                    </div>
+                  </v-alert>
+                </div>
+              </v-expand-transition>
+
+            </div>
+          </v-window-item>
+
+          <!-- Tab 2: 1등 될 때까지 무한 구매 -->
+          <v-window-item value="infinite">
+            <div class="text-center">
+              <p class="text-body-2 text-grey-darken-1 mb-6">
+                "내가 지정한 6개 번호로 <strong>1등에 당첨될 때까지</strong> 가상 구매 루프를 돌려봅니다."
+              </p>
+
+              <!-- 상태 대시보드 -->
+              <div class="infinite-dashboard rounded-xl pa-6 mb-6 text-left" ref="infiniteCertificate">
+                <div class="d-flex justify-space-between align-center mb-4">
+                  <span class="text-h6 font-weight-bold text-emerald">🚀 무한 구매 대시보드</span>
+                  <v-chip size="small" :color="infRunning ? 'success' : 'grey'" class="font-weight-bold">
+                    {{ infRunning ? '시뮬레이션 실행 중' : infWon ? '1등 당첨 완료!' : '대기 중' }}
+                  </v-chip>
+                </div>
+
+                <v-row class="text-center" dense>
                   <v-col cols="6" sm="3">
-                    <div class="text-caption text-grey">총 투자금</div>
-                    <div class="text-h6 font-weight-bold">{{ formatMoney(report.totalCost) }}</div>
-                  </v-col>
-                  <v-col cols="6" sm="3">
-                    <div class="text-caption text-grey">총 당첨금</div>
-                    <div class="text-h6 font-weight-bold text-success">
-                      {{ formatMoney(report.totalPrize) }}
+                    <div class="text-caption text-grey-lighten-1">가상 소비액 (1게임=1천원)</div>
+                    <div class="text-h5 font-weight-bold text-error my-1">
+                      {{ formatMoney(infStats.cost) }}
                     </div>
                   </v-col>
                   <v-col cols="6" sm="3">
-                    <div class="text-caption text-grey">수익률 (ROI)</div>
-                    <div class="text-h6 font-weight-bold" :class="Number(report.roi) >= 0 ? 'text-success' : 'text-error'">
-                      {{ report.roi }}%
+                    <div class="text-caption text-grey-lighten-1">누적 수령액</div>
+                    <div class="text-h5 font-weight-bold text-success my-1">
+                      {{ formatMoney(infStats.prize) }}
                     </div>
                   </v-col>
                   <v-col cols="6" sm="3">
-                    <div class="text-caption text-grey">최고 등수</div>
-                    <div class="text-h6 font-weight-black text-primary">
-                      {{ report.bestRank === 6 ? '낙첨' : `${report.bestRank}등` }}
+                    <div class="text-caption text-grey-lighten-1">가상 경과 시간</div>
+                    <div class="text-h5 font-weight-bold text-emerald my-1">
+                      {{ formatYears(infStats.weeks) }}
+                    </div>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <div class="text-caption text-grey-lighten-1">평균 대물림 세대수</div>
+                    <div class="text-h5 font-weight-bold text-warning my-1">
+                      {{ formatGenerations(infStats.weeks) }}대손
                     </div>
                   </v-col>
                 </v-row>
 
-                <!-- 등수별 카운트 -->
-                <div class="rank-grid mb-6">
-                  <v-card v-for="r in 5" :key="r" class="pa-3 text-center glass-card" variant="flat">
-                    <div class="text-subtitle-2 text-primary">{{ r }}등</div>
-                    <div class="font-weight-bold text-h5 my-1">{{ report.ranks[r] }}회</div>
-                    <div class="text-caption text-grey">{{ formatMoney(getPrizeByRank(r)) }}</div>
-                  </v-card>
+                <v-divider class="my-4 rgba-border"></v-divider>
+
+                <!-- 실시간 등수 카운터 -->
+                <div class="d-flex justify-space-around align-center text-center flex-wrap" style="gap: 12px;">
+                  <div v-for="r in 5" :key="r" class="px-2">
+                    <span class="text-caption text-grey-lighten-2 d-block">{{ r }}등 ({{ formatMoney(getPrizeByRank(r)) }})</span>
+                    <strong class="text-h6 font-weight-bold text-emerald">{{ infStats.ranks[r].toLocaleString() }}회</strong>
+                  </div>
                 </div>
 
-                <v-alert
-                  :color="report.netProfit > 0 ? 'success' : 'error'"
-                  variant="tonal"
-                  class="text-center rounded-xl"
+                <!-- 가상 손실 알림판 -->
+                <div v-if="infStats.cost > 0" class="mt-4 pa-3 rounded-lg text-center" style="background: rgba(239, 68, 68, 0.15);">
+                  <span class="text-caption text-grey-lighten-2">누적 순수익:</span>
+                  <strong class="text-body-1 font-weight-bold text-error ml-2">
+                    {{ formatMoney(infStats.prize - infStats.cost) }}
+                  </strong>
+                </div>
+
+                <!-- 1등 당첨 성공 리포트 -->
+                <v-expand-transition>
+                  <div v-if="infWon" class="mt-4 pa-4 rounded-lg text-center border-gold-glow" style="background: rgba(234, 179, 8, 0.15);">
+                    <h3 class="text-h6 font-weight-bold text-warning mb-2">🎉 마침내 1등 당첨 성공! 🎉</h3>
+                    <p class="text-caption text-grey-lighten-2 mb-0" style="line-height: 1.5;">
+                      이 로또 번호 한 조합으로 1등에 가상 당첨되기 위해 <strong>{{ (infStats.weeks).toLocaleString() }}주</strong>의 시간과 
+                      <strong>{{ formatMoney(infStats.cost) }}</strong> 상당의 가상 재화를 지출하셨습니다.
+                      당첨된 기쁨도 크지만, 실제 복권 구매는 소액으로 즐기시길 강력히 권해드립니다!
+                    </p>
+                  </div>
+                </v-expand-transition>
+              </div>
+
+              <!-- 시뮬레이션 제어 버튼 -->
+              <div class="d-flex justify-center flex-wrap animate-buttons" style="gap: 16px;">
+                <button
+                  v-if="!infRunning && !infWon"
+                  type="button"
+                  class="btn-action-primary px-8 py-3"
+                  @click="startInfiniteSim"
                 >
-                  <h3 class="text-h5 font-weight-bold">
-                    {{ report.netProfit > 0 ? '축하합니다! 시뮬레이션 결과 대성공!' : '휴... 실제로 매주 안 사길 다행이네요!' }}
-                  </h3>
-                  <div class="mt-2 text-body-1">
-                    순수익: <strong>{{ formatMoney(report.netProfit) }}</strong>
-                  </div>
-                </v-alert>
-              </div>
-            </v-expand-transition>
+                  <v-icon size="20" class="mr-2">mdi-play</v-icon>
+                  시뮬레이션 시작
+                </button>
 
+                <v-btn
+                  v-if="infRunning"
+                  color="warning"
+                  rounded="lg"
+                  class="px-8"
+                  size="large"
+                  @click="pauseInfiniteSim"
+                  prepend-icon="mdi-pause"
+                >
+                  일시 정지
+                </v-btn>
+
+                <v-btn
+                  v-if="!infRunning && (infStats.weeks > 0)"
+                  color="grey"
+                  variant="outlined"
+                  rounded="lg"
+                  @click="resetInfiniteSim"
+                  prepend-icon="mdi-refresh"
+                >
+                  초기화
+                </v-btn>
+
+                <v-btn
+                  v-if="infWon"
+                  color="amber-darken-1"
+                  rounded="lg"
+                  size="large"
+                  @click="downloadInfiniteReport"
+                  prepend-icon="mdi-download"
+                >
+                  결과 이미지 다운로드
+                </v-btn>
+
+                <v-btn
+                  v-if="infWon"
+                  color="primary"
+                  rounded="lg"
+                  size="large"
+                  @click="shareInfiniteResult"
+                  prepend-icon="mdi-share-variant"
+                >
+                  결과 공유하기
+                </v-btn>
+              </div>
+
+            </div>
+          </v-window-item>
+
+        </v-window>
+
+        <!-- 직접 입력 다이얼로그 ( Vuetify Modal ) -->
+        <v-dialog v-model="showInputModal" max-width="480">
+          <v-card class="pa-4 rounded-xl clean-card">
+            <v-card-title class="text-h6 font-weight-bold text-center">
+              시뮬레이션 번호 선택 ({{ tempSelected.length }}/6)
+            </v-card-title>
+            <v-card-text>
+              <div class="d-flex flex-wrap justify-center" style="gap: 8px">
+                <v-btn
+                  v-for="n in 45"
+                  :key="n"
+                  icon
+                  size="small"
+                  variant="flat"
+                  :color="tempSelected.includes(n) ? 'primary' : 'grey-lighten-3'"
+                  @click="toggleNumber(n)"
+                  elevation="0"
+                  style="min-width: 40px; min-height: 40px;"
+                >
+                  {{ n }}
+                </v-btn>
+              </div>
+              <p class="text-caption text-center mt-4 text-grey">
+                서로 중복되지 않는 6개 숫자를 터치하세요.
+              </p>
+            </v-card-text>
+            <v-card-actions class="justify-center">
+              <v-btn size="large" variant="text" @click="showInputModal = false">취소</v-btn>
+              <button 
+                type="button"
+                class="btn-action-primary px-6 py-2" 
+                :disabled="tempSelected.length !== 6"
+                @click="confirmManualInput"
+              >
+                적용하기
+              </button>
+            </v-card-actions>
           </v-card>
-        </v-window-item>
-
-        <!-- Tab 2: 1등 될 때까지 무한 구매 -->
-        <v-window-item value="infinite">
-          <v-card variant="flat" class="bg-transparent text-center">
-            <p class="text-body-2 text-grey mb-6">
-              "내가 지정한 6개 번호로 <strong>1등에 당첨될 때까지</strong> 가상 구매 루프를 돌려봅니다."
-            </p>
-
-            <!-- 상태 대시보드 -->
-            <div class="infinite-dashboard rounded-xl pa-6 mb-6 text-left" ref="infiniteCertificate">
-              <div class="d-flex justify-space-between align-center mb-4">
-                <span class="text-h6 font-weight-bold text-primary">🚀 무한 구매 대시보드</span>
-                <v-chip size="small" :color="infRunning ? 'success' : 'grey'" class="font-weight-bold">
-                  {{ infRunning ? '시뮬레이션 실행 중' : infWon ? '1등 당첨 완료!' : '대기 중' }}
-                </v-chip>
-              </div>
-
-              <v-row class="text-center" dense>
-                <v-col cols="6" sm="3">
-                  <div class="text-caption text-grey">가상 소비액 (1게임=1천원)</div>
-                  <div class="text-h5 font-weight-bold text-error my-1">
-                    {{ formatMoney(infStats.cost) }}
-                  </div>
-                </v-col>
-                <v-col cols="6" sm="3">
-                  <div class="text-caption text-grey">누적 수령액</div>
-                  <div class="text-h5 font-weight-bold text-success my-1">
-                    {{ formatMoney(infStats.prize) }}
-                  </div>
-                </v-col>
-                <v-col cols="6" sm="3">
-                  <div class="text-caption text-grey">가상 경과 시간</div>
-                  <div class="text-h5 font-weight-bold text-primary my-1">
-                    {{ formatYears(infStats.weeks) }}
-                  </div>
-                </v-col>
-                <v-col cols="6" sm="3">
-                  <div class="text-caption text-grey">평균 대물림 세대수</div>
-                  <div class="text-h5 font-weight-bold text-warning my-1">
-                    {{ formatGenerations(infStats.weeks) }}대손
-                  </div>
-                </v-col>
-              </v-row>
-
-              <v-divider class="my-4 rgba-border"></v-divider>
-
-              <!-- 실시간 등수 카운터 -->
-              <div class="d-flex justify-space-around align-center text-center flex-wrap" style="gap: 12px;">
-                <div v-for="r in 5" :key="r" class="px-2">
-                  <span class="text-caption text-grey d-block">{{ r }}등 ({{ formatMoney(getPrizeByRank(r)) }})</span>
-                  <strong class="text-h6 font-weight-bold text-primary">{{ infStats.ranks[r].toLocaleString() }}회</strong>
-                </div>
-              </div>
-
-              <!-- 가상 손실 알림판 -->
-              <div v-if="infStats.cost > 0" class="mt-4 pa-3 rounded-lg text-center" style="background: rgba(255, 64, 129, 0.08);">
-                <span class="text-caption text-grey">누적 순수익:</span>
-                <strong class="text-body-1 font-weight-bold text-error ml-2">
-                  {{ formatMoney(infStats.prize - infStats.cost) }}
-                </strong>
-              </div>
-
-              <!-- 1등 당첨 성공 리포트 -->
-              <v-expand-transition>
-                <div v-if="infWon" class="mt-4 pa-4 rounded-lg text-center border-gold-glow" style="background: rgba(255, 215, 0, 0.08);">
-                  <h3 class="text-h6 font-weight-bold text-warning mb-2">🎉 마침내 1등 당첨 성공! 🎉</h3>
-                  <p class="text-caption text-grey mb-0" style="line-height: 1.5;">
-                    이 로또 번호 한 조합으로 1등에 가상 당첨되기 위해 <strong>{{ (infStats.weeks).toLocaleString() }}주</strong>의 시간과 
-                    <strong>{{ formatMoney(infStats.cost) }}</strong> 상당의 가상 재화를 지출하셨습니다.
-                    당첨된 기쁨도 크지만, 실제 복권 구매는 소액으로 즐기시길 강력히 권해드립니다!
-                  </p>
-                </div>
-              </v-expand-transition>
-            </div>
-
-            <!-- 시뮬레이션 제어 버튼 -->
-            <div class="d-flex justify-center flex-wrap animate-buttons" style="gap: 16px;">
-              <v-btn
-                v-if="!infRunning && !infWon"
-                class="btn-premium click-pop px-8"
-                size="large"
-                @click="startInfiniteSim"
-                prepend-icon="mdi-play"
-              >
-                시뮬레이션 시작
-              </v-btn>
-
-              <v-btn
-                v-if="infRunning"
-                color="warning"
-                class="click-pop px-8"
-                size="large"
-                @click="pauseInfiniteSim"
-                prepend-icon="mdi-pause"
-              >
-                일시 정지
-              </v-btn>
-
-              <v-btn
-                v-if="!infRunning && (infStats.weeks > 0)"
-                color="secondary"
-                variant="outlined"
-                class="click-pop"
-                @click="resetInfiniteSim"
-                prepend-icon="mdi-refresh"
-              >
-                초기화
-              </v-btn>
-
-              <v-btn
-                v-if="infWon"
-                class="btn-gold click-pop"
-                size="large"
-                @click="downloadInfiniteReport"
-                prepend-icon="mdi-download"
-              >
-                결과 이미지 다운로드
-              </v-btn>
-
-              <v-btn
-                v-if="infWon"
-                color="primary"
-                class="click-pop"
-                size="large"
-                @click="shareInfiniteResult"
-                prepend-icon="mdi-share-variant"
-              >
-                결과 공유하기
-              </v-btn>
-            </div>
-
-          </v-card>
-        </v-window-item>
-
-      </v-window>
-
-      <!-- 직접 입력 다이얼로그 ( Vuetify Modal ) -->
-      <v-dialog v-model="showInputModal" max-width="480">
-        <v-card class="pa-4 rounded-xl glass-card">
-          <v-card-title class="text-h6 font-weight-bold text-center">
-            시뮬레이션 번호 선택 ({{ tempSelected.length }}/6)
-          </v-card-title>
-          <v-card-text>
-            <div class="d-flex flex-wrap justify-center" style="gap: 8px">
-              <v-btn
-                v-for="n in 45"
-                :key="n"
-                icon
-                size="small"
-                variant="flat"
-                :color="tempSelected.includes(n) ? 'primary' : 'grey-darken-3'"
-                @click="toggleNumber(n)"
-                elevation="0"
-                style="min-width: 40px; min-height: 40px;"
-              >
-                {{ n }}
-              </v-btn>
-            </div>
-            <p class="text-caption text-center mt-4 text-grey">
-              서로 중복되지 않는 6개 숫자를 터치하세요.
-            </p>
-          </v-card-text>
-          <v-card-actions class="justify-center">
-            <v-btn size="large" variant="text" @click="showInputModal = false">취소</v-btn>
-            <v-btn 
-              size="large" 
-              class="btn-premium" 
-              :disabled="tempSelected.length !== 6"
-              @click="confirmManualInput"
-            >
-              적용하기
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+        </v-dialog>
+      </div>
 
       <!-- SEO 최적화 설명 영역 -->
-      <v-card class="glass-card pa-6 text-left mt-8" style="background: rgba(124, 77, 255, 0.02) !important;">
+      <div class="clean-card pa-6 text-left mb-8">
         <h3 class="text-subtitle-1 font-weight-bold text-primary mb-3">로또 시뮬레이터와 수학적 기대값</h3>
-        <p class="text-caption text-grey-darken-1 mb-2" style="line-height: 1.6;">
-          대한민국 나눔로또(동행복권) 6/45의 1등 당첨 확률은 약 <strong>814만분의 1</strong>입니다. 이는 매주 한 게임(1,000원)을 살 경우, 통계학적으로 약 15만 년 동안 한 번도 빠짐없이 구매해야 1등에 한 번 당첨될 수 있는 극도로 희박한 확률입니다.
+        <p class="text-caption text-grey-darken-1 mb-2" style="line-height: 1.7;">
+          대한민국 로또 6/45의 1등 당첨 확률은 약 <strong>814만분의 1</strong>입니다. 이는 매주 한 게임(1,000원)을 살 경우, 통계학적으로 약 15만 년 동안 한 번도 빠짐없이 구매해야 1등에 한 번 당첨될 수 있는 극도로 희박한 확률입니다.
         </p>
-        <p class="text-caption text-grey-darken-1" style="line-height: 1.6;">
+        <p class="text-caption text-grey-darken-1" style="line-height: 1.7;">
           로또메이트의 <strong>로또 시뮬레이터</strong>는 이러한 수학적 사실을 누구나 즉각적으로 체감할 수 있도록 제작되었습니다. 타임머신 모드는 과거 역대 당첨 결과를 기준으로 해당 조합의 성과를 분석해 주며, 무한 구매 시뮬레이터는 매 프레임 수천 게임 이상의 시뮬레이션 연산을 통해 실제 1등이 당첨되는 순간까지의 가상 투자 비용과 세대 상속 시점을 흥미롭게 모델링합니다. 통계학적 기대값이 음의 영역(-80% 내외)에 있음을 확인하고, 로또 구매는 언제나 부담 없는 건전한 오락 활동이어야 함을 상기하시기 바랍니다.
         </p>
-      </v-card>
+      </div>
 
-    </v-sheet>
+    </div>
 
     <!-- 공유 모달 (카카오톡 및 SNS) -->
     <ShareModal
@@ -660,28 +671,148 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+.simulation-view {
+  min-height: calc(100vh - 64px);
+}
+
+.subpage-container {
+  max-width: 860px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.subpage-hero {
+  padding: 10px 0 0;
+}
+
+.subpage-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #e8f5e9;
+  color: #17653a;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.v-theme--dark .subpage-badge {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+.subpage-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.6px;
+  margin-bottom: 8px;
+}
+
+.v-theme--dark .subpage-title {
+  color: #f1f5f9;
+}
+
+.subpage-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.v-theme--dark .subpage-subtitle {
+  color: #94a3b8;
+}
+
+.clean-card {
+  background: #ffffff;
+  border: 1px solid #eef2ef;
+  border-radius: 22px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.v-theme--dark .clean-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.number-selector-box {
+  background: #f8faf8;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+}
+
+.v-theme--dark .number-selector-box {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+.btn-action-primary {
+  background: #17653a;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(23, 101, 58, 0.25);
+  transition: all 0.2s;
+}
+
+.btn-action-primary:hover:not(:disabled) {
+  background: #12532f;
+  transform: translateY(-1px);
+}
+
+.btn-action-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .infinite-dashboard {
-  background: radial-gradient(circle at top, #1E0B36 0%, #0D041A 100%) !important;
-  border: 1px solid rgba(124, 77, 255, 0.25);
-  box-shadow: inset 0 0 15px rgba(124, 77, 255, 0.1);
+  background: linear-gradient(135deg, #064e3b 0%, #022c22 100%) !important;
+  border: 1px solid #059669;
+  box-shadow: 0 10px 25px rgba(6, 78, 59, 0.25);
+  color: #ffffff;
+}
+
+.text-emerald {
+  color: #34d399 !important;
 }
 
 .rgba-border {
-  border-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
 }
 
 .border-gold-glow {
-  border: 2px solid #FFD700 !important;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+  border: 2px solid #eab308 !important;
+  box-shadow: 0 0 20px rgba(234, 179, 8, 0.2);
 }
 
 .rank-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
+  gap: 10px;
+}
+
+.rank-card {
+  background: #f8faf8;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+}
+
+.v-theme--dark .rank-card {
+  background: #0f172a;
+  border-color: #334155;
 }
 
 @media (max-width: 600px) {
+  .subpage-title {
+    font-size: 24px;
+  }
   .rank-grid {
     grid-template-columns: repeat(3, 1fr);
   }

@@ -1,214 +1,232 @@
 <!-- src/views/FortuneView.vue -->
 <template>
-  <v-container fluid class="py-6">
-    <v-sheet class="mx-auto px-6 py-6 glass-card" max-width="850" elevation="2" rounded="xl">
-      <div class="text-h4 font-weight-bold mb-2 gradient-text">{{ t('fortune.title', '로또 운세') }}</div>
-      <div class="mb-6 grey--text text-grey">{{ t('fortune.subtitle', '타로, 꿈해몽, 별자리로 알아보는 행운의 번호') }}</div>
+  <v-container fluid class="fortune-view py-6">
+    <div class="subpage-container">
+      
+      <!-- 상단 서브 히어로 배너 -->
+      <div class="subpage-hero mb-8 text-center">
+        <div class="subpage-badge">
+          <v-icon size="14" class="mr-1">mdi-sparkles</v-icon>
+          로또 운세 & 재미
+        </div>
+        <h1 class="subpage-title">오늘의 행운 번호</h1>
+        <p class="subpage-subtitle">
+          신비로운 타로 점술, 꿈해몽 키워드 분석, 12 별자리 운세로 당신만의 특별한 행운 숫자를 찾아보세요.
+        </p>
+      </div>
 
-      <!-- 탭 변경 -->
-      <v-tabs v-model="tab" color="primary" class="mb-6" align-tabs="center">
-        <v-tab value="tarot">🔮 타로 로또</v-tab>
-        <v-tab value="dream">{{ t('fortune.dreamTab') }}</v-tab>
-        <v-tab value="zodiac">{{ t('fortune.zodiacTab') }}</v-tab>
-      </v-tabs>
+      <!-- 메인 콘텐츠 카드 -->
+      <div class="clean-card pa-6 pa-sm-8 mb-8">
+        <!-- 탭 변경 -->
+        <v-tabs v-model="tab" color="primary" class="mb-6 fortune-tabs" align-tabs="center">
+          <v-tab value="tarot">🔮 타로 로또</v-tab>
+          <v-tab value="dream">{{ t('fortune.dreamTab') }}</v-tab>
+          <v-tab value="zodiac">{{ t('fortune.zodiacTab') }}</v-tab>
+        </v-tabs>
 
-      <v-window v-model="tab">
-        <!-- 1) Tarot Tab -->
-        <v-window-item value="tarot">
-          <v-card variant="flat" class="pa-4 bg-transparent">
-            
-            <div v-if="selectedCards.length < 3 && !tarotFinished" class="text-center mb-6">
-              <h2 class="text-h5 font-weight-bold mb-2">당신의 로또 운명을 점쳐보세요</h2>
-              <p class="text-body-2 text-grey">
-                눈을 감고 당첨의 염원을 담아 카드 덱에서 <strong>3장의 타로 카드</strong>를 선택해 주세요.
-              </p>
-              <v-chip color="primary" class="font-weight-bold px-4">
-                선택된 카드: {{ selectedCards.length }} / 3
-              </v-chip>
-            </div>
+        <v-window v-model="tab">
+          <!-- 1) Tarot Tab -->
+          <v-window-item value="tarot">
+            <div class="pa-2 text-center">
+              
+              <div v-if="selectedCards.length < 3 && !tarotFinished" class="text-center mb-6">
+                <h2 class="text-h5 font-weight-bold mb-2">당신의 로또 운명을 점쳐보세요</h2>
+                <p class="text-body-2 text-grey-darken-1">
+                  눈을 감고 당첨의 염원을 담아 카드 덱에서 <strong>3장의 타로 카드</strong>를 선택해 주세요.
+                </p>
+                <v-chip color="primary" class="font-weight-bold px-4 mt-2">
+                  선택된 카드: {{ selectedCards.length }} / 3
+                </v-chip>
+              </div>
 
-            <!-- 타로 카드 스프레드 공간 -->
-            <div v-if="!tarotFinished" class="d-flex flex-wrap justify-center my-6" style="gap: 16px; perspective: 1000px;">
-              <div
-                v-for="(card, index) in tarotDeck"
-                :key="index"
-                class="tarot-card"
-                :class="{ 
-                  'is-flipped': isCardSelected(index),
-                  'disabled': selectedCards.length >= 3 && !isCardSelected(index)
-                }"
-                @click="selectTarotCard(index)"
-              >
-                <div class="tarot-card-inner">
-                  <!-- 카드 뒷면 -->
-                  <div class="tarot-card-back">
-                    <div class="back-design">
-                      <v-icon size="40">mdi-compass-rose</v-icon>
-                      <span class="text-caption mt-2">LottoMate</span>
+              <!-- 타로 카드 스프레드 공간 -->
+              <div v-if="!tarotFinished" class="d-flex flex-wrap justify-center my-6" style="gap: 16px; perspective: 1000px;">
+                <div
+                  v-for="(card, index) in tarotDeck"
+                  :key="index"
+                  class="tarot-card"
+                  :class="{ 
+                    'is-flipped': isCardSelected(index),
+                    'disabled': selectedCards.length >= 3 && !isCardSelected(index)
+                  }"
+                  @click="selectTarotCard(index)"
+                >
+                  <div class="tarot-card-inner">
+                    <!-- 카드 뒷면 -->
+                    <div class="tarot-card-back">
+                      <div class="back-design">
+                        <v-icon size="36">mdi-compass-rose</v-icon>
+                        <span class="text-caption mt-2 font-weight-bold">LottoMate</span>
+                      </div>
                     </div>
-                  </div>
-                  <!-- 카드 앞면 -->
-                  <div class="tarot-card-front">
-                    <div class="front-emoji">{{ card.emoji }}</div>
-                    <div class="text-subtitle-2 font-weight-bold">{{ card.name }}</div>
+                    <!-- 카드 앞면 -->
+                    <div class="tarot-card-front">
+                      <div class="front-emoji">{{ card.emoji }}</div>
+                      <div class="text-subtitle-2 font-weight-bold">{{ card.name }}</div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- 타로 추첨 완료 후 결과 인증서 리포트 -->
-            <v-expand-transition>
-              <div v-if="tarotFinished" class="tarot-result-area text-center">
-                
-                <div ref="tarotCertificate" class="pa-6 rounded-xl mx-auto my-6 certificate-box" max-width="600">
-                  <div class="certificate-header mb-4">
-                    <div class="text-h5 font-weight-bold gold-text">★ TAROT LOTTO CERTIFICATE ★</div>
-                    <div class="text-caption text-grey">로또메이트 운명 분석 보고서</div>
-                  </div>
-
-                  <!-- 3개의 선택된 카드 분석 -->
-                  <v-row class="my-6 justify-center">
-                    <v-col v-for="(sel, i) in selectedCards" :key="i" cols="12" sm="4">
-                      <v-card class="pa-4 glass-card fill-height" border>
-                        <div class="text-overline primary-text font-weight-bold">
-                          {{ i === 0 ? '과거 · 기운' : i === 1 ? '현재 · 재물' : '미래 · 행운' }}
-                        </div>
-                        <div class="text-h2 my-2">{{ tarotDeck[sel].emoji }}</div>
-                        <div class="text-subtitle-1 font-weight-bold mb-2">{{ tarotDeck[sel].name }}</div>
-                        <div class="text-caption text-grey-darken-1 text-left" style="line-height: 1.5;">
-                          {{ tarotDeck[sel].desc }}
-                        </div>
-                      </v-card>
-                    </v-col>
-                  </v-row>
-
-                  <!-- 추천 행운의 로또 번호 -->
-                  <div class="my-8 pa-4 rounded-lg bg-surface-variant text-center" style="background: rgba(124, 77, 255, 0.08);">
-                    <div class="text-subtitle-2 font-weight-bold mb-3 text-primary">
-                      🔮 당신만을 위한 운명의 번호 추천 🔮
-                    </div>
-                    <div class="d-flex justify-center flex-wrap" style="gap: 10px;">
-                      <NumberCircle
-                        v-for="n in tarotNumbers"
-                        :key="n"
-                        :number="n"
-                        :size="48"
-                      />
-                    </div>
-                    <div class="text-caption text-grey mt-3">
-                      타로 시드 해시를 통해 생성된 고유의 로또 운세 조합입니다.
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 조작 버튼 -->
-                <div class="d-flex justify-center flex-wrap mt-6" style="gap: 16px;">
-                  <v-btn class="btn-premium" @click="resetTarot" prepend-icon="mdi-refresh">
-                    다시 타로 뽑기
-                  </v-btn>
+              <!-- 타로 추첨 완료 후 결과 인증서 리포트 -->
+              <v-expand-transition>
+                <div v-if="tarotFinished" class="tarot-result-area text-center">
                   
-                  <v-btn class="btn-gold" @click="downloadTarotImage" prepend-icon="mdi-download">
-                    결과 이미지 다운로드
-                  </v-btn>
+                  <div ref="tarotCertificate" class="pa-6 rounded-xl mx-auto my-6 certificate-box">
+                    <div class="certificate-header mb-4">
+                      <div class="text-h5 font-weight-bold gold-text">★ TAROT LOTTO CERTIFICATE ★</div>
+                      <div class="text-caption text-grey-lighten-2">로또메이트 운명 분석 보고서</div>
+                    </div>
 
-                  <v-btn color="primary" @click="shareTarotResult" prepend-icon="mdi-share-variant">
-                    결과 공유하기
-                  </v-btn>
+                    <!-- 3개의 선택된 카드 분석 -->
+                    <v-row class="my-6 justify-center">
+                      <v-col v-for="(sel, i) in selectedCards" :key="i" cols="12" sm="4">
+                        <div class="pa-4 tarot-insight-card fill-height">
+                          <div class="text-overline font-weight-bold text-emerald">
+                            {{ i === 0 ? '과거 · 기운' : i === 1 ? '현재 · 재물' : '미래 · 행운' }}
+                          </div>
+                          <div class="text-h2 my-2">{{ tarotDeck[sel].emoji }}</div>
+                          <div class="text-subtitle-1 font-weight-bold text-white mb-2">{{ tarotDeck[sel].name }}</div>
+                          <div class="text-caption text-grey-lighten-2 text-left" style="line-height: 1.5;">
+                            {{ tarotDeck[sel].desc }}
+                          </div>
+                        </div>
+                      </v-col>
+                    </v-row>
 
-                  <v-btn color="secondary" variant="outlined" @click="saveTarotNumbers" :disabled="tarotNumbers.length < 6">
-                    이 번호 저장하기
-                  </v-btn>
+                    <!-- 추천 행운의 로또 번호 -->
+                    <div class="my-6 pa-4 rounded-xl text-center tarot-numbers-banner">
+                      <div class="text-subtitle-2 font-weight-bold mb-3 text-emerald">
+                        🔮 당신만을 위한 운명의 번호 추천 🔮
+                      </div>
+                      <div class="d-flex justify-center flex-wrap" style="gap: 10px;">
+                        <NumberCircle
+                          v-for="n in tarotNumbers"
+                          :key="n"
+                          :number="n"
+                          :size="48"
+                        />
+                      </div>
+                      <div class="text-caption text-grey-lighten-2 mt-3">
+                        타로 시드 해시를 통해 생성된 고유의 로또 운세 조합입니다.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 조작 버튼 -->
+                  <div class="d-flex justify-center flex-wrap mt-6" style="gap: 12px;">
+                    <button type="button" class="btn-action-primary px-6 py-3" @click="resetTarot">
+                      <v-icon size="18" class="mr-1">mdi-refresh</v-icon>
+                      다시 타로 뽑기
+                    </button>
+                    
+                    <v-btn color="amber-darken-1" rounded="lg" size="large" @click="downloadTarotImage" prepend-icon="mdi-download">
+                      결과 이미지 다운로드
+                    </v-btn>
+
+                    <v-btn color="primary" rounded="lg" size="large" @click="shareTarotResult" prepend-icon="mdi-share-variant">
+                      결과 공유하기
+                    </v-btn>
+
+                    <v-btn color="grey" variant="outlined" rounded="lg" size="large" @click="saveTarotNumbers" :disabled="tarotNumbers.length < 6">
+                      이 번호 저장하기
+                    </v-btn>
+                  </div>
+
                 </div>
+              </v-expand-transition>
 
-              </div>
-            </v-expand-transition>
-
-          </v-card>
-        </v-window-item>
-
-        <!-- 2) Dream Tab -->
-        <v-window-item value="dream">
-          <v-card outlined class="pa-4 glass-card">
-            <div class="text-h6 mb-2">꿈에서 무엇을 보셨나요?</div>
-            <p class="text-caption text-grey mb-4">
-              기억나는 키워드(예: 똥, 조상, 돼지 등)를 검색해 보세요. 매칭되는 단어가 없다면 꿈의 고유 문자를 분석해 운명의 6자리를 추천합니다.
-            </p>
-            
-            <v-text-field
-              v-model="dreamInput"
-              :label="$t('fortune.dreamInputPlaceholder')"
-              variant="outlined"
-              append-inner-icon="mdi-magnify"
-              @keyup.enter="interpretDream"
-              @click:append-inner="interpretDream"
-            ></v-text-field>
-
-            <v-expand-transition>
-              <div v-if="dreamResult.length > 0" class="mt-6 text-center">
-                <div class="subtitle-1 font-weight-bold mb-3 text-primary">추천 번호:</div>
-                <div class="d-flex justify-center flex-wrap gap-2 mb-4" style="gap: 8px;">
-                  <NumberCircle v-for="n in dreamResult" :key="n" :number="n" :size="48" />
-                </div>
-                <div class="mt-2 text-caption text-grey">
-                  키워드 '{{ lastKeyword }}'와(과) 연관된 번호 조합입니다. 이 번호를 복권 구매에 활용해 보세요!
-                </div>
-              </div>
-            </v-expand-transition>
-            
-            <v-expand-transition>
-              <div v-if="hasSearched && dreamResult.length === 0" class="mt-4 text-center text-grey">
-                해당 키워드에 대한 데이터가 없습니다. 다른 단어로 다시 검색해 보세요.
-              </div>
-            </v-expand-transition>
-          </v-card>
-        </v-window-item>
-
-        <!-- 3) Zodiac Tab -->
-        <v-window-item value="zodiac">
-          <v-card outlined class="pa-4 glass-card">
-            <div class="text-h6 mb-4">오늘의 별자리 행운 번호</div>
-            <v-select
-              v-model="selectedZodiac"
-              :items="zodiacSigns"
-              item-title="name"
-              item-value="id"
-              label="별자리를 선택하세요"
-              variant="outlined"
-            ></v-select>
-
-            <div class="text-center mt-6" v-if="selectedZodiac">
-              <v-btn size="large" class="btn-premium" @click="generateZodiacNumbers">
-                <v-icon start>mdi-creation</v-icon>
-                행운 번호 생성
-              </v-btn>
             </div>
+          </v-window-item>
 
-            <v-expand-transition>
-              <div v-if="zodiacResult.length > 0" class="mt-6 text-center">
-                <div class="d-flex justify-center flex-wrap gap-3" style="gap: 8px;">
-                  <NumberCircle v-for="n in zodiacResult" :key="n" :number="n" :size="48" />
+          <!-- 2) Dream Tab -->
+          <v-window-item value="dream">
+            <div class="clean-inner-box pa-6">
+              <h2 class="text-h6 font-weight-bold mb-2">꿈에서 무엇을 보셨나요?</h2>
+              <p class="text-caption text-grey-darken-1 mb-4">
+                기억나는 키워드(예: 똥, 조상, 돼지, 불, 물 등)를 검색해 보세요. 매칭되는 단어가 없다면 꿈의 고유 문자를 분석해 운명의 6자리를 추천합니다.
+              </p>
+              
+              <v-text-field
+                v-model="dreamInput"
+                :label="$t('fortune.dreamInputPlaceholder')"
+                variant="outlined"
+                color="primary"
+                rounded="lg"
+                append-inner-icon="mdi-magnify"
+                @keyup.enter="interpretDream"
+                @click:append-inner="interpretDream"
+              ></v-text-field>
+
+              <v-expand-transition>
+                <div v-if="dreamResult.length > 0" class="mt-6 text-center">
+                  <div class="subtitle-1 font-weight-bold mb-3 text-primary">추천 번호:</div>
+                  <div class="d-flex justify-center flex-wrap gap-2 mb-4" style="gap: 8px;">
+                    <NumberCircle v-for="n in dreamResult" :key="n" :number="n" :size="46" />
+                  </div>
+                  <div class="mt-2 text-caption text-grey">
+                    키워드 '<strong>{{ lastKeyword }}</strong>'와(과) 연관된 번호 조합입니다. 이 번호를 복권 구매에 활용해 보세요!
+                  </div>
                 </div>
-                <div class="mt-4 text-body-2 text-grey">
-                  {{ zodiacLuckMessage }}
+              </v-expand-transition>
+              
+              <v-expand-transition>
+                <div v-if="hasSearched && dreamResult.length === 0" class="mt-4 text-center text-grey">
+                  해당 키워드에 대한 데이터가 없습니다. 다른 단어로 다시 검색해 보세요.
                 </div>
+              </v-expand-transition>
+            </div>
+          </v-window-item>
+
+          <!-- 3) Zodiac Tab -->
+          <v-window-item value="zodiac">
+            <div class="clean-inner-box pa-6">
+              <h2 class="text-h6 font-weight-bold mb-4">오늘의 별자리 행운 번호</h2>
+              <v-select
+                v-model="selectedZodiac"
+                :items="zodiacSigns"
+                item-title="name"
+                item-value="id"
+                label="별자리를 선택하세요"
+                variant="outlined"
+                color="primary"
+                rounded="lg"
+              ></v-select>
+
+              <div class="text-center mt-4" v-if="selectedZodiac">
+                <button type="button" class="btn-action-primary px-8 py-3" @click="generateZodiacNumbers">
+                  <v-icon size="18" class="mr-2">mdi-creation</v-icon>
+                  행운 번호 생성
+                </button>
               </div>
-            </v-expand-transition>
-          </v-card>
-        </v-window-item>
-      </v-window>
+
+              <v-expand-transition>
+                <div v-if="zodiacResult.length > 0" class="mt-6 text-center">
+                  <div class="d-flex justify-center flex-wrap gap-3" style="gap: 8px;">
+                    <NumberCircle v-for="n in zodiacResult" :key="n" :number="n" :size="46" />
+                  </div>
+                  <div class="mt-4 text-body-2 text-grey-darken-1">
+                    {{ zodiacLuckMessage }}
+                  </div>
+                </div>
+              </v-expand-transition>
+            </div>
+          </v-window-item>
+        </v-window>
+      </div>
 
       <!-- SEO 최적화 설명 영역 -->
-      <v-card class="glass-card pa-6 text-left mt-8" style="background: rgba(124, 77, 255, 0.02) !important;">
+      <div class="clean-card pa-6 text-left mb-8">
         <h3 class="text-subtitle-1 font-weight-bold text-primary mb-3">꿈해몽 번호 및 타로 로또 운세에 관한 가이드</h3>
-        <p class="text-caption text-grey-darken-1 mb-2" style="line-height: 1.6;">
+        <p class="text-caption text-grey-darken-1 mb-2" style="line-height: 1.7;">
           많은 사람들이 꿈이나 특수한 운세 징조(별자리, 타로 카드)를 통해 로또 번호를 추천받습니다. 예를 들어, 전통적으로 돼지 꿈은 숫자 8, 18, 28을 상징하고, 똥 꿈은 5, 15, 25 등을 암시한다고 널리 알려져 있습니다. 또한 조상님 꿈은 1, 7, 19 등 번호와 매치되기도 합니다.
         </p>
-        <p class="text-caption text-grey-darken-1" style="line-height: 1.6;">
+        <p class="text-caption text-grey-darken-1" style="line-height: 1.7;">
           로또메이트의 <strong>타로 로또 운세</strong>는 신비로운 타로 점술 요소를 로또 번호 알고리즘과 결합하여, 유저가 선택한 메이저 아르카나 카드의 조합 시드를 기반으로 6개의 독자적인 행운 번호를 정교하게 추천해 줍니다. 재미 삼아 뽑아본 타로가 오늘의 1등 당첨번호가 될지도 모르니 매주 한 번씩 자신의 재물운을 확인해 보시길 권장합니다.
         </p>
-      </v-card>
+      </div>
 
-    </v-sheet>
+    </div>
 
     <!-- 공유 모달 (카카오톡 및 SNS) -->
     <ShareModal
@@ -465,7 +483,103 @@ function generateZodiacNumbers() {
 </script>
 
 <style scoped>
-/* 타로 카드 스타일 */
+.fortune-view {
+  min-height: calc(100vh - 64px);
+}
+
+.subpage-container {
+  max-width: 880px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.subpage-hero {
+  padding: 10px 0 0;
+}
+
+.subpage-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #e8f5e9;
+  color: #17653a;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.v-theme--dark .subpage-badge {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+.subpage-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.6px;
+  margin-bottom: 8px;
+}
+
+.v-theme--dark .subpage-title {
+  color: #f1f5f9;
+}
+
+.subpage-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.v-theme--dark .subpage-subtitle {
+  color: #94a3b8;
+}
+
+.clean-card {
+  background: #ffffff;
+  border: 1px solid #eef2ef;
+  border-radius: 22px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.v-theme--dark .clean-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.clean-inner-box {
+  background: #f8faf8;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+}
+
+.v-theme--dark .clean-inner-box {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+.btn-action-primary {
+  background: #17653a;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(23, 101, 58, 0.2);
+  transition: all 0.2s;
+}
+
+.btn-action-primary:hover {
+  background: #12532f;
+  transform: translateY(-1px);
+}
+
+/* 타로 카드 스타일 (에메랄드/그린 럭셔리 에디션) */
 .tarot-card {
   width: 105px;
   height: 165px;
@@ -503,19 +617,19 @@ function generateZodiacNumbers() {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 12px;
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 8px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .tarot-card-back {
-  background: radial-gradient(circle at center, #2C1A5C 0%, #0F041C 100%);
-  border: 2px solid rgba(124, 77, 255, 0.3);
-  color: #FFD700;
+  background: radial-gradient(circle at center, #064e3b 0%, #022c22 100%);
+  border: 2px solid #22c55e;
+  color: #fbbf24;
 }
 
 .back-design {
@@ -523,44 +637,58 @@ function generateZodiacNumbers() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px dashed rgba(255, 215, 0, 0.2);
+  border: 1px dashed rgba(251, 191, 36, 0.35);
   width: 100%;
   height: 100%;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 .tarot-card-front {
-  background: radial-gradient(circle at center, #1E0B36 0%, #090214 100%);
-  border: 2px solid #FFD700;
-  color: #fff;
+  background: radial-gradient(circle at center, #047857 0%, #064e3b 100%);
+  border: 2px solid #fbbf24;
+  color: #ffffff;
   transform: rotateY(180deg);
 }
 
 .front-emoji {
   font-size: 2.8rem;
   margin-bottom: 8px;
-  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.4));
 }
 
-/* 인증서 박스 */
+/* 타로 인증서 박스 */
 .certificate-box {
-  background: radial-gradient(circle at top, #1E0B36 0%, #0F041C 100%) !important;
-  border: 2px solid #FFD700 !important;
-  box-shadow: 0 0 30px rgba(255, 215, 0, 0.15) !important;
+  background: linear-gradient(135deg, #064e3b 0%, #022c22 100%) !important;
+  border: 2px solid #10b981 !important;
+  box-shadow: 0 10px 30px rgba(6, 78, 59, 0.3) !important;
   max-width: 620px;
 }
 
 .gold-text {
-  color: #FFD700;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+  color: #fbbf24;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
   letter-spacing: 1px;
 }
 
-.primary-text {
-  color: #B388FF;
+.text-emerald {
+  color: #34d399 !important;
+}
+
+.tarot-insight-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+}
+
+.tarot-numbers-banner {
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.3);
 }
 
 @media (max-width: 600px) {
+  .subpage-title {
+    font-size: 24px;
+  }
   .tarot-card {
     width: 85px;
     height: 135px;

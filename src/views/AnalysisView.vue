@@ -1,38 +1,68 @@
 <template>
-  <v-container fluid class="py-6">
-    <v-sheet class="mx-auto px-6 py-6" max-width="1200" elevation="1" rounded>
-      <div class="text-h4 font-weight-bold mb-2">{{ $t('analysis.title', '심층 분석') }}</div>
-      <div class="mb-6 grey--text text--darken-1">{{ $t('analysis.subtitle', '과거 데이터를 기반으로 한 정밀 분석') }}</div>
+  <v-container fluid class="analysis-view py-6">
+    <div class="subpage-container">
+      
+      <!-- 상단 서브 히어로 배너 -->
+      <div class="subpage-hero mb-8 text-center">
+        <div class="subpage-badge">
+          <v-icon size="14" class="mr-1">mdi-chart-pie</v-icon>
+          심층 패턴 분석
+        </div>
+        <h1 class="subpage-title">로또 번호 심층 분석</h1>
+        <p class="subpage-subtitle">
+          합계 구간 정규분포, 5대 색상 대역 비중, 홀짝 비율 추이 등 다차원 패턴을 과학적으로 분석합니다.
+        </p>
+      </div>
 
-      <!-- Sum Distribution -->
-      <v-card class="mb-8" outlined>
-        <v-card-title>{{ $t('analysis.sumTitle', '합계 구간 분포 (최근 100회)') }}</v-card-title>
-        <v-card-text>
+      <!-- 1. 합계 구간 분포 카드 -->
+      <div class="clean-card pa-6 pa-sm-8 mb-8">
+        <div class="section-title-row mb-4">
+          <div>
+            <h2 class="card-inner-title mb-1">합계 구간 정규분포 (최근 100회)</h2>
+            <p class="card-inner-sub">6개 당첨 번호의 총합이 어느 구간에 밀집되는지 보여주는 통계입니다 (이론상 중심: 138).</p>
+          </div>
+        </div>
+
+        <div class="chart-box" style="height: 280px;">
           <Bar v-if="loaded" :data="sumData" :options="chartOptions" />
-        </v-card-text>
-      </v-card>
+        </div>
+      </div>
 
-      <v-row>
+      <!-- 2. 색상 분포 & 홀짝 비율 추이 (2열 그리드) -->
+      <v-row class="mb-8">
+        <!-- 번호 색상 분포 도넛 차트 -->
         <v-col cols="12" md="6">
-          <v-card outlined class="fill-height">
-            <v-card-title>{{ $t('analysis.colorTitle', '번호 색상 분포') }}</v-card-title>
-            <v-card-text>
+          <div class="clean-card pa-6 fill-height">
+            <div class="section-title-row mb-4">
+              <div>
+                <h3 class="card-inner-title mb-1">5대 색상 대역별 출현 비율</h3>
+                <p class="card-inner-sub">역대 모든 당첨 번호의 볼 색상별 누적 점유율입니다.</p>
+              </div>
+            </div>
+            <div class="d-flex justify-center align-center" style="height: 260px;">
               <Doughnut v-if="loaded" :data="colorData" :options="doughnutOptions" />
-            </v-card-text>
-          </v-card>
+            </div>
+          </div>
         </v-col>
+
+        <!-- 홀짝 비율 추이 라인 차트 -->
         <v-col cols="12" md="6">
-          <v-card outlined class="fill-height">
-             <v-card-title>{{ $t('analysis.oddEvenTitle', '홀짝 비율 추이 (최근 20회)') }}</v-card-title>
-             <v-card-text>
-               <Line v-if="loaded" :data="oddEvenData" :options="chartOptions" />
-             </v-card-text>
-          </v-card>
+          <div class="clean-card pa-6 fill-height">
+            <div class="section-title-row mb-4">
+              <div>
+                <h3 class="card-inner-title mb-1">홀수 출현 개수 추이 (최근 20회)</h3>
+                <p class="card-inner-sub">회차별 홀짝 균형 추이와 연속 패턴 흐름입니다.</p>
+              </div>
+            </div>
+            <div style="height: 260px;">
+              <Line v-if="loaded" :data="oddEvenData" :options="lineOptions" />
+            </div>
+          </div>
         </v-col>
       </v-row>
 
-      <!-- 심층 패턴 분석 해설 카드 (SEO & 정보성 강화) -->
-      <v-card class="glass-card pa-6 text-left mt-8" style="background: rgba(124, 77, 255, 0.03) !important;">
+      <!-- 3. 심층 패턴 분석 해설 카드 (SEO & 정보성 강화) -->
+      <div class="clean-card pa-6 text-left mb-8">
         <h3 class="text-subtitle-1 font-weight-bold text-primary mb-3">
           📈 합계 구간 정규분포 및 다차원 패턴 필터링 가이드
         </h3>
@@ -47,9 +77,9 @@
             <strong>3. 홀짝 균형 전략:</strong> 홀수와 짝수의 비율이 3:3 (약 33%) 또는 4:2 / 2:4 (약 48%)인 경우가 전체의 81% 이상입니다. 올홀수(6:0)나 올짝수(0:6)와 같은 극단적인 조합을 피하는 것만으로도 비효율적인 조합을 효과적으로 걸러낼 수 있습니다.
           </p>
         </div>
-      </v-card>
+      </div>
 
-    </v-sheet>
+    </div>
   </v-container>
 </template>
 
@@ -74,26 +104,21 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,
 
 const loaded = ref(false)
 
-// Types
 type Row = { round: number; num1: number; num2: number; num3: number; num4: number; num5: number; num6: number; bonus: number; draw_date: string }
 const rows = data as unknown as Row[]
 
 // Colors
 const colors = {
-  yellow: '#FBC400', // 1-10
-  blue: '#69C8F2',   // 11-20
-  red: '#FF7272',    // 21-30
-  grey: '#AAAAAA',   // 31-40
-  green: '#B0D840'   // 41-45
+  yellow: '#f59e0b', // 1-10
+  blue: '#3b82f6',   // 11-20
+  red: '#ef4444',    // 21-30
+  grey: '#6b7280',   // 31-40
+  green: '#10b981'   // 41-45
 }
 
 // 1. Sum Distribution (Last 100 rounds)
 const sumData = computed(() => {
   const last100 = rows.slice(0, 100)
-  const buckets = Array(10).fill(0) // 0-50, 51-100, ... 
-  // Theoretical max sum = 40+41+42+43+44+45 = 255. Min = 1+2+3+4+5+6 = 21. range ~21-255.
-  // Let's create buckets of 25.
-  // 0-25, 26-50, 51-75, 76-100, 101-125, 126-150, 151-175, 176-200, 201-225, 226-255
   const labels = ['~50', '51-75', '76-100', '101-125', '126-150', '151-175', '176-200', '201-225', '226~']
   const counts = Array(9).fill(0)
 
@@ -113,8 +138,9 @@ const sumData = computed(() => {
   return {
     labels,
     datasets: [{
-      label: 'Frequency',
-      backgroundColor: '#1976D2',
+      label: '출현 회수',
+      backgroundColor: '#17653a',
+      borderRadius: 6,
       data: counts
     }]
   }
@@ -136,18 +162,20 @@ const colorData = computed(() => {
   })
 
   return {
-    labels: ['1-10 (Yellow)', '11-20 (Blue)', '21-30 (Red)', '31-40 (Grey)', '41-45 (Green)'],
+    labels: ['1-10(노랑)', '11-20(파랑)', '21-30(빨강)', '31-40(회색)', '41-45(초록)'],
     datasets: [{
       backgroundColor: [colors.yellow, colors.blue, colors.red, colors.grey, colors.green],
-      data: [counts.yellow, counts.blue, counts.red, counts.grey, counts.green]
+      data: [counts.yellow, counts.blue, counts.red, counts.grey, counts.green],
+      borderWidth: 2,
+      borderColor: '#ffffff'
     }]
   }
 })
 
 // 3. Odd/Even Trend (Last 20)
 const oddEvenData = computed(() => {
-  const target = rows.slice(0, 20).reverse() // Show chronological order left to right
-  const labels = target.map(r => `${r.round}`)
+  const target = rows.slice(0, 20).reverse()
+  const labels = target.map(r => `${r.round}회`)
   const oddCounts = target.map(r => {
     let odd = 0
     ;[r.num1, r.num2, r.num3, r.num4, r.num5, r.num6].forEach(n => { if (n % 2 !== 0) odd++ })
@@ -158,9 +186,13 @@ const oddEvenData = computed(() => {
     labels,
     datasets: [
       {
-        label: 'Odd Numbers Count',
-        backgroundColor: '#FF7272',
-        borderColor: '#FF7272',
+        label: '홀수 개수 (0~6개)',
+        backgroundColor: 'rgba(34, 197, 94, 0.15)',
+        borderColor: '#22c55e',
+        pointBackgroundColor: '#17653a',
+        pointBorderColor: '#ffffff',
+        pointRadius: 4,
+        fill: true,
         data: oddCounts,
         tension: 0.3
       }
@@ -170,19 +202,132 @@ const oddEvenData = computed(() => {
 
 const chartOptions = {
   responsive: true,
-  maintainAspectRatio: false
+  maintainAspectRatio: false,
+  plugins: { legend: { display: false } },
+  scales: {
+    x: { grid: { display: false } },
+    y: { grid: { color: '#f1f5f2' } }
+  }
 }
 
 const doughnutOptions = {
   responsive: true,
   maintainAspectRatio: false,
+  plugins: {
+    legend: { position: 'bottom' as const }
+  }
+}
+
+const lineOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: { legend: { display: false } },
+  scales: {
+    x: { grid: { display: false } },
+    y: {
+      min: 0,
+      max: 6,
+      ticks: { stepSize: 1 },
+      grid: { color: '#f1f5f2' }
+    }
+  }
 }
 
 onMounted(() => {
   loaded.value = true
 })
-
 </script>
 
 <style scoped>
+.analysis-view {
+  min-height: calc(100vh - 64px);
+}
+
+.subpage-container {
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.subpage-hero {
+  padding: 10px 0 0;
+}
+
+.subpage-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #e8f5e9;
+  color: #17653a;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.v-theme--dark .subpage-badge {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+.subpage-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.6px;
+  margin-bottom: 8px;
+}
+
+.v-theme--dark .subpage-title {
+  color: #f1f5f9;
+}
+
+.subpage-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.v-theme--dark .subpage-subtitle {
+  color: #94a3b8;
+}
+
+.clean-card {
+  background: #ffffff;
+  border: 1px solid #eef2ef;
+  border-radius: 22px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.v-theme--dark .clean-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.card-inner-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.4px;
+}
+
+.v-theme--dark .card-inner-title {
+  color: #f1f5f9;
+}
+
+.card-inner-sub {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 0;
+}
+
+.v-theme--dark .card-inner-sub {
+  color: #94a3b8;
+}
+
+@media (max-width: 600px) {
+  .subpage-title {
+    font-size: 24px;
+  }
+}
 </style>

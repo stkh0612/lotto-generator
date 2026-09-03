@@ -1,109 +1,151 @@
 <!-- src/components/AppFooter.vue -->
 <template>
-  <footer class="app-footer py-6 mt-8">
-    <v-container>
-      <!-- 약관 및 정책 링크 -->
-      <div class="footer-links mb-4 d-flex justify-center flex-wrap align-center">
-        <router-link to="/about" class="footer-link">{{ t('navAbout', '소개') }}</router-link>
-        <span class="divider mx-3">|</span>
-        <router-link to="/privacy" class="footer-link">{{ t('navPrivacy', '개인정보처리방침') }}</router-link>
-        <span class="divider mx-3">|</span>
-        <router-link to="/terms" class="footer-link">{{ t('navTerms', '이용약관') }}</router-link>
-        <span class="divider mx-3">|</span>
-        <a href="https://www.dhlottery.co.kr" target="_blank" rel="noopener noreferrer" class="footer-link">
-          동행복권 공식사이트 ↗
-        </a>
-      </div>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-logo">LottoMate</div>
+        <div class="footer-links-wrap">
+          <ul class="footer-links">
+            <li><router-link to="/terms">이용약관</router-link></li>
+            <li><router-link to="/privacy">개인정보처리방침</router-link></li>
+            <li><a :href="`mailto:${email}`">고객센터</a></li>
+            <li><a href="https://www.dhlottery.co.kr" target="_blank" rel="noopener noreferrer">동행복권 공식 ↗</a></li>
+          </ul>
 
-      <!-- 면책 조항 및 주의사항 -->
-      <div class="footer-disclaimer mx-auto mb-4 text-center px-4" style="max-width: 760px;">
-        <p class="mb-2 text-caption">
-          <strong>면책조항 (Disclaimer):</strong> 본 서비스에서 제공하는 모든 로또 번호 생성 결과, 과거 통계 대조 및 분석 정보는 수학적 확률과 임의의 난수에 기반한 참고 데이터일 뿐이며, 실제 당첨을 보장하지 않습니다. 로또 구매에 따른 모든 결과 및 재정적 책임은 전적으로 구매자 본인에게 있습니다.
-        </p>
-        <p class="text-caption text-grey">
-          지나친 도박과 복권 몰입은 개인과 가정을 해칠 수 있습니다. 복권 구매는 오락으로 가볍게 즐겨주세요.
-        </p>
-      </div>
+          <!-- 애드센스 및 이용자 보호 면책 조항 -->
+          <div class="disclaimer-text">
+            본 서비스의 로또 번호 추천 및 통계 정보는 과거 데이터에 기반한 엔터테인먼트 참고 자료이며 실제 당첨을 보장하지 않습니다. 복권 구매 책임은 구매자 본인에게 있습니다.
+          </div>
 
-      <!-- 저작권 및 고객 문의 -->
-      <div class="footer-copyright text-center text-caption text-grey-darken-1">
-        <div>© {{ currentYear }} LottoMate. All rights reserved.</div>
-        <div class="mt-1">
-          고객문의: <a href="mailto:superman612@kakao.com" class="contact-email">superman612@kakao.com</a>
+          <div class="copyright">
+            © {{ currentYear }} LottoMate. All rights reserved.
+          </div>
         </div>
       </div>
-    </v-container>
+
+      <button type="button" class="scroll-top-btn" @click="scrollToTop" title="맨 위로 가기">
+        <v-icon size="22">mdi-arrow-up</v-icon>
+      </button>
+    </div>
   </footer>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+const email = 'superman612@kakao.com'
 const currentYear = computed(() => new Date().getFullYear())
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 </script>
 
 <style scoped>
-.app-footer {
-  border-top: 1px solid rgba(124, 77, 255, 0.1);
-  background: rgba(15, 4, 28, 0.4);
+.site-footer {
+  background: #1c4e35;
+  color: #e2e8f0;
+  padding: 40px 24px 34px;
   width: 100%;
+  margin-top: auto;
 }
 
-.v-theme--light .app-footer {
-  background: rgba(255, 255, 255, 0.8);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+.footer-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
 }
 
-.footer-link {
-  color: #7c4dff;
+.footer-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 36px;
+  flex: 1;
+}
+
+.footer-logo {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+.footer-links-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: #cbd5e1;
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.85rem;
-  transition: color 0.2s;
+  transition: color 0.15s;
 }
 
-.v-theme--light .footer-link {
-  color: #1976d2;
+.footer-links a:hover {
+  color: #ffffff;
 }
 
-.footer-link:hover {
-  text-decoration: underline;
-  color: #e040fb;
+.disclaimer-text {
+  font-size: 12px;
+  color: #a7f3d0;
+  opacity: 0.85;
+  line-height: 1.5;
+  max-width: 780px;
 }
 
-.divider {
-  color: rgba(124, 77, 255, 0.3);
-  font-size: 0.8rem;
+.copyright {
+  font-size: 12px;
+  color: #94a3b8;
 }
 
-.v-theme--light .divider {
-  color: rgba(0, 0, 0, 0.2);
+.scroll-top-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #1e293b;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  transition: all 0.2s;
+  flex-shrink: 0;
 }
 
-.footer-disclaimer p {
-  line-height: 1.6;
-  color: #b0bec5;
+.scroll-top-btn:hover {
+  background: #f1f5f9;
+  transform: translateY(-2px);
 }
 
-.v-theme--light .footer-disclaimer p {
-  color: #616161;
-}
-
-.contact-email {
-  color: #b0bec5;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-.v-theme--light .contact-email {
-  color: #424242;
-}
-
-.contact-email:hover {
-  color: #7c4dff;
-  text-decoration: underline;
+@media (max-width: 768px) {
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .footer-left {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .scroll-top-btn {
+    align-self: flex-end;
+  }
 }
 </style>
