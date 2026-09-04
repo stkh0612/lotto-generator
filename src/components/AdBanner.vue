@@ -1,6 +1,6 @@
 <!-- src/components/AdBanner.vue -->
 <template>
-  <div v-if="AdClient && AdSlot && AdSlot !== 'YOUR_AD_SLOT_HERE'" class="ad-banner my-4 text-center">
+  <div v-if="!isExcluded && AdClient && AdSlot && AdSlot !== 'YOUR_AD_SLOT_HERE'" class="ad-banner my-4 text-center">
     <ins
       class="adsbygoogle"
       style="display:block"
@@ -13,14 +13,24 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+// 애드센스 정책 준수를 위해 실질적 콘텐츠가 없는 유틸리티/약관 페이지는 광고 게재 제외
+const isExcluded = computed(() => {
+  if (!route || !route.path) return false
+  const p = route.path.toLowerCase()
+  return p.startsWith('/saved') || p.startsWith('/privacy') || p.startsWith('/terms')
+})
 
 // 구글 애드센스 퍼블리셔 정보
 const AdClient = "ca-pub-3971187501349159"
 const AdSlot   = "YOUR_AD_SLOT_HERE" // 애드센스 대시보드에서 생성한 광고 단위 슬롯 ID를 넣어주세요.
 
 onMounted(() => {
-  if (AdClient && AdSlot && AdSlot !== "YOUR_AD_SLOT_HERE") {
+  if (!isExcluded.value && AdClient && AdSlot && AdSlot !== "YOUR_AD_SLOT_HERE") {
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({})
     } catch (e) {

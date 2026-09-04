@@ -1,6 +1,6 @@
 <!-- src/views/PrivacyView.vue -->
 <template>
-  <v-container fluid class="privacy-view py-6">
+  <v-container fluid class="privacy-view py-6 google-anno-skip">
     <div class="subpage-container">
       
       <!-- 상단 서브 히어로 배너 -->

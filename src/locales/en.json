@@ -50,8 +50,8 @@
     "communityRecent": "Latest Analysis Articles",
     "viewMore": "More",
     "seoGuideTitle": "LottoMate Statistical Number Generation & Analysis Guide",
-    "seoP1": "LottoMate is a free automated lottery number generator that analyzes historical draw frequencies, odd/even ratios, and consecutive patterns to produce balanced combinations. Rather than pure random draws, it actively filters out past 1st-prize duplicate combinations for balanced statistical support number sets.",
-    "seoP2": "While every lottery draw is an independent trial, utilizing well-distributed numbers based on statistical analysis maximizes anticipation and entertainment value. Explore LottoMate's comprehensive analytics tools alongside your ticket selections.",
+    "seoP1": "LottoMate is a free automated lottery number generator that analyzes historical draw frequencies, odd/even ratios, and consecutive patterns to produce balanced recommended combinations. It filters out past 1st-prize combinations according to user preference (while acknowledging past winning sets retain identical odds for future draws) to deliver well-balanced statistical combinations.",
+    "seoP2": "While every lottery draw is an independent trial, utilizing well-distributed recommended combinations based on statistical analysis maximizes anticipation and entertainment value. Explore LottoMate's comprehensive analytics tools alongside your ticket selections.",
     "seoP3": "※ All number extractions and analytics on LottoMate are for statistical entertainment reference only and do not legally guarantee winning outcomes. Please play responsibly with small amounts.",
     "modal": {
       "title": "Lucky Number Draw",

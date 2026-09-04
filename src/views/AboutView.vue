@@ -39,7 +39,7 @@
               <div class="feature-item-card pa-5 fill-height">
                 <div class="text-subtitle-1 font-weight-bold text-primary mb-2">☘️ 균형 있는 번호 필터링 생성</div>
                 <div class="text-body-2 text-grey-darken-1" style="line-height: 1.6;">
-                  단순 무작위 추출이 아닌, 과거에 이미 1등으로 출현했던 번호 조합을 필터링하고 홀짝 비율 등의 조율을 거친 번호를 안전하게 생성합니다.
+                  단순 무작위 추출이 아닌, 과거에 이미 1등으로 출현했던 번호 조합(다음 회차 당첨 확률은 동일하지만 중복 배제를 선호하는 이용자 취향을 위한 필터)을 제외하고 홀짝 비율 등의 균형을 조율한 추천 조합을 생성합니다.
                 </div>
               </div>
             </v-col>

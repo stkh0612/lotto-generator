@@ -59,7 +59,6 @@
         <span class="policy-separator mx-2">|</span>
         <router-link to="/about" class="policy-link" @click="drawer = false">{{ t('navAbout', '소개') }}</router-link>
       </div>
-      <AdBanner />
     </div>
   </v-navigation-drawer>
 </template>
@@ -67,7 +66,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import AdBanner from './AdBanner.vue'
 
 const props = defineProps<{ modelValue: boolean }>()
 const emit = defineEmits<{

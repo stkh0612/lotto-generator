@@ -20,19 +20,39 @@ app.use(i18n)
 
 installSeo(router, i18n)
 
-function initAnalyticsAndAds() {
+const EXCLUDED_AD_PATHS = ['/saved', '/privacy', '/terms']
+
+function isAdAllowedPath(path: string): boolean {
+  const p = path.toLowerCase()
+  return !EXCLUDED_AD_PATHS.some(excluded => p === excluded || p.startsWith(`${excluded}/`))
+}
+
+function loadAdSense() {
   const host = window.location.hostname
   const userAgent = navigator.userAgent || ''
   const isHeadless = userAgent.includes('Headless') || userAgent.includes('Prerender') || (window as any).__PRERENDER_INJECTED
-  
+
   if ((host === 'lottomate.life' || host.endsWith('netlify.app')) && !isHeadless) {
-    // 1) Load Google AdSense (single load safeguard)
     if (!document.querySelector('script[src*="pagead2.googlesyndication.com"]')) {
       const adsenseScript = document.createElement('script')
       adsenseScript.async = true
       adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3971187501349159'
       adsenseScript.setAttribute('crossorigin', 'anonymous')
       document.head.appendChild(adsenseScript)
+    }
+  }
+}
+
+function initAnalyticsAndAds() {
+  const host = window.location.hostname
+  const userAgent = navigator.userAgent || ''
+  const isHeadless = userAgent.includes('Headless') || userAgent.includes('Prerender') || (window as any).__PRERENDER_INJECTED
+  
+  if ((host === 'lottomate.life' || host.endsWith('netlify.app')) && !isHeadless) {
+    // 1) Load Google AdSense only if the current initial route is allowed
+    const currentPath = window.location.pathname
+    if (isAdAllowedPath(currentPath)) {
+      loadAdSense()
     }
 
     // 2) Load Google Analytics
@@ -51,6 +71,13 @@ function initAnalyticsAndAds() {
     anyWin.gtag('config', 'G-LMKESBRXMP')
   }
 }
+
+// 라우터 이동 시 허용된 콘텐츠 페이지로 전환되면 애드센스 로드
+router.afterEach((to) => {
+  if (isAdAllowedPath(to.path)) {
+    loadAdSense()
+  }
+})
 
 function registerServiceWorker() {
   if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {

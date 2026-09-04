@@ -1,6 +1,6 @@
 <!-- src/views/TermsView.vue -->
 <template>
-  <v-container fluid class="terms-view py-6">
+  <v-container fluid class="terms-view py-6 google-anno-skip">
     <div class="subpage-container">
       
       <!-- 상단 서브 히어로 배너 -->
