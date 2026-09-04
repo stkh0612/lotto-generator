@@ -22,14 +22,14 @@ try {
 // 2. 고품질 정적 페이지용 메타데이터 및 상세 본문(SEO Body) 정의
 const staticSeoConfig = {
   '/': {
-    title: '로또메이트 · 과학적 로또 번호 생성기 및 통계 분석 포털',
+    title: '로또메이트 · 로또 번호 생성기 및 통계 데이터 분석 포털',
     description: '역대 당첨 데이터 필터링, 홀짝/총합 균형 생성, 3D 물리 추첨 시뮬레이터 및 실시간 당첨 번호 대조를 무료로 제공하는 스마트 로또 도우미입니다.',
     keywords: '로또메이트, 로또 번호 생성기, 로또 당첨 확인, 로또 번호 추천, 무료 로또, 로또 통계, 로또 분석',
     h1: '로또메이트 (LottoMate) · 스마트 로또 번호 생성기 & 데이터 분석 포털',
     body: `
       <h2>1. 로또메이트 서비스 소개 및 핵심 알고리즘</h2>
       <p>로또메이트(LottoMate)는 대한민국 동행복권 로또 6/45의 방대한 역대 추첨 데이터를 바탕으로, 통계학적 균형 모델과 정밀 필터링을 결합한 <strong>무료 로또 번호 자동 생성 및 종합 분석 플랫폼</strong>입니다.</p>
-      <p>단순한 난수 발생기와 달리, 로또메이트는 과거 1회부터 현재까지 이미 1등으로 출현했던 불필요한 중복 조합을 필터링하고, 통계적으로 지나치게 한쪽으로 치우친 극단적 조합(예: 6개 연속 번호, 6개 모두 홀수/짝수, 특정 번호대에만 6개 몰림)을 배제하여 최적의 균형 조합을 추출합니다.</p>
+      <p>단순한 난수 발생기와 달리, 로또메이트는 과거 1회부터 현재까지 이미 1등으로 출현했던 불필요한 중복 조합을 필터링하고, 통계적으로 지나치게 한쪽으로 치우친 극단적 조합(예: 6개 연속 번호, 6개 모두 홀수/짝수, 특정 번호대에만 6개 몰림)을 배제하여 균형 잡힌 통계 보조 조합을 추출합니다.</p>
 
       <h2>2. 로또 6/45 추첨의 수학적 독립 시행과 필터링의 원리</h2>
       <p>대한민국 로또 6/45는 1부터 45까지의 숫자 중 6개를 무작위로 추첨하는 게임으로, 1등 당첨 확률은 정확히 <strong>1 / 8,145,060 (약 814만분의 1)</strong>입니다. 매 회차 추첨은 이전 결과와 완전히 무관한 <em>독립 시행(Independent Trials)</em>이지만, 수많은 회차가 누적되면서 전체 데이터는 다음과 같은 통계학적 정규 분포를 형성합니다.</p>
@@ -425,8 +425,31 @@ function mdToHtml(md) {
       return block;
     }
 
-    // Unordered list (- or *)
     const lines = block.split('\n');
+
+    // Table (| Header | ... |)
+    if (lines.length >= 2 && lines[0].trim().startsWith('|') && lines[1].includes('---')) {
+      const headerCells = lines[0]
+        .split('|')
+        .map(c => c.trim())
+        .filter(c => c.length > 0)
+        .map(c => `<th style="padding: 10px 14px; border: 1px solid #ddd; background: #f5f5f5; font-weight: bold; text-align: left;">${c}</th>`)
+        .join('');
+      
+      const bodyRows = lines.slice(2).filter(row => row.trim().length > 0).map(row => {
+        const cells = row
+          .split('|')
+          .map(c => c.trim())
+          .filter(c => c.length > 0)
+          .map(c => `<td style="padding: 8px 14px; border: 1px solid #ddd; text-align: left;">${c}</td>`)
+          .join('');
+        return `<tr>${cells}</tr>`;
+      }).join('\n');
+
+      return `<div style="overflow-x: auto; margin: 24px 0;"><table style="width: 100%; border-collapse: collapse; font-size: 0.95rem; border: 1px solid #ddd;"><thead><tr style="background: #f5f5f5;">${headerCells}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
+    }
+
+    // Unordered list (- or *)
     const isUnordered = lines.every(l => l.trim().startsWith('- ') || l.trim().startsWith('* '));
     if (isUnordered) {
       const items = lines.map(l => {
@@ -486,6 +509,14 @@ function processRoute(routePath, seoData, customJsonLd = null) {
   // Keywords 태그 교체
   const keyTag = `<meta name="keywords" content="${seoData.keywords}">`;
   html = html.replace(/<meta name="keywords" content=".*?">/, keyTag);
+
+  // Robots 태그 교체 (/saved는 noindex, follow, 그 외는 index, follow)
+  const robotsContent = routePath === '/saved' ? 'noindex, follow' : 'index, follow';
+  if (html.includes('<meta name="robots"')) {
+    html = html.replace(/<meta name="robots" content=".*?">/, `<meta name="robots" content="${robotsContent}">`);
+  } else {
+    html = html.replace('</head>', `  <meta name="robots" content="${robotsContent}">\n</head>`);
+  }
 
   // Canonical & OG URL
   const canonicalUrl = `https://lottomate.life${routePath === '/' ? '/' : (routePath.endsWith('/') ? routePath : routePath + '/')}`;
@@ -562,17 +593,43 @@ blogPosts.forEach((post) => {
   const description = post.summary;
   const keywords = `로또 분석, ${post.title.substring(0, 15)}, 로또 세금, 로또 통계, 로또메이트`;
   const h1 = post.title;
+  // References HTML
+  let referencesHtml = '';
+  if (post.references && post.references.length > 0) {
+    const refItems = post.references.map(ref => `
+      <li style="margin-bottom: 6px;">
+        <a href="${ref.url}" target="_blank" rel="noopener noreferrer" style="color: #17653a; font-weight: 500; text-decoration: underline;">
+          ${ref.title} ↗
+        </a>
+        ${(ref.desc || ref.source) ? `<span style="color: #888; font-size: 0.85rem; margin-left: 6px;">(${ref.desc || ref.source})</span>` : ''}
+      </li>
+    `).join('');
+    referencesHtml = `
+      <div class="references-card" style="margin-top: 32px; padding: 20px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+        <h4 style="margin: 0 0 12px 0; color: #334155; font-size: 1rem; display: flex; align-items: center;">
+          <span style="margin-right: 6px;">📚</span> 참고 문헌 및 공식 법령 출처
+        </h4>
+        <ul style="margin: 0; padding-left: 20px; font-size: 0.9rem; color: #475569;">
+          ${refItems}
+        </ul>
+      </div>
+    `;
+  }
+
+  const modifiedDateStr = post.dateModified ? ` | <span>🔄 최종 검수: ${post.dateModified.substring(0, 10)}</span>` : '';
+
   const bodyHtml = `
     <div style="font-size: 0.95rem; color: #757575; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 8px;">
-      <span>📅 발행일: ${post.date.substring(0, 10)}</span> | <span>✍️ 작성자: ${post.author}</span>
+      <span>📅 발행일: ${post.date.substring(0, 10)}</span>${modifiedDateStr} | <span>✍️ 작성자: <a href="/about" style="color: inherit; text-decoration: underline;">${post.author}</a></span>
     </div>
     ${mdToHtml(post.content)}
+    ${referencesHtml}
     <div class="eeat-bio-card" style="background: #fbf9ff; border: 1px solid #d1c4e9; padding: 20px; border-radius: 8px; margin-top: 40px; display: flex; align-items: center;">
       <div style="font-size: 2.2rem; margin-right: 16px;">📊</div>
       <div>
-        <strong style="color: #17653a; font-size: 1.1rem;">${post.author} (LottoMate 리서치팀)</strong>
+        <strong style="color: #17653a; font-size: 1.1rem;"><a href="/about" style="color: #17653a; text-decoration: none;">${post.author} (로또메이트 통계·세무 에디터)</a></strong>
         <p style="margin: 4px 0 0 0; font-size: 0.9rem; color: #555; line-height: 1.5;">
-          로또메이트 전문 분석 필진으로, 복권 확률 모델 연구, 세무/금융 가이드 작성 및 건전한 게임 이용에 관한 전문 정보를 제공합니다.
+          수학적 독립 시행 확률 모델, 소득세법상 복권 세액 산출 공식, 동행복권 1회~최신회차 누적 전수조사 데이터를 직접 검증·집필합니다. 본 콘텐츠는 허위 과장 정보 근절과 건전 복권 문화 조성을 위한 사실 검증(Fact-checking) 원칙을 준수합니다.
         </p>
       </div>
     </div>
@@ -585,10 +642,13 @@ blogPosts.forEach((post) => {
     '@id': canonicalUrl,
     'headline': post.title,
     'description': post.summary,
+    'image': 'https://lottomate.life/og-image.png',
     'datePublished': post.date,
+    'dateModified': post.dateModified || post.date,
     'author': {
-      '@type': 'Organization',
-      'name': post.author || 'LottoMate'
+      '@type': 'Person',
+      'name': post.author || '로또메이트 에디터',
+      'url': 'https://lottomate.life/about'
     },
     'publisher': {
       '@type': 'Organization',
@@ -666,7 +726,6 @@ try {
   const staticRoutes = [
     { path: '/', changefreq: 'daily', priority: '1.0' },
     { path: '/results/', changefreq: 'daily', priority: '0.9' },
-    { path: '/saved/', changefreq: 'weekly', priority: '0.8' },
     { path: '/compare/', changefreq: 'weekly', priority: '0.8' },
     { path: '/simulation/', changefreq: 'daily', priority: '0.9' },
     { path: '/analysis/', changefreq: 'weekly', priority: '0.7' },

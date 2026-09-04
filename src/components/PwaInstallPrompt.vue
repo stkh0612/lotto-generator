@@ -5,8 +5,8 @@
       <div class="d-flex align-center justify-space-between flex-wrap" style="gap: 12px;">
         <!-- 아이콘 & 설명 -->
         <div class="d-flex align-center" style="gap: 12px;">
-          <v-avatar size="44" color="primary" class="elevation-2">
-            <v-img src="/leafgrad.svg" alt="LottoMate App Icon" />
+          <v-avatar size="44" color="transparent" class="elevation-1">
+            <v-img src="/apple-touch-icon.png" alt="LottoMate App Icon" />
           </v-avatar>
           <div class="text-left">
             <div class="text-subtitle-2 font-weight-bold text-primary">

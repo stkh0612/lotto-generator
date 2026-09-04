@@ -1,9 +1,12 @@
 // public/sw.js - Lightweight & SEO-safe Service Worker for LottoMate
 
-const CACHE_NAME = 'lottomate-cache-v1'
+const CACHE_NAME = 'lottomate-cache-v2'
 const STATIC_ASSETS = [
   '/',
-  '/leafgrad.svg',
+  '/favicon.ico',
+  '/favicon-32x32.png',
+  '/apple-touch-icon.png',
+  '/logo.png',
   '/og-image.png',
   '/manifest.webmanifest'
 ]

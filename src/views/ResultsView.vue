@@ -94,6 +94,81 @@
         </template>
       </div>
 
+      <!-- 회차 안내 및 등수별 당첨금 가이드 카드 -->
+      <div class="clean-card pa-6 pa-sm-8 mb-8">
+        <h2 class="guide-section-title mb-3">
+          <v-icon size="20" class="mr-2" color="primary">mdi-information-outline</v-icon>
+          로또 6/45 등수별 당첨 기준 및 지급 안내
+        </h2>
+        <p class="text-body-2 text-grey-darken-1 mb-5">
+          동행복권 로또 6/45는 1부터 45까지의 숫자 중 6개를 맞추는 복권으로, 매주 토요일 오후 8시 35분경 MBC 생방송을 통해 추첨됩니다.
+        </p>
+
+        <div class="table-responsive mb-6">
+          <table class="guide-table w-100">
+            <thead>
+              <tr>
+                <th>등수</th>
+                <th>당첨 조건</th>
+                <th>당첨 확률</th>
+                <th>평균 당첨금 / 배분</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1등</strong></td>
+                <td>당첨 번호 6개 모두 일치</td>
+                <td>1 / 8,145,060</td>
+                <td>총 당첨금의 약 75% (평균 15억~30억 원)</td>
+              </tr>
+              <tr>
+                <td><strong>2등</strong></td>
+                <td>당첨 번호 5개 + 보너스 번호 일치</td>
+                <td>1 / 1,357,510</td>
+                <td>총 당첨금의 약 12.5% (평균 4천만~6천만 원)</td>
+              </tr>
+              <tr>
+                <td><strong>3등</strong></td>
+                <td>당첨 번호 5개 일치</td>
+                <td>1 / 35,724</td>
+                <td>총 당첨금의 약 12.5% (평균 120만~160만 원)</td>
+              </tr>
+              <tr>
+                <td><strong>4등</strong></td>
+                <td>당첨 번호 4개 일치</td>
+                <td>1 / 733</td>
+                <td>고정 50,000원 (비과세)</td>
+              </tr>
+              <tr>
+                <td><strong>5등</strong></td>
+                <td>당첨 번호 3개 일치</td>
+                <td>1 / 45</td>
+                <td>고정 5,000원 (비과세)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row-guide-cards d-flex flex-wrap" style="gap: 16px;">
+          <div class="info-callout flex-1-1 pa-4 rounded-xl">
+            <h4 class="font-weight-bold mb-2 text-primary">🏛️ 등수별 당첨금 수령처</h4>
+            <ul class="text-body-2 text-grey-darken-2 pl-4 mb-0" style="line-height: 1.8;">
+              <li><strong>1등</strong>: NH농협은행 본점 (서울 중구, 신분증 및 복권 실물 지참)</li>
+              <li><strong>2등·3등</strong>: 전국 NH농협은행 각 지점 (신분증 및 복권 실물)</li>
+              <li><strong>4등·5등</strong>: 전국 일반 복권 판매점 및 농협은행 지점</li>
+            </ul>
+          </div>
+          <div class="info-callout flex-1-1 pa-4 rounded-xl">
+            <h4 class="font-weight-bold mb-2 text-primary">⚠️ 지급 기한 및 보관 주의</h4>
+            <ul class="text-body-2 text-grey-darken-2 pl-4 mb-0" style="line-height: 1.8;">
+              <li>당첨금 지급 기한은 <strong>해당 회차 지급 개시일로부터 1년(365일)</strong>입니다.</li>
+              <li>기한 경과 시 미수령 당첨금은 전액 복권기금으로 귀속됩니다.</li>
+              <li>복권 뒷면에 미리 성명과 주민등록번호를 기재해 두시면 분실 시 보호받을 수 있습니다.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
     </div>
   </v-container>
 </template>
@@ -329,9 +404,70 @@ function onCheck() {
   color: #6ee7b7;
 }
 
+.guide-section-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #111827;
+  display: flex;
+  align-items: center;
+}
+
+.v-theme--dark .guide-section-title {
+  color: #f1f5f9;
+}
+
+.guide-table {
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.guide-table th {
+  background: #f8fafc;
+  color: #334155;
+  font-weight: 700;
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+.v-theme--dark .guide-table th {
+  background: #0f172a;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+.guide-table td {
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+
+.v-theme--dark .guide-table td {
+  border-color: #334155;
+  color: #94a3b8;
+}
+
+.info-callout {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  min-width: 280px;
+}
+
+.v-theme--dark .info-callout {
+  background: #0f172a;
+  border-color: #334155;
+}
+
 @media (max-width: 600px) {
   .subpage-title {
     font-size: 24px;
+  }
+  .guide-section-title {
+    font-size: 17px;
+  }
+  .guide-table th, .guide-table td {
+    padding: 8px 10px;
+    font-size: 12px;
   }
 }
 </style>

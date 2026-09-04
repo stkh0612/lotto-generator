@@ -13,7 +13,7 @@ export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]['code']
 
 export const DEFAULT_LOCALE: SupportedLocale = 'ko'
 
-export type RouteSeoKey = 'home' | 'saved' | 'compare' | 'simulation' | 'stats' | 'guide' | 'analysis' | 'fortune' | 'results' | 'blog' | 'blogPost' | 'about'
+export type RouteSeoKey = 'home' | 'saved' | 'compare' | 'simulation' | 'stats' | 'guide' | 'analysis' | 'fortune' | 'results' | 'blog' | 'blogPost' | 'about' | 'privacy' | 'terms'
 
 interface LocaleCopy {
   title: string
@@ -37,7 +37,7 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
       ko: {
         title: '로또메이트 · 무료 로또번호 자동생성 및 추천',
         description:
-          '로또메이트에서 과학적인 필터링 알고리즘으로 중복 없는 로또번호 자동생성 및 추출 서비스를 이용해 보세요. 행운의 로또번호 추천부터 저장까지 모두 제공합니다.',
+          '로또메이트에서 통계 필터링 알고리즘으로 중복 없는 로또번호 자동생성 및 추출 서비스를 이용해 보세요. 행운의 로또번호 추천부터 저장까지 모두 제공합니다.',
         keywords: '로또번호 자동생성, 로또번호 추천, 로또번호생성, 로또번호추출, 로또번호 추천해줘, 무료 로또, 로또메이트'
       },
       en: {
@@ -104,9 +104,9 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     priority: 0.9,
     copy: {
       ko: {
-        title: '로또번호 예측 및 가상 수익률 시뮬레이터 · 로또메이트',
-        description: '내가 지정한 번호의 과거 당첨 기여도를 계산하고 가상 시뮬레이션을 통해 로또번호 예측 및 모의 수익률을 시뮬레이션해 보세요.',
-        keywords: '로또번호 예측, 로또 시뮬레이션, 로또 타임머신, 로또 가상 체험, 로또 수익률'
+        title: '로또 통계 시뮬레이터 및 가상 수익률 타임머신 · 로또메이트',
+        description: '내가 지정한 번호의 과거 당첨 기여도를 계산하고 가상 시뮬레이션을 통해 통계적 모의 수익률을 확인해 보세요.',
+        keywords: '로또 시뮬레이션, 로또 타임머신, 로또 가상 체험, 로또 수익률, 로또 확률 체감'
       },
       en: {
         title: 'Lotto Time Machine (Simulator) · LottoMate',
@@ -171,8 +171,8 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     copy: {
       ko: {
         title: '로또 패턴 정밀 분석 및 통계 분석기 · 로또메이트',
-        description: '역대 100회 이상의 당첨 데이터를 기반으로 번호 합계, 색상, 홀짝 분포 및 패턴을 심층 분석하여 로또번호 예측을 돕습니다.',
-        keywords: '로또 분석, 로또 패턴, 로또번호 예측, 로또 통계, 로또메이트'
+        description: '역대 100회 이상의 당첨 데이터를 기반으로 번호 합계, 색상, 홀짝 분포 및 통계 패턴을 심층 분석합니다.',
+        keywords: '로또 분석, 로또 패턴, 로또 통계, 로또 합계 분석, 로또메이트'
       },
       en: {
         title: 'Deep Lotto Analysis & Statistics · LottoMate',
@@ -192,9 +192,9 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     priority: 0.6,
     copy: {
       ko: {
-        title: '오늘의 로또 운세 및 행운의 번호 예측 · 로또메이트',
-        description: '꿈 해몽과 오늘 별자리 운세를 분석하여 당신에게 딱 맞는 행운의 로또번호 예측 및 추천 조합을 제공합니다.',
-        keywords: '로또번호 예측, 로또 운세, 꿈 해몽 번호, 별자리 로또, 로또메이트'
+        title: '오늘의 로또 운세 및 행운의 번호 추출 · 로또메이트',
+        description: '꿈 해몽과 오늘 별자리 운세를 분석하여 당신에게 딱 맞는 행운의 로또번호 추천 조합을 제공합니다.',
+        keywords: '로또 운세, 꿈 해몽 번호, 별자리 로또, 행운의 번호, 로또메이트'
       },
       en: {
         title: 'Lotto Fortune & Dream Interpretation · LottoMate',
@@ -293,6 +293,50 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
         title: 'LottoMate について · サービス哲学とガイドライン',
         description: 'LottoMate の設立趣旨、健全なロト利用のための行動綱領、提供サービスおよびお問い合わせ先をご紹介します。',
         keywords: 'LottoMate について, サービス哲学, 健全なロト利用, お問い合わせ'
+      }
+    }
+  },
+  privacy: {
+    path: '/privacy',
+    changefreq: 'monthly',
+    priority: 0.3,
+    copy: {
+      ko: {
+        title: '개인정보처리방침 · 로또메이트',
+        description: '로또메이트의 개인정보처리방침입니다. 회원가입 없는 비로그인 서비스 운영, 로컬 스토리지 사용 및 구글 애드센스 쿠키 정책을 투명하게 공개합니다.',
+        keywords: '개인정보처리방침, 개인정보 보호, 로또메이트 약관, 애드센스 쿠키 정책'
+      },
+      en: {
+        title: 'Privacy Policy · LottoMate',
+        description: 'Privacy Policy for LottoMate. Explains non-login architecture, browser local storage usage, and AdSense cookie guidelines.',
+        keywords: 'Privacy Policy, LottoMate privacy, cookie policy, data protection'
+      },
+      ja: {
+        title: '個人情報保護方針 · LottoMate',
+        description: 'LottoMateのプライバシーポリシーです。会員登録不要の非ログイン運営、端末内ローカルストレージ活用、広告クッキーポリシーを明記しています。',
+        keywords: '個人情報保護方針, プライバシーポリシー, LottoMate, クッキー方針'
+      }
+    }
+  },
+  terms: {
+    path: '/terms',
+    changefreq: 'monthly',
+    priority: 0.3,
+    copy: {
+      ko: {
+        title: '이용약관 및 면책조항 · 로또메이트',
+        description: '로또메이트 서비스의 이용 조건, 당첨 보장 불가에 대한 법적 면책 조항 및 이용자의 권리·의무를 고지합니다.',
+        keywords: '이용약관, 면책 조항, 로또메이트 약관, 법적 고지'
+      },
+      en: {
+        title: 'Terms of Service & Legal Disclaimer · LottoMate',
+        description: 'Terms of service and legal disclaimer for LottoMate. All statistical tools are provided for entertainment reference only.',
+        keywords: 'Terms of Service, disclaimer, LottoMate terms, legal notice'
+      },
+      ja: {
+        title: '利用規約および法的免責事項 · LottoMate',
+        description: 'LottoMateのサービス利用規約および免責事項です。統計データは娯楽目的の参考情報であり、当選を保証しません。',
+        keywords: '利用規約, 免責事項, LottoMate 利用規約, 法的通知'
       }
     }
   }

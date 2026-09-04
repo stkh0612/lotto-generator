@@ -8,15 +8,19 @@
         <!-- 좌측 카피 및 CTA -->
         <div class="hero-content">
           <h1 class="hero-title">{{ $t('home.heroTitle', '로또, 더 스마트하게') }}</h1>
-          <p class="hero-subtitle">{{ $t('home.heroSubtitle', '빅데이터 분석으로 당신의 확률을 높이세요!') }}</p>
+          <p class="hero-subtitle">{{ $t('home.heroSubtitle', '빅데이터 통계로 번호 선택을 더 재미있고 체계적으로 즐겨보세요.') }}</p>
           <div class="hero-btn-wrap">
             <button type="button" class="btn btn-primary" @click="openDrawModal">
               <v-icon size="18" class="mr-1">mdi-sparkles</v-icon>
-              {{ $t('home.drawRecommendBtn', '이달의 조합번호 추천받기') }}
+              {{ $t('home.drawRecommendBtn', '통계 기반 번호 조합 추출하기') }}
             </button>
             <button type="button" class="btn btn-outline" @click="$router.push('/results')">
               {{ $t('home.checkResultsBtn', '당첨번호 조회하기') }}
             </button>
+          </div>
+          <div class="hero-compliance-notice">
+            <v-icon size="14" class="mr-1 notice-icon">mdi-shield-check-outline</v-icon>
+            <span>만 19세 미만 복권 구매 불가 · 모든 조합의 1등 당첨 확률은 동일하며, 본 서비스는 오락용 통계 보조 도구입니다.</span>
           </div>
         </div>
 
@@ -159,7 +163,7 @@
           <div class="saved-card-header">
             <div class="d-flex align-center">
               <v-icon size="20" color="primary" class="mr-2">mdi-post-outline</v-icon>
-              <h3 class="saved-card-title">{{ $t('home.communityRecent', '커뮤니티 최신글') }}</h3>
+              <h3 class="saved-card-title">{{ $t('home.communityRecent', '최신 분석 글') }}</h3>
             </div>
             <router-link to="/blog" class="saved-manage-link">
               {{ $t('home.viewMore', '더보기') }} <v-icon size="14">mdi-chevron-right</v-icon>
@@ -662,6 +666,35 @@ export default defineComponent({
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
+}
+
+.hero-compliance-notice {
+  margin-top: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(23, 101, 58, 0.07);
+  border: 1px solid rgba(23, 101, 58, 0.16);
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #17653a;
+  line-height: 1.5;
+}
+
+.v-theme--dark .hero-compliance-notice {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.25);
+  color: #86efac;
+}
+
+.notice-icon {
+  color: #17653a;
+}
+
+.v-theme--dark .notice-icon {
+  color: #86efac;
 }
 
 .btn {

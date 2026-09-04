@@ -234,7 +234,20 @@ function formatWon(n: number): string {
   if (n >= 100000000) {
     const eok = Math.floor(n / 100000000)
     const man = Math.floor((n % 100000000) / 10000)
-    return man > 0 ? `${eok}억 ${man.toLocaleString()}원` : `${eok}억 원`
+    const rem = n % 10000
+    if (man > 0 && rem > 0) {
+      return `${eok}억 ${man.toLocaleString()}만 ${rem.toLocaleString()}원`
+    } else if (man > 0) {
+      return `${eok}억 ${man.toLocaleString()}만 원`
+    } else if (rem > 0) {
+      return `${eok}억 ${rem.toLocaleString()}원`
+    }
+    return `${eok}억 원`
+  }
+  if (n >= 10000) {
+    const man = Math.floor(n / 10000)
+    const rem = n % 10000
+    return rem > 0 ? `${man.toLocaleString()}만 ${rem.toLocaleString()}원` : `${man.toLocaleString()}만 원`
   }
   return `${n.toLocaleString()}원`
 }

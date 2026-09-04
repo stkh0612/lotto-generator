@@ -14,6 +14,7 @@ import TermsView from '../views/TermsView.vue'
 import BlogView from '../views/BlogView.vue'
 import BlogPostView from '../views/BlogPostView.vue'
 import AboutView from '../views/AboutView.vue'
+import NotFoundView from '../views/NotFoundView.vue'
 
 const routes: RouteRecordRaw[] = [
   { path: '/', name: 'Home', component: HomeView, meta: { seoKey: 'home' } },
@@ -30,7 +31,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/blog', name: 'Blog', component: BlogView, meta: { seoKey: 'blog' } },
   { path: '/blog/:id', name: 'BlogPost', component: BlogPostView, meta: { seoKey: 'blogPost' } },
   { path: '/about', name: 'About', component: AboutView, meta: { seoKey: 'about' } },
-  { path: '/:pathMatch(.*)*', redirect: '/' } // Redirect unknown paths to Home
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundView }
 ]
 
 const router = createRouter({

@@ -98,7 +98,38 @@
           </p>
         </div>
 
-        <!-- Section 5: Contact -->
+        <!-- Section 5: Operator Profile & Editorial Principles -->
+        <div class="mb-10 text-left">
+          <h2 class="section-title-line mb-3">
+            운영자 소개 및 편집·검수 원칙
+          </h2>
+          <div class="pa-5 mb-4 rounded-xl" style="background: #f8faf8; border: 1px solid #e2e8f0;">
+            <div class="d-flex align-center mb-3">
+              <v-avatar size="44" color="primary" class="mr-3">
+                <v-icon icon="mdi-account" color="white" />
+              </v-avatar>
+              <div>
+                <strong class="text-subtitle-1 text-primary">로또메이트 에디터 (대표 운영자)</strong>
+                <div class="text-caption text-grey-darken-1">독립 웹 개발자 · 복권 통계 및 금융 데이터 분석 연구</div>
+              </div>
+            </div>
+            <p class="text-body-2 text-grey-darken-2 mb-2" style="line-height: 1.7;">
+              시중에 만연한 유료 로또 번호 예측 사기와 과장 광고에 반대하며, 복권이 완전한 수학적 독립 시행임을 널리 알리고 누구나 과학적이고 공정한 통계 보조 도구를 무료로 누릴 수 있도록 1인 개발로 서비스를 기획·운영하고 있습니다.
+            </p>
+            <p class="text-body-2 text-grey-darken-2 mb-0" style="line-height: 1.7;">
+              복권 추첨 확률론, 소득세법상 복권 세금 계산 구조, 건전한 구매 문화 확립을 위한 전문적인 분석 아티클을 직접 작성하고 주기적으로 팩트체크합니다.
+            </p>
+          </div>
+
+          <h3 class="text-subtitle-1 font-weight-bold text-primary mb-2">콘텐츠 검수 및 팩트체크 기준</h3>
+          <ul class="pl-5 text-body-2 text-grey-darken-1 mb-4" style="line-height: 1.8;">
+            <li><strong>공식 데이터 기반</strong>: 모든 회차별 당첨 번호, 당첨금, 판매점 통계는 정부 공인 수탁사업자인 동행복권의 공공 API 및 공식 공시 자료를 매주 전수 검증합니다.</li>
+            <li><strong>법령 교차 검증</strong>: 세금 및 실수령액 관련 아티클은 소득세법 제84조(기타소득의 과세최저한), 소득세법 제14조(종합과세와 분리과세) 및 국세청 최신 고시를 엄격히 준수하여 산출합니다.</li>
+            <li><strong>정기 업데이트 및 최종 검토일 명시</strong>: 세법 개정이나 추첨 통계의 최신 변동 사항을 반영하여 각 아티클마다 최종 검토일을 투명하게 표기합니다.</li>
+          </ul>
+        </div>
+
+        <!-- Section 6: Contact -->
         <div class="text-left">
           <h2 class="section-title-line mb-3">
             문의 및 제휴 (Contact Us)

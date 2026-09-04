@@ -86,14 +86,14 @@ function updateHrefLangLinks(routeFullPath: string) {
   document.head.appendChild(defaultLink)
 }
 
-function ensureRobotsTag() {
-  const existing = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]')
-  if (!existing) {
-    const meta = document.createElement('meta')
-    meta.setAttribute('name', 'robots')
-    meta.setAttribute('content', 'index, follow')
-    document.head.appendChild(meta)
+function ensureRobotsTag(noindex = false) {
+  let element = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]')
+  if (!element) {
+    element = document.createElement('meta')
+    element.setAttribute('name', 'robots')
+    document.head.appendChild(element)
   }
+  element.setAttribute('content', noindex ? 'noindex, follow' : 'index, follow')
 }
 
 function toAbsoluteUrl(path: string) {
@@ -172,10 +172,13 @@ function ensureBlogPostingJsonLd(route: Router['currentRoute']['value'], locale:
     '@id': canonicalUrl,
     'headline': foundPost.title,
     'description': foundPost.summary,
+    'image': `${BASE_URL}/og-image.png`,
     'datePublished': foundPost.date,
+    'dateModified': (foundPost as any).dateModified || foundPost.date,
     'author': {
-      '@type': 'Organization',
-      'name': foundPost.author || SITE_NAME
+      '@type': 'Person',
+      'name': foundPost.author || '로또메이트 에디터',
+      'url': `${BASE_URL}/about`
     },
     'publisher': {
       '@type': 'Organization',
@@ -257,7 +260,8 @@ function applySeo(route: Router['currentRoute']['value'], locale: SupportedLocal
   document.title = title
   document.documentElement.setAttribute('lang', locale)
 
-  ensureRobotsTag()
+  const isNoIndex = key === 'saved'
+  ensureRobotsTag(isNoIndex)
   setMetaTag('name', 'description', description)
   setMetaTag('name', 'keywords', keywords)
 

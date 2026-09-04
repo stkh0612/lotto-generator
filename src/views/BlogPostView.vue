@@ -11,9 +11,12 @@
 
         <h1 class="post-detail-title mb-4">{{ post.title }}</h1>
         
-        <div class="d-flex justify-space-between align-center mb-6 flex-wrap post-meta">
-          <span>작성일: {{ formatDate(post.date) }}</span>
-          <span>작성자: {{ post.author }}</span>
+        <div class="d-flex justify-space-between align-center mb-6 flex-wrap post-meta" style="gap: 12px;">
+          <div class="d-flex align-center flex-wrap" style="gap: 14px;">
+            <span>📅 발행일: {{ formatDate(post.date) }}</span>
+            <span v-if="post.dateModified">🔄 최종 검토일: {{ formatDate(post.dateModified) }}</span>
+          </div>
+          <span>✍️ 작성자: <router-link to="/about" class="author-profile-link">{{ post.author }}</router-link></span>
         </div>
 
         <v-divider class="mb-8" />
@@ -25,15 +28,34 @@
           </template>
         </div>
 
+        <!-- 공식 근거 및 법령 출처 박스 (E-E-A-T) -->
+        <div v-if="post.references && post.references.length > 0" class="references-card mt-8 pa-5 rounded-xl">
+          <div class="text-subtitle-2 font-weight-bold text-primary mb-2 d-flex align-center">
+            <v-icon size="18" class="mr-1">mdi-link-variant</v-icon>
+            공식 데이터 출처 및 법령 근거
+          </div>
+          <ul class="pl-5 text-caption text-grey-darken-1 mb-0" style="line-height: 1.8;">
+            <li v-for="(ref, rIdx) in post.references" :key="rIdx">
+              <a :href="ref.url" target="_blank" rel="noopener noreferrer" class="reference-link">
+                {{ ref.title }} ↗
+              </a>
+              <span v-if="ref.desc" class="ml-1 text-grey">({{ ref.desc }})</span>
+            </li>
+          </ul>
+        </div>
+
         <!-- 필자 정보 (E-E-A-T 강화) -->
-        <div class="author-card mt-10 pa-5 rounded-xl d-flex align-center">
+        <div class="author-card mt-6 pa-5 rounded-xl d-flex align-center">
           <v-avatar size="56" color="primary" class="mr-4">
-            <v-icon icon="mdi-account-tie" color="white" size="32" />
+            <v-icon icon="mdi-account-check" color="white" size="32" />
           </v-avatar>
-          <div class="text-left">
-            <div class="text-subtitle-1 font-weight-bold text-primary">{{ post.author }}</div>
-            <div class="text-caption text-grey-darken-1" style="line-height: 1.6;">
-              로또메이트 전문 분석 필진으로, 복권 확률 모델 연구, 세무/금융 가이드 작성 및 건전한 게임 이용에 관한 전문 정보를 제공합니다.
+          <div class="text-left flex-grow-1">
+            <div class="d-flex align-center justify-space-between flex-wrap">
+              <div class="text-subtitle-1 font-weight-bold text-primary">{{ post.author }}</div>
+              <router-link to="/about" class="text-caption text-primary font-weight-bold">운영자 소개 ↗</router-link>
+            </div>
+            <div class="text-caption text-grey-darken-1 mt-1" style="line-height: 1.6;">
+              로또메이트 대표 운영자이자 데이터 분석가입니다. 동행복권 공공 API 및 정부 공시 자료를 바탕으로 통계 분석 리포트와 세무·법률 가이드를 직접 작성하고 검수합니다.
             </div>
           </div>
         </div>
@@ -82,14 +104,22 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import blogData from '../assets/blog_posts.json'
 
+interface Reference {
+  title: string
+  url: string
+  desc?: string
+}
+
 interface BlogPost {
   id: number
   slug: string
   title: string
   date: string
+  dateModified?: string
   summary: string
   author: string
   content: string
+  references?: Reference[]
 }
 
 const posts = blogData as BlogPost[]
@@ -138,6 +168,29 @@ function renderMarkdown(content: string): string[] {
     if (block.startsWith('### ')) {
       return `<h3 class="post-subheading mt-7 mb-3">${block.replace('### ', '')}</h3>`
     }
+
+    // Tables
+    const lines = block.split('\n')
+    if (lines.length >= 2 && lines[0].trim().startsWith('|') && lines[1].includes('---')) {
+      const headerCells = lines[0]
+        .split('|')
+        .map(c => c.trim())
+        .filter(c => c.length > 0)
+        .map(c => `<th class="px-4 py-2 border bg-grey-lighten-4 font-weight-bold text-left">${parseInline(c)}</th>`)
+        .join('')
+      
+      const bodyRows = lines.slice(2).map(row => {
+        const cells = row
+          .split('|')
+          .map(c => c.trim())
+          .filter(c => c.length > 0)
+          .map(c => `<td class="px-4 py-2 border text-left">${parseInline(c)}</td>`)
+          .join('')
+        return `<tr>${cells}</tr>`
+      }).join('')
+
+      return `<div class="table-responsive my-5"><table class="w-100 border-collapse text-body-2 custom-markdown-table"><thead><tr>${headerCells}</tr></thead><tbody>${bodyRows}</tbody></table></div>`
+    }
     
     // Lists
     if (block.startsWith('* ') || block.startsWith('- ')) {
@@ -150,8 +203,8 @@ function renderMarkdown(content: string): string[] {
     }
     
     // Paragraphs
-    const lines = block.split('\n').map(line => parseInline(line)).join('<br/>')
-    return `<p class="mb-4 text-body-1 post-paragraph">${lines}</p>`
+    const pLines = block.split('\n').map(line => parseInline(line)).join('<br/>')
+    return `<p class="mb-4 text-body-1 post-paragraph">${pLines}</p>`
   })
 }
 
@@ -290,6 +343,72 @@ function formatDate(iso: string) {
 .v-theme--dark .author-card {
   background: #0f172a;
   border-color: #334155;
+}
+
+.author-profile-link {
+  color: #17653a;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.author-profile-link:hover {
+  text-decoration: underline;
+}
+
+.v-theme--dark .author-profile-link {
+  color: #6ee7b7;
+}
+
+.references-card {
+  background: #f8faf8;
+  border: 1px solid #e2e8f0;
+}
+
+.v-theme--dark .references-card {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+.reference-link {
+  color: #17653a;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.reference-link:hover {
+  text-decoration: underline;
+}
+
+.v-theme--dark .reference-link {
+  color: #6ee7b7;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+:deep(.custom-markdown-table) {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #e2e8f0;
+  margin: 16px 0;
+}
+
+:deep(.custom-markdown-table th),
+:deep(.custom-markdown-table td) {
+  border: 1px solid #e2e8f0;
+  padding: 10px 14px;
+}
+
+.v-theme--dark :deep(.custom-markdown-table),
+.v-theme--dark :deep(.custom-markdown-table th),
+.v-theme--dark :deep(.custom-markdown-table td) {
+  border-color: #334155;
+}
+
+.v-theme--dark :deep(.custom-markdown-table th) {
+  background-color: #1e293b !important;
+  color: #f1f5f9;
 }
 
 @media (max-width: 600px) {

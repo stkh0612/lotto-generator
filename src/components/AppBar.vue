@@ -3,8 +3,8 @@
   <header class="site-header">
     <div class="header-inner">
       <!-- 좌측 로고 -->
-      <router-link to="/" class="site-logo">
-        LottoMate
+      <router-link to="/" class="site-logo" aria-label="LottoMate 홈">
+        <img src="/logo.png" alt="LottoMate" class="site-logo-img" />
       </router-link>
 
       <!-- 데스크탑 중앙 메뉴 (768px 이상에서만 노출) -->
@@ -125,17 +125,26 @@ export default defineComponent({
 }
 
 .site-logo {
-  font-size: 24px;
-  font-weight: 800;
-  color: #17653a;
-  letter-spacing: -0.5px;
-  text-decoration: none;
   display: flex;
   align-items: center;
+  text-decoration: none;
 }
 
-.v-theme--dark .site-logo {
-  color: #22c55e;
+.site-logo-img {
+  height: 40px;
+  width: auto;
+  max-width: 195px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.site-logo:hover .site-logo-img {
+  transform: scale(1.02);
+}
+
+.v-theme--dark .site-logo-img {
+  filter: brightness(1.08) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
 }
 
 .desktop-nav {
@@ -255,6 +264,13 @@ export default defineComponent({
 @media (max-width: 820px) {
   .desktop-nav {
     display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-logo-img {
+    height: 32px;
+    max-width: 155px;
   }
 }
 </style>

@@ -10,7 +10,7 @@
     <!-- 사이드바 상단 헤더 -->
     <div class="sidebar-header pa-4 pb-3 d-flex align-center justify-space-between">
       <div class="d-flex align-center" style="gap: 8px;">
-        <span class="text-h6 font-weight-bold" style="color: #17653a;">LottoMate</span>
+        <img src="/logo.png" alt="LottoMate" style="height: 30px; width: auto; max-width: 150px; object-fit: contain;" />
       </div>
       <v-btn icon="mdi-close" variant="text" size="small" @click="drawer = false" />
     </div>
@@ -95,8 +95,8 @@ const items = computed(() => [
   { title: t('navStats', '통계분석'),                   icon: 'mdi-chart-bar',             to: '/stats' },
   { title: t('navAnalysis', '심층 패턴분석'),           icon: 'mdi-chart-pie',             to: '/analysis' },
   { title: t('navSimulation', '시뮬레이션 추첨'),       icon: 'mdi-slot-machine',          to: '/simulation' },
-  { title: t('navBlog', '커뮤니티 (블로그)'),           icon: 'mdi-post-outline',          to: '/blog' },
-  { title: t('navSaved', '마이페이지 (저장번호)'),      icon: 'mdi-content-save',          to: '/saved' },
+  { title: t('navBlog', '통계 분석 블로그'),           icon: 'mdi-post-outline',          to: '/blog' },
+  { title: t('navSaved', '마이 보관함 (저장번호)'),     icon: 'mdi-content-save',          to: '/saved' },
   { title: t('navGuide', '로또 가이드'),                icon: 'mdi-book-open-page-variant',to: '/guide' },
   { title: t('navAbout', '서비스 소개'),                icon: 'mdi-information-outline',   to: '/about' },
 ])
