@@ -136,6 +136,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://lottomate.life/results/1240/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lottomate.life/compare/1240/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://lottomate.life/results/1239/</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -172,16 +182,6 @@
   </url>
   <url>
     <loc>https://lottomate.life/compare/1236/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://lottomate.life/results/1235/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lottomate.life/compare/1235/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
