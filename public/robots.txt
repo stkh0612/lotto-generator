@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://lottomate.life/sitemap.xml
+
+#DaumWebMasterTool:093a47ef3495819089d90e591d4564cfe6d2f6bc284b9efcb6ae70f06932169c:pa0rUlP4x9Rpwmt9hkdpVA==
