@@ -22,7 +22,7 @@ const referencesMap = {
     { title: '공공데이터포털 - 동행복권 로또 6/45 추첨 결과 API', url: 'https://www.data.go.kr', desc: '정부 공인 복권 데이터 연동 API' }
   ],
   3: [
-    { title: '기획재정부 복권위원회 - 복권 및 복권기금법 법령 및 고시', url: 'https://www.bokgwon.go.kr', desc: '전국 복권 판매점 운영 및 인허가 규정' },
+    { title: '기획재정부 복권위원회 - 복권 및 복권기금법 법령 및 고시', url: 'http://www.bokgwon.go.kr/main.do', desc: '전국 복권 판매점 운영 및 인허가 규정' },
     { title: '동행복권 공식 - 1·2등 다수 배출점 현황 공시', url: 'https://www.dhlottery.co.kr', desc: '판매점별 역대 당첨 배출 이력 데이터' }
   ],
   4: [
@@ -34,7 +34,7 @@ const referencesMap = {
     { title: '동행복권 공식 - 당첨금 지급처 및 준비물 안내', url: 'https://www.dhlottery.co.kr', desc: '등수별 당첨 복권 실물 확인 및 지급 절차' }
   ],
   6: [
-    { title: '기획재정부 복권위원회 - 연금복권 720+ 상품 공시', url: 'https://www.bokgwon.go.kr', desc: '월 700만 원 20년 지급 규정 및 세율(22%)' },
+    { title: '기획재정부 복권위원회 - 연금복권 720+ 상품 공시', url: 'http://www.bokgwon.go.kr/main.do', desc: '월 700만 원 20년 지급 규정 및 세율(22%)' },
     { title: '동행복권 공식 - 연금복권 720+ 게임 가이드', url: 'https://www.dhlottery.co.kr', desc: '조 단위 500만분의 1 확률 및 세트 구매 규정' }
   ],
   7: [
@@ -56,7 +56,7 @@ const referencesMap = {
     { title: '동행복권 공식 - 끝수 및 번호대별 분포 통계', url: 'https://www.dhlottery.co.kr', desc: '구간별 출현율 및 동끝수 집계' }
   ],
   12: [
-    { title: '기획재정부 복권위원회 - 복권기금 공익 사업 운용 보고서', url: 'https://www.bokgwon.go.kr', desc: '복권 1,000원당 420원 기금 조성 및 소외계층 주거 복지 배분 내역' },
+    { title: '기획재정부 복권위원회 - 복권기금 공익 사업 운용 보고서', url: 'http://www.bokgwon.go.kr/main.do', desc: '복권 1,000원당 420원 기금 조성 및 소외계층 주거 복지 배분 내역' },
     { title: '국가법령정보센터 - 복권 및 복권기금법 제23조', url: 'https://www.law.go.kr', desc: '복권기금의 배분 및 법정 배분 기관' }
   ],
   13: [
@@ -67,7 +67,7 @@ const referencesMap = {
     { title: '동행복권 공식 - 복권 훼손 및 오염 시 감정 청구 요령', url: 'https://www.dhlottery.co.kr', desc: '정밀 전산 감정 및 본사 접수 절차' }
   ],
   15: [
-    { title: '기획재정부 복권위원회 - 복권 환원율 및 당첨금 배분 구조', url: 'https://www.bokgwon.go.kr', desc: '판매액 50% 당첨금 환원 및 -50% 기대값 법적 근거' }
+    { title: '기획재정부 복권위원회 - 복권 환원율 및 당첨금 배분 구조', url: 'http://www.bokgwon.go.kr/main.do', desc: '판매액 50% 당첨금 환원 및 -50% 기대값 법적 근거' }
   ]
 };
 
