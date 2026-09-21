@@ -1,5 +1,4 @@
-// ✅ CommonJS 형식: netlify/functions/proxy.js
-// (Node 18+ 에선 전역 fetch가 있지만, 안전하게 require로도 처리)
+// ✅ CommonJS 형식: netlify/functions/proxy.cjs
 const fetch = global.fetch || require('node-fetch')
 
 exports.handler = async function(event, context) {
