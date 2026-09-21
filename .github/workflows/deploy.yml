@@ -22,15 +22,15 @@ jobs:
     steps:
       # 3. 코드 체크아웃 (자동 업데이트 커밋 푸시를 위해 persist-credentials를 true로 설정)
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           persist-credentials: true
 
       # 4. Node.js 설치
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       # 5. 의존성 설치
       - name: Install dependencies
