@@ -83,7 +83,7 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     copy: {
       ko: {
         title: '역대로또번호조회 및 당첨 결과 비교 · 로또메이트',
-        description: '역대로또번호조회 전체 내역과 대조해 당첨결과를 비교하고 일치하는 로또 번호 개수 및 등수를 실시간으로 확인해 보세요.',
+        description: '동행복권 로또 6/45 역대 회차별 1등 당첨 번호 및 보너스 번호와 내가 선택한 번호를 한눈에 맞대조하여 일치하는 번호 개수와 당첨 등수를 실시간으로 판정하고 비교하세요.',
         keywords: '역대로또번호조회, 로또번호조회, 로또 번호 개수, 로또 당첨결과 비교, 로또메이트'
       },
       en: {
@@ -105,7 +105,7 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     copy: {
       ko: {
         title: '로또 통계 시뮬레이터 및 가상 수익률 타임머신 · 로또메이트',
-        description: '내가 지정한 번호의 과거 당첨 기여도를 계산하고 가상 시뮬레이션을 통해 통계적 모의 수익률을 확인해 보세요.',
+        description: '내가 지정한 로또 번호로 과거 20년간 매주 구매했을 때의 실질 가상 수익률(ROI)과 1등에 당첨될 때까지의 경과 시간 및 비용을 몬테카를로 알고리즘으로 모의실험합니다.',
         keywords: '로또 시뮬레이션, 로또 타임머신, 로또 가상 체험, 로또 수익률, 로또 확률 체감'
       },
       en: {
@@ -116,7 +116,7 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
       ja: {
         title: 'ロトタイムマシン（シミュレーター） · LottoMate',
         description: 'もし過去20年間この番号を買い続けていたら？過去のデータをもとに仮想収益率を計算します。',
-        keywords: 'ロトシミュレーター, ロトタイムマシン, ロト収益率'
+        keywords: 'ロトシ뮬レーター, ロトタイムマシン, ロト収益率'
       }
     }
   },
@@ -127,7 +127,7 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     copy: {
       ko: {
         title: '로또 번호 개수 통계 및 출현 빈도 분석 · 로또메이트',
-        description: '역대 당첨 데이터를 분석하여 자주 출현한 로또 번호 개수와 숫자 분포, 홀짝 비율 등 유용한 통계 자료를 제공합니다.',
+        description: '1회부터 최신 회차까지 로또 45개 번호의 누적 출현 횟수 순위, 최다 빈출수, 최소 출현수, 색상별 및 끝수 분포 통계 데이터를 정밀 시각화 차트로 제공합니다.',
         keywords: '로또 번호 개수, 로또 통계, 출현 빈도, 로또 분석, 로또메이트'
       },
       en: {
@@ -149,7 +149,7 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     copy: {
       ko: {
         title: '로또 초보 가이드: 규칙부터 당첨 번호 개수까지 · 로또메이트',
-        description: '로또 당첨금 수령 방법, 실수령액 계산, 당첨에 필요한 로또 번호 개수와 규칙 등 기초적인 가이드를 정리해 드립니다.',
+        description: '동행복권 로또 6/45 당첨금 구간별 소득세·주민세 세금 원천징수 계산법과 1등 농협은행 본점 방문 준비물, 당첨금 수령 기한 및 훼손 시 대처 요령을 완벽 안내하는 가이드입니다.',
         keywords: '로또 번호 개수, 로또 가이드, 로또 규칙, 로또 팁, 로또메이트'
       },
       en: {
@@ -171,7 +171,7 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     copy: {
       ko: {
         title: '로또 패턴 정밀 분석 및 통계 분석기 · 로또메이트',
-        description: '역대 100회 이상의 당첨 데이터를 기반으로 번호 합계, 색상, 홀짝 분포 및 통계 패턴을 심층 분석합니다.',
+        description: '역대 100회차 이상 로또 당첨 번호의 총합 구간 정규분포 곡선, 5개 색상 대역별 점유율, 홀짝 비율 추이 등 다차원 패턴 통계 데이터를 정밀하게 심층 분석합니다.',
         keywords: '로또 분석, 로또 패턴, 로또 통계, 로또 합계 분석, 로또메이트'
       },
       en: {
@@ -193,7 +193,7 @@ export const ROUTE_SEO_CONFIG: Record<RouteSeoKey, RouteSeoConfig> = {
     copy: {
       ko: {
         title: '오늘의 로또 운세 및 행운의 번호 추출 · 로또메이트',
-        description: '꿈 해몽과 오늘 별자리 운세를 분석하여 당신에게 딱 맞는 행운의 로또번호 추천 조합을 제공합니다.',
+        description: '타로 카드 메이저 아르카나 선택, 전통 동양 꿈해몽 키워드 매칭, 12개 별자리 운세 분석을 바탕으로 오늘 나만의 행운의 로또 6/45 번호 추천 조합을 무료로 추출해 보세요.',
         keywords: '로또 운세, 꿈 해몽 번호, 별자리 로또, 행운의 번호, 로또메이트'
       },
       en: {
