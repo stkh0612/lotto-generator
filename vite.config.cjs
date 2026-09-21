@@ -11,14 +11,13 @@ const compareRoutes = recentRounds.map(r => `/compare/${r}`)
 const resultsRoutes = recentRounds.map(r => `/results/${r}`)
 const blogRoutes = blogPosts.map(p => `/blog/${p.id}`)
 
-module.exports = defineConfig({
-  base: '/',
-  server: {
-    // Proxy removed: Using client-side simulation instead of API
-  },
-  plugins: [
-    vue(),
-    vuetify({ autoImport: true }),
+const plugins = [
+  vue(),
+  vuetify({ autoImport: true }),
+]
+
+if (!process.env.NETLIFY) {
+  plugins.push(
     vitePrerender({
       staticDir: require('path').join(__dirname, 'dist'),
       routes: [
@@ -28,6 +27,14 @@ module.exports = defineConfig({
         ...compareRoutes,
         ...resultsRoutes
       ],
-    }),
-  ]
+    })
+  )
+}
+
+module.exports = defineConfig({
+  base: '/',
+  server: {
+    // Proxy removed: Using client-side simulation instead of API
+  },
+  plugins
 })
