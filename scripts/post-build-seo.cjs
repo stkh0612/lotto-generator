@@ -686,11 +686,11 @@ blogPosts.forEach((post) => {
   processRoute(routePath, { title, description, keywords, h1, body: bodyHtml }, blogPostingSchema);
 });
 
-// 5-3. 최신 5개 회차 상세 결과 및 비교 페이지 정적 주입
+// 5-3. 최신 30개 회차 상세 결과 및 비교 페이지 정적 주입
 const sortedLotto = [...lottoData].sort((a, b) => b.round - a.round);
-const recent5Rounds = sortedLotto.slice(0, 5);
+const recent30Rounds = sortedLotto.slice(0, 30);
 
-recent5Rounds.forEach((r) => {
+recent30Rounds.forEach((r) => {
   const nums = [r.num1, r.num2, r.num3, r.num4, r.num5, r.num6].sort((a, b) => a - b);
   const sum = nums.reduce((a, b) => a + b, 0);
   const oddCount = nums.filter(n => n % 2 !== 0).length;
@@ -724,14 +724,20 @@ recent5Rounds.forEach((r) => {
 
   // Compare 라우트
   const comparePath = `/compare/${r.round}`;
-  const compareTitle = `제 ${r.round}회 로또 번호 대조 및 당첨 확인 · 로또메이트`;
-  const compareDesc = `제 ${r.round}회 로또 당첨 번호 [${nums.join(', ')}] + 보너스 [${r.bonus}]와 내 번호를 손쉽게 대조해 보세요.`;
+  const compareTitle = `제 ${r.round}회 로또 번호 맞대조 및 당첨 확인 판정기 · 로또메이트`;
+  const compareDesc = `제 ${r.round}회 로또 당첨 번호 [${nums.join(', ')}] + 보너스 [${r.bonus}]와 내 소지 번호를 실시간 대조하여 맞춘 개수 및 등수를 확인하세요.`;
   const compareBody = `
-    <h2>제 ${r.round}회 당첨 번호 대조기</h2>
-    <p>제 ${r.round}회 (${r.draw_date} 추첨)의 1등 당첨 번호 <strong>[${nums.join(', ')}]</strong> 및 보너스 번호 <strong>[${r.bonus}]</strong>와 소지하신 복권 번호를 대조할 수 있는 페이지입니다.</p>
-    <p>맞춘 개수가 6개면 1등, 5개+보너스면 2등, 5개면 3등, 4개면 4등(5만원), 3개면 5등(5천원)에 해당합니다.</p>
+    <h2>제 ${r.round}회 나만의 로또 번호 실시간 맞대조 판정기</h2>
+    <p>제 ${r.round}회 (${r.draw_date} 추첨)의 공식 1등 당첨 번호 <strong>[${nums.join(', ')}]</strong> 및 보너스 번호 <strong>[${r.bonus}]</strong>와 본인이 구매하거나 생성한 번호를 1:1로 맞대조할 수 있는 전용 도구입니다.</p>
+    <h3>번호 대조 및 당첨 확인 판정 순서</h3>
+    <ol>
+      <li>상단 입력란에 확인할 6개 숫자를 직접 입력하거나 보관함 번호를 선택합니다.</li>
+      <li>대조 실행 시 제 ${r.round}회 당첨 번호와 일치하는 번호가 강조 표시됩니다.</li>
+      <li>일치 개수에 따른 실시간 당첨 등수(1등: 6개, 2등: 5개+보너스, 3등: 5개, 4등: 4개, 5등: 3개)가 즉시 계산되어 출력됩니다.</li>
+    </ol>
+    <p>실물 복권의 최종 당첨 권리는 동행복권 공식 사이트 또는 실물 영수증 QR코드로 재확인하시기 바랍니다.</p>
   `;
-  processRoute(comparePath, { title: compareTitle, description: compareDesc, keywords: `로또 ${r.round}회 대조, 로또번호확인, 로또메이트`, h1: `제 ${r.round}회 로또 번호 대조`, body: compareBody });
+  processRoute(comparePath, { title: compareTitle, description: compareDesc, keywords: `로또 ${r.round}회 대조, 로또번호확인, 로또 당첨 대조, 로또메이트`, h1: `제 ${r.round}회 로또 번호 자동 대조 및 당첨 확인`, body: compareBody });
 });
 
 console.log('[post-build-seo] 모든 대상 페이지 주입 완료!');
@@ -774,8 +780,8 @@ try {
   </url>`);
   });
 
-  // 3) 최신 5개 회차 결과 및 비교 URL
-  recent5Rounds.forEach(r => {
+  // 3) 최신 30개 회차 결과 및 비교 URL
+  recent30Rounds.forEach(r => {
     urls.push(`  <url>
     <loc>https://lottomate.life/results/${r.round}/</loc>
     <changefreq>daily</changefreq>

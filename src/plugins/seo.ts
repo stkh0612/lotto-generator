@@ -96,12 +96,12 @@ function ensureRobotsTag(noindex = false) {
   element.setAttribute('content', noindex ? 'noindex, follow' : 'index, follow')
 }
 
-function toAbsoluteUrl(path: string) {
+function toAbsoluteUrl(path: string, keepQuery = false) {
   if (!path || path === '/') {
     return `${BASE_URL}/`
   }
-  const [pathname, search] = path.split(/[?#]/)
-  const suffix = path.slice(pathname.length)
+  const [pathname] = path.split(/[?#]/)
+  const suffix = keepQuery ? path.slice(pathname.length) : ''
   let formattedPath = pathname.startsWith('/') ? pathname : `/${pathname}`
   const lastSegment = formattedPath.split('/').pop() || ''
   if (!lastSegment.includes('.') && !formattedPath.endsWith('/')) {
@@ -217,7 +217,7 @@ function applySeo(route: Router['currentRoute']['value'], locale: SupportedLocal
   const key = resolveRouteSeoKey(route)
   const config = ROUTE_SEO_CONFIG[key]
   const copy = resolveSeoCopy(key, locale)
-  const canonicalUrl = toAbsoluteUrl(route.fullPath || config.path)
+  const canonicalUrl = toAbsoluteUrl(route.path || config.path)
 
   let title = copy.title
   let description = copy.description
